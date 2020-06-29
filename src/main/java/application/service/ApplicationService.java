@@ -22,7 +22,7 @@ public class ApplicationService {
     }
 
     public void addBuy(String wkn, ApplicationData data, LocalDate date, Integer amount) {
-        data.addBuy(new StockBuy(wkn, date, amount, null, null));
+        data.addBuy(new StockBuy(wkn, date, amount, null));
     }
 
     public void importBuys(ApplicationData data) throws IOException {

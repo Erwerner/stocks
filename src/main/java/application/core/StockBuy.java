@@ -6,14 +6,12 @@ public class StockBuy {
     private final String wkn;
     private final LocalDate date;
     private final Integer amount;
-    private final Double costs;
     private final Double fee;
 
-    public StockBuy(String wkn, LocalDate date, Integer amount, Double costs, Double fee) {
+    public StockBuy(String wkn, LocalDate date, Integer amount, Double fee) {
         this.wkn = wkn;
         this.date = date;
         this.amount = amount;
-        this.costs = costs;
         this.fee = fee;
     }
 
@@ -25,9 +23,8 @@ public class StockBuy {
         return amount;
     }
 
-    //Todo
-    public Double getCosts() {
-        return costs;
+    public Double getCosts(Double value) {
+        return amount * value * (1.0125);
     }
 
     //Todo

@@ -44,18 +44,45 @@ public class HybridView extends JFrame implements View {
         try {
             LocalDate date = model.getFirstDate();
             while (!date.isAfter(last)) {
-                if(model.dateWasBuy(date)) {
-                    text += "\n";
-                }
-                else {
-                    Double[] line = model.getLine(date);
-                    text += "\n" + line[0].toString().replace(".", ",");
-                }
-                    date = date.plusDays(1);
+                Double[] profitLine = model.getProfitLine(date);
+                Double costsAtDate = model.getCostsAtDate(last);
+                Double minusCosts = new Double(model.getCostsAtDate(last) * -1);
+
+                text += "\n" + new Double(100 * profitLine[0] / costsAtDate ).toString().replace(".", ",") + "%";
+                text += "\t0";
+                text += "\t100%";
+                text += "\t-100%";
+                text += "\t" + date.toString();
+
+                date = date.plusDays(1);
             }
         } catch (NoBuys noBuys) {
         }
         System.out.println(text);
+        printTotalLine();
+        printwkn(last);
+        System.out.println(model.getCostsAtDate(last));
+        textfield.setText(text);
+        super.paint(arg0);
+    }
+
+    private void printTotalLine() {
+        String text = "";
+        LocalDate last = model.getLastDate();
+        try {
+            LocalDate date = model.getFirstDate();
+            while (!date.isAfter(last)) {
+                if (model.dateWasBuy(date))
+                    text += "\n";
+                text += "\n" + model.getTotalLine(date)[0].toString().replace(".", ",");
+                date = date.plusDays(1);
+            }
+        } catch (NoBuys noBuys) {
+        }
+        System.out.println(text);
+    }
+
+    private void printwkn(LocalDate last) {
         for (String wkn : model.getWkns()) {
             try {
                 System.out.println(wkn + ": " + model.getValue(wkn, last).getValue());
@@ -63,8 +90,6 @@ public class HybridView extends JFrame implements View {
                 dateNotFound.printStackTrace();
             }
         }
-        textfield.setText(text);
-        super.paint(arg0);
     }
 
     private void run() {

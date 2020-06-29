@@ -25,7 +25,7 @@ public class ApplicationModel extends Model implements
 
     // View
     @Override
-    public Double[] getLine(LocalDate date) {
+    public Double[] getTotalLine(LocalDate date) {
         Double start = 0.0;
         Double end = 0.0;
         for (String wkn : data.getStockAssets().keySet()) {
@@ -45,15 +45,20 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public LocalDate getFirstDate() throws NoBuys {
+    public LocalDate getFirstDate() {
         LocalDate firstBuyDate = null;
         for (String wkn : data.getStockAssets().keySet()) {
-            LocalDate wknFirstBuyDate = data.getStockAssets().get(wkn).getFirstBuyDate();
-            if (firstBuyDate == null || wknFirstBuyDate.isBefore(firstBuyDate))
-                firstBuyDate = LocalDate.parse(wknFirstBuyDate.toString());
+            LocalDate wknFirstBuyDate = null;
+            try {
+                wknFirstBuyDate = data.getStockAssets().get(wkn).getFirstBuyDate();
+                if (firstBuyDate == null || wknFirstBuyDate.isBefore(firstBuyDate))
+                    firstBuyDate = LocalDate.parse(wknFirstBuyDate.toString());
+            } catch (NoBuys noBuys) {
+                noBuys.printStackTrace();
+            }
         }
 
-        return firstBuyDate;
+        return LocalDate.parse(firstBuyDate.toString());
     }
 
     @Override
@@ -73,6 +78,21 @@ public class ApplicationModel extends Model implements
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public Double[] getProfitLine(LocalDate date) {
+        Double[] totalLine = getTotalLine(date);
+        return new Double[]{totalLine[0] - getCostsAtDate(date), totalLine[1] - getCostsAtDate(date)};
+    }
+
+    @Override
+    public Double getCostsAtDate(LocalDate date) {
+        Double cost = 0.0;
+        for (StockAsset stockAsset : data.getStockAssets().values()) {
+            cost += stockAsset.getCostAtDate(date);
+        }
+        return cost;
     }
 
     // Controller

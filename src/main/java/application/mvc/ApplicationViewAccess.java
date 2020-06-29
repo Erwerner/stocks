@@ -10,7 +10,7 @@ import java.util.Set;
 public interface ApplicationViewAccess {
 
     // View
-    Double[] getLine(LocalDate date);
+    Double[] getTotalLine(LocalDate date);
 
     LocalDate getLastDate();
 
@@ -21,4 +21,8 @@ public interface ApplicationViewAccess {
     StockValue getValue(String wkn, LocalDate date) throws DateNotFound;
 
     boolean dateWasBuy(LocalDate date);
+
+    Double[] getProfitLine(LocalDate date);
+
+    Double getCostsAtDate(LocalDate last);
 }

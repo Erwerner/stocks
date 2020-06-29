@@ -115,4 +115,18 @@ public class StockAsset {
         }
         return false;
     }
+
+    public Double getCostAtDate(LocalDate date) {
+        Double costs=0.0;
+        for (StockBuy stockBuy : stockBuys) {
+            if(stockBuy.getDate().isAfter(date))
+                continue;
+            try {
+                costs+=stockBuy.getCosts(stockRow.getPointAtDate(stockBuy.getDate()).getValue());
+            } catch (DateNotFound dateNotFound) {
+                dateNotFound.printStackTrace();
+            }
+        }
+        return costs;
+    }
 }
