@@ -26,72 +26,32 @@ public class ApplicationModel extends Model implements
     // View
     @Override
     public Double[] getTotalLine(LocalDate date) {
-        Double start = 0.0;
-        Double end = 0.0;
-        for (String wkn : data.getStockAssets().keySet()) {
-            try {
-                StockAsset stockAsset = data.getStockAssets().get(wkn);
-                start += stockAsset.getValueAtDateWithBuy(date).getValue();
-                end += stockAsset.getValueAtDateWithoutBuy(date.plusDays(1)).getValue();
-            } catch (DateNotFound dateNotFound) {
-            }
-        }
-        return new Double[]{start, end};
+        return service.getTotalLine(date, data);
     }
 
     @Override
     public LocalDate getLastDate() {
-        return LocalDate.parse("2020-06-26");
+        return service.getLastDate(data);
     }
 
     @Override
     public LocalDate getFirstDate() {
-        LocalDate firstBuyDate = null;
-        for (String wkn : data.getStockAssets().keySet()) {
-            LocalDate wknFirstBuyDate = null;
-            try {
-                wknFirstBuyDate = data.getStockAssets().get(wkn).getFirstBuyDate();
-                if (firstBuyDate == null || wknFirstBuyDate.isBefore(firstBuyDate))
-                    firstBuyDate = LocalDate.parse(wknFirstBuyDate.toString());
-            } catch (NoBuys noBuys) {
-            }
-        }
-
-        return LocalDate.parse(firstBuyDate.toString());
+        return service.getFirstDate(data);
     }
 
     @Override
-    public Set<String> getWkns() {
-        return data.getStockAssets().keySet();
-    }
-
-    @Override
-    public StockValue getValue(String wkn, LocalDate date) throws DateNotFound {
-        return data.getStockAssets().get(wkn).getValueAtDateWithBuy(date);
-    }
-
-    @Override
-    public boolean dateWasBuy(LocalDate date) {
-        for (StockAsset stockAsset : data.getStockAssets().values()) {
-            if (stockAsset.hasBuyAtDate(date))
-                return true;
-        }
-        return false;
+    public boolean getDateWasBuy(LocalDate date) {
+        return service.getDateWasBuy(date, data);
     }
 
     @Override
     public Double[] getProfitLine(LocalDate date) {
-        Double[] totalLine = getTotalLine(date);
-        return new Double[]{totalLine[0] - getCostsAtDate(date), totalLine[1] - getCostsAtDate(date)};
+        return service.getProfitLine(date, data);
     }
 
     @Override
     public Double getCostsAtDate(LocalDate date) {
-        Double cost = 0.0;
-        for (StockAsset stockAsset : data.getStockAssets().values()) {
-            cost += stockAsset.getCostAtDate(date);
-        }
-        return cost;
+        return service.getCostsAtDate(date, data);
     }
 
     // Controller
@@ -104,5 +64,12 @@ public class ApplicationModel extends Model implements
     @Override
     public void importBuys() throws IOException {
         service.importBuys(data);
+        notifyViews();
+    }
+
+    @Override
+    public void export() {
+        service.export(data);
+        notifyViews();
     }
 }

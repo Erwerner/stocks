@@ -11,6 +11,7 @@ import ui.template.View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.time.LocalDate;
 import java.util.HashMap;
 
@@ -21,80 +22,52 @@ public class HybridView extends JFrame implements View {
     private HashMap<ConsoleControllerType, ConsoleController> controllers;
     private boolean active = true;
 
-    private Label textfield;
 
     public HybridView(Model model) {
         this.model = (ApplicationViewAccess) model;
         model.registerView(this);
         initWindow();
         initController(model);
+        setVisible(true);
         run();
     }
 
     private void initWindow() {
-        setSize(800, 400);
-        textfield = new Label();
+        JPanel panel = new JPanel();
+        getContentPane().add(panel);
+        setSize(1200, 700);
         setAlwaysOnTop(true);
-        add(textfield);
     }
 
     @Override
     public void paint(Graphics arg0) {
-        String text = "";
-        LocalDate last = model.getLastDate();
-        try {
-            LocalDate date = model.getFirstDate();
-            while (!date.isAfter(last)) {
-                Double[] profitLine = model.getProfitLine(date);
-                Double costsAtDate = model.getCostsAtDate(date);
-                Double minusCosts = new Double(model.getCostsAtDate(date) * -1);
-
-                text += "\n" + new Double(profitLine[0] / costsAtDate ).toString().replace(".", ",");
-                text += ";" + new Double(profitLine[0] / model.getCostsAtDate(last) ).toString().replace(".", ",");
-                text += ";0";
-                text += ";"+ costsAtDate.toString().replace(".", ",") ;
-                text += ";-"+minusCosts.toString().replace(".", ",");
-                text += ";" + date.toString();
-
-                date = date.plusDays(1);
-            }
-        } catch (NoBuys noBuys) {
-        }
-        new FilePersister().persistString("out","profit.csv",text);
-        System.out.println(text);
-        printTotalLine();
-        printwkn(last);
-        System.out.println(model.getCostsAtDate(last));
-        textfield.setText(text);
         super.paint(arg0);
+        System.out.println("paint");
+        LocalDate lastDate = model.getLastDate();
+        int col = 0;
+        int maxValues = 300;
+        int size = 1200 / maxValues;
+        for (int i = maxValues; i >= 0; i--) {
+            LocalDate date = lastDate.minusDays(i);
+            Double[] line = model.getProfitLine(date);
+            line[0] /= -15;
+            line[1] /= -15;
+            int zero = 200;
+            line[0] += zero;
+            line[1] += zero;
+            arg0.drawLine(size * col, line[0].intValue(), size + size * col, line[1].intValue());
+            arg0.drawLine(size * col, zero, size + size * col, zero);
+            col += 1;
+        }
+        Double old = model.getTotalLine(lastDate.minusDays(1))[0];
+        Double neu = model.getTotalLine(lastDate)[0];
+        System.out.println("old:  " + old);
+        System.out.println("new:  " + neu);
+        System.out.println("diff: " + (neu - old));
+        System.out.println("win:  " + (neu - model.getCostsAtDate(lastDate)));
+        System.out.println((100 * neu / model.getCostsAtDate(lastDate)-100 ) + " %");
     }
 
-    private void printTotalLine() {
-        String text = "";
-        LocalDate last = model.getLastDate();
-        try {
-            LocalDate date = model.getFirstDate();
-            while (!date.isAfter(last)) {
-                if (model.dateWasBuy(date))
-                    text += "\n";
-                text += "\n" + model.getTotalLine(date)[0].toString().replace(".", ",");
-                date = date.plusDays(1);
-            }
-        } catch (NoBuys noBuys) {
-        }
-        System.out.println(text);
-        new FilePersister().persistString("out","sum.csv",text);
-    }
-
-    private void printwkn(LocalDate last) {
-        for (String wkn : model.getWkns()) {
-            try {
-                System.out.println(wkn + ": " + model.getValue(wkn, last).getValue());
-            } catch (DateNotFound dateNotFound) {
-                dateNotFound.printStackTrace();
-            }
-        }
-    }
 
     private void run() {
         this.show();
