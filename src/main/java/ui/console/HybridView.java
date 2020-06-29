@@ -1,5 +1,7 @@
 package ui.console;
 
+import application.core.exception.DateNotFound;
+import application.core.exception.NoBuys;
 import application.mvc.ApplicationControllerAccess;
 import application.mvc.ApplicationViewAccess;
 import helper.IO;
@@ -8,6 +10,7 @@ import ui.template.View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 public class HybridView extends JFrame implements View {
@@ -26,7 +29,7 @@ public class HybridView extends JFrame implements View {
     }
 
     private void initWindow() {
-        setSize(200, 250);
+        setSize(800, 800);
         textfield = new Label();
         setAlwaysOnTop(true);
         add(textfield);
@@ -34,7 +37,20 @@ public class HybridView extends JFrame implements View {
 
     @Override
     public void paint(Graphics arg0) {
-        textfield.setText(model.getValue());
+        String text = "";
+        LocalDate last = model.getLastDate();
+        try {
+            LocalDate date = model.getFirstDate();
+            while (!date.isAfter(last)) {
+                Double[] line = model.getLine(date);
+                text += "\n > " + line[0] + ";" + line[1];
+                date = date.plusDays(1);
+            }
+        } catch (NoBuys noBuys) {
+            noBuys.printStackTrace();
+        }
+        System.out.println(text);
+        textfield.setText(text);
         super.paint(arg0);
     }
 

@@ -1,13 +1,25 @@
 package application.core;
 
-public class ApplicationData {
-    private String value = "Choose Command in Console";
+import java.util.ArrayList;
+import java.util.HashMap;
 
-    public String getValue() {
-        return value;
+public class ApplicationData {
+
+    private final HashMap<String, StockAsset> stockAssets;
+
+    public ApplicationData() {
+        stockAssets = new HashMap<>();
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void addStockRow(String wkn, ArrayList<StockPoint> stockPoints) {
+        stockAssets.put(wkn, new StockAsset(new StockRow(stockPoints)));
+    }
+
+    public void addBuy(String wkn, StockBuy stockBuy) {
+        stockAssets.get(wkn).addBuy(stockBuy);
+    }
+
+    public HashMap<String, StockAsset> getStockAssets() {
+        return stockAssets;
     }
 }
