@@ -3,12 +3,14 @@ package application.core;
 import java.time.LocalDate;
 
 public class StockBuy {
+    private final String wkn;
     private final LocalDate date;
     private final Integer amount;
     private final Double costs;
     private final Double fee;
 
-    public StockBuy(LocalDate date, Integer amount, Double costs, Double fee) {
+    public StockBuy(String wkn, LocalDate date, Integer amount, Double costs, Double fee) {
+        this.wkn = wkn;
         this.date = date;
         this.amount = amount;
         this.costs = costs;
@@ -31,5 +33,9 @@ public class StockBuy {
     //Todo
     public Double getFee() {
         return fee;
+    }
+
+    public String getWkn() {
+        return wkn;
     }
 }

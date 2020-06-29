@@ -7,6 +7,7 @@ import application.core.StockPoint;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ApplicationService {
     private final ApplicationInput input;
@@ -21,6 +22,13 @@ public class ApplicationService {
     }
 
     public void addBuy(String wkn, ApplicationData data, LocalDate date, Integer amount) {
-        data.addBuy(wkn, new StockBuy(date, amount,null,null));
+        data.addBuy(new StockBuy(wkn, date, amount, null, null));
+    }
+
+    public void importBuys(ApplicationData data) throws IOException {
+        List<StockBuy> stockBuys = input.readBuys();
+        for (StockBuy stockBuy : stockBuys) {
+            data.addBuy(stockBuy);
+        }
     }
 }

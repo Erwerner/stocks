@@ -10,7 +10,6 @@ import application.service.ApplicationService;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Set;
 
 public class ApplicationModel extends Model implements
         ApplicationControllerAccess, ApplicationViewAccess {
@@ -49,7 +48,7 @@ public class ApplicationModel extends Model implements
         LocalDate firstBuyDate = null;
         for (String wkn : data.getStockAssets().keySet()) {
             LocalDate wknFirstBuyDate = data.getStockAssets().get(wkn).getFirstBuyDate();
-            if(firstBuyDate== null || wknFirstBuyDate.isBefore(firstBuyDate))
+            if (firstBuyDate == null || wknFirstBuyDate.isBefore(firstBuyDate))
                 firstBuyDate = LocalDate.parse(wknFirstBuyDate.toString());
         }
 
@@ -64,8 +63,7 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public void addBuy(String wkn, LocalDate date, Integer amount) {
-        service.addBuy(wkn, data, date, amount);
-        notifyViews();
+    public void importBuys() throws IOException {
+        service.importBuys(data);
     }
 }

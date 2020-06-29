@@ -2,7 +2,6 @@ package application.core;
 
 import application.core.exception.DateNotFound;
 import application.core.exception.NoBuys;
-import org.junit.Before;
 import org.junit.Test;
 import utils.UnitTest;
 
@@ -26,9 +25,9 @@ public class StockAssetTest extends UnitTest {
         stockPoints.add(new StockPoint(secondDate, 0.0));
         stockPoints.add(new StockPoint(firstDate, 0.0));
         cut = new StockAsset(new StockRow(stockPoints));
-        cut.addBuy(new StockBuy(thirdDate, 1, null, null));
-        cut.addBuy(new StockBuy(firstDate, 1, null, null));
-        cut.addBuy(new StockBuy(secondDate, 1, null, null));
+        cut.addBuy(new StockBuy(wkn, thirdDate, 1, null, null));
+        cut.addBuy(new StockBuy(wkn, firstDate, 1, null, null));
+        cut.addBuy(new StockBuy(wkn, secondDate, 1, null, null));
 
         assertEquals(firstDate, cut.getFirstBuyDate());
     }
@@ -41,8 +40,8 @@ public class StockAssetTest extends UnitTest {
         stockPoints.add(new StockPoint(buyDate, 1.2));
         stockPoints.add(new StockPoint(buyDate.minusDays(1), 1.1));
         cut = new StockAsset(new StockRow(stockPoints));
-        cut.addBuy(new StockBuy(buyDate.minusDays(1), 1, null, null));
-        cut.addBuy(new StockBuy(buyDate, 1, null, null));
+        cut.addBuy(new StockBuy(wkn, buyDate.minusDays(1), 1, null, null));
+        cut.addBuy(new StockBuy(wkn, buyDate, 1, null, null));
 
         assertEquals((Double)1.2, cut.getValueAtDateWithoutBuy(buyDate).getValue());
     }
@@ -53,8 +52,8 @@ public class StockAssetTest extends UnitTest {
         stockPoints.add(new StockPoint(buyDate, 1.2));
         stockPoints.add(new StockPoint(buyDate.minusDays(1), 1.1));
         cut = new StockAsset(new StockRow(stockPoints));
-        cut.addBuy(new StockBuy(buyDate.minusDays(1), 1, null, null));
-        cut.addBuy(new StockBuy(buyDate, 1, null, null));
+        cut.addBuy(new StockBuy(wkn, buyDate.minusDays(1), 1, null, null));
+        cut.addBuy(new StockBuy(wkn, buyDate, 1, null, null));
 
         assertEquals((Double)2.4,cut.getValueAtDateWithBuy(buyDate).getValue());
     }
@@ -69,15 +68,15 @@ public class StockAssetTest extends UnitTest {
         stockPoints.add(new StockPoint(date.plusDays(1), 1.0));
         stockPoints.add(new StockPoint(date, 0.0));
         cut = new StockAsset(new StockRow(stockPoints));
-        cut.addBuy(new StockBuy(date.plusDays(2), 1, null, null));
+        cut.addBuy(new StockBuy(wkn, date.plusDays(2), 1, null, null));
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
-        cut.addBuy(new StockBuy(date.plusDays(5), 1, null, null));
+        cut.addBuy(new StockBuy(wkn, date.plusDays(5), 1, null, null));
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
-        cut.addBuy(new StockBuy(date.plusDays(4), 1, null, null));
+        cut.addBuy(new StockBuy(wkn, date.plusDays(4), 1, null, null));
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
-        cut.addBuy(new StockBuy(date.plusDays(3), 1, null, null));
+        cut.addBuy(new StockBuy(wkn, date.plusDays(3), 1, null, null));
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
-        cut.addBuy(new StockBuy(date.plusDays(1), 1, null, null));
+        cut.addBuy(new StockBuy(wkn, date.plusDays(1), 1, null, null));
         assertEquals((Double)4.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
 
         assertEquals((Double)0.0,cut.getValueAtDateWithBuy(date.plusDays(0)).getValue());
@@ -97,7 +96,7 @@ public class StockAssetTest extends UnitTest {
         stockPoints.add(new StockPoint(date.plusDays(1), 1.0));
         stockPoints.add(new StockPoint(date, 0.0));
         cut = new StockAsset(new StockRow(stockPoints));
-        cut.addBuy(new StockBuy(date.plusDays(2), 1, null, null));
+        cut.addBuy(new StockBuy(wkn, date.plusDays(2), 1, null, null));
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
 
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());

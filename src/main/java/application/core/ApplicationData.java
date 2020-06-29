@@ -15,8 +15,8 @@ public class ApplicationData {
         stockAssets.put(wkn, new StockAsset(new StockRow(stockPoints)));
     }
 
-    public void addBuy(String wkn, StockBuy stockBuy) {
-        stockAssets.get(wkn).addBuy(stockBuy);
+    public void addBuy(StockBuy stockBuy) {
+        stockAssets.get(stockBuy.getWkn()).addBuy(stockBuy);
     }
 
     public HashMap<String, StockAsset> getStockAssets() {

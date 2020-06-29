@@ -13,6 +13,8 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+import static ui.console.ConsoleControllerType.EXEC;
+
 public class HybridView extends JFrame implements View {
     private final ApplicationViewAccess model;
     private HashMap<ConsoleControllerType, ConsoleController> controllers;
@@ -29,7 +31,7 @@ public class HybridView extends JFrame implements View {
     }
 
     private void initWindow() {
-        setSize(800, 800);
+        setSize(800, 400);
         textfield = new Label();
         setAlwaysOnTop(true);
         add(textfield);
@@ -43,7 +45,7 @@ public class HybridView extends JFrame implements View {
             LocalDate date = model.getFirstDate();
             while (!date.isAfter(last)) {
                 Double[] line = model.getLine(date);
-                text += "\n > " + line[0] + ";" + line[1];
+                text += "\n" + line[0].toString().replace(".",",");
                 date = date.plusDays(1);
             }
         } catch (NoBuys noBuys) {
@@ -56,6 +58,7 @@ public class HybridView extends JFrame implements View {
 
     private void run() {
         this.show();
+        controllers.get(EXEC).execute();
         while (active) {
             ConsoleControllerType controller = (ConsoleControllerType) IO
                     .getEnumFromInput("Choose Command",
@@ -68,7 +71,7 @@ public class HybridView extends JFrame implements View {
         controllers = new HashMap<>();
         ConsoleControllerFactory controllerFactory = new ConsoleControllerFactory();
         controllers.put(ConsoleControllerType.EXIT, initExitController(model));
-        controllers.put(ConsoleControllerType.EXEC,
+        controllers.put(EXEC,
                 controllerFactory.initDoController((ApplicationControllerAccess) model));
     }
 

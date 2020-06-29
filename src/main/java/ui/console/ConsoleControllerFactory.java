@@ -1,9 +1,10 @@
 package ui.console;
 
 import application.mvc.ApplicationControllerAccess;
+import helper.ResourceFileReader;
+import helper.ResourceNotFound;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class ConsoleControllerFactory {
     public ConsoleController initDoController(ApplicationControllerAccess model) {
@@ -11,13 +12,14 @@ public class ConsoleControllerFactory {
             @Override
             public void execute() {
                 try {
-                    model.addWkn("xy");
-                    model.addWkn("abc");
-                    model.addBuy("xy", LocalDate.parse("2020-06-18"), 10);
-                    model.addBuy("xy", LocalDate.parse("2020-06-24"), 10);
-                    model.addBuy("abc", LocalDate.parse("2020-06-25"), 1);
+                    for (String wkn : ResourceFileReader.getFilenamesInResourceFolder("wkn")) {
+                        model.addWkn(wkn);
+                    }
+                    model.importBuys();
                 } catch (IOException e) {
                     e.printStackTrace();
+                } catch (ResourceNotFound resourceNotFound) {
+                    resourceNotFound.printStackTrace();
                 }
             }
         };
