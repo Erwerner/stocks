@@ -24,12 +24,7 @@ public class StockBuy {
     }
 
     public Double getCosts(Double value) {
-        return amount * value * (1.0125);
-    }
-
-    //Todo
-    public Double getFee() {
-        return fee;
+        return amount * value * (1 + fee);
     }
 
     public String getWkn() {

@@ -54,7 +54,6 @@ public class ApplicationModel extends Model implements
                 if (firstBuyDate == null || wknFirstBuyDate.isBefore(firstBuyDate))
                     firstBuyDate = LocalDate.parse(wknFirstBuyDate.toString());
             } catch (NoBuys noBuys) {
-                noBuys.printStackTrace();
             }
         }
 

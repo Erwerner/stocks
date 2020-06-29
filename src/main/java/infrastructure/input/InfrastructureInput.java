@@ -31,7 +31,7 @@ public class InfrastructureInput extends ApplicationInput {
         String[] buys = file.split("\n");
         for (String buy : buys) {
             String[] buyData = buy.split(",");
-            stockBuys.add(new StockBuy(buyData[0], LocalDate.parse(buyData[1]), Integer.parseInt(buyData[2]), null));
+            stockBuys.add(new StockBuy(buyData[0], LocalDate.parse(buyData[1]), Integer.parseInt(buyData[2]), Double.parseDouble(buyData[3])));
         }
         return stockBuys;
     }

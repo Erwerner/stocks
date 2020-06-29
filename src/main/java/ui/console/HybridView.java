@@ -4,6 +4,7 @@ import application.core.exception.DateNotFound;
 import application.core.exception.NoBuys;
 import application.mvc.ApplicationControllerAccess;
 import application.mvc.ApplicationViewAccess;
+import helper.FilePersister;
 import helper.IO;
 import ui.template.Model;
 import ui.template.View;
@@ -45,19 +46,21 @@ public class HybridView extends JFrame implements View {
             LocalDate date = model.getFirstDate();
             while (!date.isAfter(last)) {
                 Double[] profitLine = model.getProfitLine(date);
-                Double costsAtDate = model.getCostsAtDate(last);
-                Double minusCosts = new Double(model.getCostsAtDate(last) * -1);
+                Double costsAtDate = model.getCostsAtDate(date);
+                Double minusCosts = new Double(model.getCostsAtDate(date) * -1);
 
-                text += "\n" + new Double(100 * profitLine[0] / costsAtDate ).toString().replace(".", ",") + "%";
-                text += "\t0";
-                text += "\t100%";
-                text += "\t-100%";
-                text += "\t" + date.toString();
+                text += "\n" + new Double(profitLine[0] / costsAtDate ).toString().replace(".", ",");
+                text += ";" + new Double(profitLine[0] / model.getCostsAtDate(last) ).toString().replace(".", ",");
+                text += ";0";
+                text += ";"+ costsAtDate.toString().replace(".", ",") ;
+                text += ";-"+minusCosts.toString().replace(".", ",");
+                text += ";" + date.toString();
 
                 date = date.plusDays(1);
             }
         } catch (NoBuys noBuys) {
         }
+        new FilePersister().persistString("out","profit.csv",text);
         System.out.println(text);
         printTotalLine();
         printwkn(last);
@@ -80,6 +83,7 @@ public class HybridView extends JFrame implements View {
         } catch (NoBuys noBuys) {
         }
         System.out.println(text);
+        new FilePersister().persistString("out","sum.csv",text);
     }
 
     private void printwkn(LocalDate last) {

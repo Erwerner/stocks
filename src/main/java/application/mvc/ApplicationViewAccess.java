@@ -24,5 +24,5 @@ public interface ApplicationViewAccess {
 
     Double[] getProfitLine(LocalDate date);
 
-    Double getCostsAtDate(LocalDate last);
+    Double getCostsAtDate(LocalDate date);
 }

@@ -45,6 +45,7 @@ public class StockAsset {
     }
 
     public void addBuy(StockBuy stockBuy) {
+        System.out.println("Add: " +stockBuy.getWkn()+" " + stockBuy.getDate());
         stockBuys.add(stockBuy);
         try {
             Integer buyDateIndex = getIndexOfDate(stockBuy.getDate());
@@ -124,7 +125,6 @@ public class StockAsset {
             try {
                 costs+=stockBuy.getCosts(stockRow.getPointAtDate(stockBuy.getDate()).getValue());
             } catch (DateNotFound dateNotFound) {
-                dateNotFound.printStackTrace();
             }
         }
         return costs;
