@@ -1,6 +1,7 @@
 package application.mvc;
 
 import application.core.StockAsset;
+import application.core.StockValue;
 import application.core.exception.DateNotFound;
 import application.core.exception.NoBuys;
 import ui.template.Model;
@@ -10,6 +11,7 @@ import application.service.ApplicationService;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Set;
 
 public class ApplicationModel extends Model implements
         ApplicationControllerAccess, ApplicationViewAccess {
@@ -32,7 +34,6 @@ public class ApplicationModel extends Model implements
                 start += stockAsset.getValueAtDateWithBuy(date).getValue();
                 end += stockAsset.getValueAtDateWithoutBuy(date.plusDays(1)).getValue();
             } catch (DateNotFound dateNotFound) {
-                dateNotFound.printStackTrace();
             }
         }
         return new Double[]{start, end};
@@ -53,6 +54,25 @@ public class ApplicationModel extends Model implements
         }
 
         return firstBuyDate;
+    }
+
+    @Override
+    public Set<String> getWkns() {
+        return data.getStockAssets().keySet();
+    }
+
+    @Override
+    public StockValue getValue(String wkn, LocalDate date) throws DateNotFound {
+        return data.getStockAssets().get(wkn).getValueAtDateWithBuy(date);
+    }
+
+    @Override
+    public boolean dateWasBuy(LocalDate date) {
+        for (StockAsset stockAsset : data.getStockAssets().values()) {
+            if (stockAsset.hasBuyAtDate(date))
+                return true;
+        }
+        return false;
     }
 
     // Controller

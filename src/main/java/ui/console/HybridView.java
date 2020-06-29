@@ -44,14 +44,25 @@ public class HybridView extends JFrame implements View {
         try {
             LocalDate date = model.getFirstDate();
             while (!date.isAfter(last)) {
-                Double[] line = model.getLine(date);
-                text += "\n" + line[0].toString().replace(".",",");
-                date = date.plusDays(1);
+                if(model.dateWasBuy(date)) {
+                    text += "\n";
+                }
+                else {
+                    Double[] line = model.getLine(date);
+                    text += "\n" + line[0].toString().replace(".", ",");
+                }
+                    date = date.plusDays(1);
             }
         } catch (NoBuys noBuys) {
-            noBuys.printStackTrace();
         }
         System.out.println(text);
+        for (String wkn : model.getWkns()) {
+            try {
+                System.out.println(wkn + ": " + model.getValue(wkn, last).getValue());
+            } catch (DateNotFound dateNotFound) {
+                dateNotFound.printStackTrace();
+            }
+        }
         textfield.setText(text);
         super.paint(arg0);
     }

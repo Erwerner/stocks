@@ -1,5 +1,6 @@
 package application.mvc;
 
+import application.core.StockValue;
 import application.core.exception.DateNotFound;
 import application.core.exception.NoBuys;
 
@@ -14,4 +15,10 @@ public interface ApplicationViewAccess {
     LocalDate getLastDate();
 
     LocalDate getFirstDate() throws NoBuys;
+
+    Set<String> getWkns();
+
+    StockValue getValue(String wkn, LocalDate date) throws DateNotFound;
+
+    boolean dateWasBuy(LocalDate date);
 }
