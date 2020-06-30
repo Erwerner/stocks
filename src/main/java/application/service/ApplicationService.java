@@ -3,7 +3,7 @@ package application.service;
 import application.core.ApplicationData;
 import application.core.StockAsset;
 import application.core.StockBuy;
-import application.core.StockPoint;
+import application.core.WknPoint;
 import application.core.exception.DateNotFound;
 import application.core.exception.NoBuys;
 import helper.FilePersister;
@@ -20,16 +20,12 @@ public class ApplicationService {
         this.input = input;
     }
 
-    public void addStockRow(String wkn, ApplicationData data) throws IOException {
-        ArrayList<StockPoint> stockPoints = input.getStockPoints(wkn);
-        data.addStockRow(wkn, stockPoints);
+    public ArrayList<WknPoint> getStockRow(String wkn) throws IOException {
+        return input.getWknPoints(wkn);
     }
 
-    public void importBuys(ApplicationData data) throws IOException {
-        List<StockBuy> stockBuys = input.readBuys();
-        for (StockBuy stockBuy : stockBuys) {
-            data.addBuy(stockBuy);
-        }
+    public List<StockBuy> importBuys() throws IOException {
+        return input.readBuys();
     }
 
     public void export(ApplicationData data) {
@@ -39,7 +35,7 @@ public class ApplicationService {
 
     private void exportProfit(ApplicationData data) {
         String text = "";
-        LocalDate last = getLastDate(data);
+        LocalDate last = LocalDate.parse("2020-06-29");
         LocalDate date = getFirstDate(data);
         while (!date.isAfter(last)) {
             Double[] profitLine = getProfitLine(date, data);
@@ -60,7 +56,7 @@ public class ApplicationService {
 
     private void exportSum(ApplicationData data) {
         String text = "";
-        LocalDate last = getLastDate(data);
+        LocalDate last = LocalDate.parse("2020-06-29");
         LocalDate date = getFirstDate(data);
         while (!date.isAfter(last)) {
             if (getDateWasBuy(date, data))
@@ -73,10 +69,10 @@ public class ApplicationService {
 
     public LocalDate getFirstDate(ApplicationData data) {
         LocalDate firstBuyDate = null;
-        for (String wkn : data.getStockAssets().keySet()) {
+        for (String wkn : data.getAssets().keySet()) {
             LocalDate wknFirstBuyDate = null;
             try {
-                wknFirstBuyDate = data.getStockAssets().get(wkn).getFirstBuyDate();
+                wknFirstBuyDate = data.getAssets().get(wkn).getFirstBuyDate();
                 if (firstBuyDate == null || wknFirstBuyDate.isBefore(firstBuyDate))
                     firstBuyDate = LocalDate.parse(wknFirstBuyDate.toString());
             } catch (NoBuys noBuys) {
@@ -86,12 +82,8 @@ public class ApplicationService {
         return LocalDate.parse(firstBuyDate.toString());
     }
 
-    public LocalDate getLastDate(ApplicationData data) {
-        return LocalDate.parse("2020-06-26");
-    }
-
     public boolean getDateWasBuy(LocalDate date, ApplicationData data) {
-        for (StockAsset stockAsset : data.getStockAssets().values()) {
+        for (StockAsset stockAsset : data.getAssets().values()) {
             if (stockAsset.hasBuyAtDate(date))
                 return true;
         }
@@ -100,7 +92,7 @@ public class ApplicationService {
 
     public Double getCostsAtDate(LocalDate date, ApplicationData data) {
         Double cost = 0.0;
-        for (StockAsset stockAsset : data.getStockAssets().values()) {
+        for (StockAsset stockAsset : data.getAssets().values()) {
             cost += stockAsset.getCostAtDate(date);
         }
         return cost;
@@ -112,17 +104,20 @@ public class ApplicationService {
     }
 
     public Double[] getTotalLine(LocalDate date, ApplicationData data) {
-
         Double start = 0.0;
         Double end = 0.0;
-        for (String wkn : data.getStockAssets().keySet()) {
+        for (String wkn : data.getAssets().keySet()) {
             try {
-                StockAsset stockAsset = data.getStockAssets().get(wkn);
+                StockAsset stockAsset = data.getAssets().get(wkn);
                 start += stockAsset.getValueAtDateWithBuy(date).getValue();
                 end += stockAsset.getValueAtDateWithoutBuy(date.plusDays(1)).getValue();
             } catch (DateNotFound dateNotFound) {
             }
         }
         return new Double[]{start, end};
+    }
+
+    public String getWknName(String wkn) throws IOException {
+        return input.getWknName(wkn);
     }
 }

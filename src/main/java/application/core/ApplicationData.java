@@ -5,21 +5,32 @@ import java.util.HashMap;
 
 public class ApplicationData {
 
-    private final HashMap<String, StockAsset> stockAssets;
+    private final HashMap<String, StockAsset> assets;
+    private final HashMap<String, String> wknNames;
 
     public ApplicationData() {
-        stockAssets = new HashMap<>();
+        assets = new HashMap<>();
+        wknNames = new HashMap<>();
     }
 
-    public void addStockRow(String wkn, ArrayList<StockPoint> stockPoints) {
-        stockAssets.put(wkn, new StockAsset(new StockRow(stockPoints)));
+    public void addWkn(String wkn, String name, ArrayList<WknPoint> wknPoints) {
+        assets.put(wkn, new StockAsset(new WknkRow(wknPoints)));
+        wknNames.put(wkn, name);
     }
 
     public void addBuy(StockBuy stockBuy) {
-        stockAssets.get(stockBuy.getWkn()).addBuy(stockBuy);
+        assets.get(stockBuy.getWkn()).addBuy(stockBuy);
     }
 
-    public HashMap<String, StockAsset> getStockAssets() {
-        return stockAssets;
+    public HashMap<String, StockAsset> getAssets() {
+        return assets;
+    }
+
+    public String getWknName(String wkn){
+        return wknNames.get(wkn);
+    }
+
+    public void togglBuy(StockBuy buy) {
+        assets.get(buy.getWkn()).togglBuy(buy);
     }
 }

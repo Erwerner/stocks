@@ -8,4 +8,10 @@ public interface ApplicationControllerAccess {
     void importBuys() throws IOException;
 
     void export();
+
+    void togglBuy(Integer integer);
+
+    void togglAll();
+
+    void togglWin();
 }

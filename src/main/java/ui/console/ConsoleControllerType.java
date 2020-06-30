@@ -1,5 +1,5 @@
 package ui.console;
 
 public enum ConsoleControllerType {
-	EXIT, EXEC
+	EXIT, EXEC, TOGL, RNGE, TGAL, TGWN
 }

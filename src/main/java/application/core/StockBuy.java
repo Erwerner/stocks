@@ -7,12 +7,17 @@ public class StockBuy {
     private final LocalDate date;
     private final Integer amount;
     private final Double fee;
+    private final Double value;
 
-    public StockBuy(String wkn, LocalDate date, Integer amount, Double fee) {
+    private boolean active;
+
+    public StockBuy(String wkn, LocalDate date, Integer amount, Double fee, Double value) {
         this.wkn = wkn;
         this.date = date;
         this.amount = amount;
         this.fee = fee;
+        this.value = value;
+        setActive(true);
     }
 
     public LocalDate getDate() {
@@ -23,11 +28,26 @@ public class StockBuy {
         return amount;
     }
 
-    public Double getCosts(Double value) {
-        return amount * value * (1 + fee);
+    public Double getCosts() {
+        return amount * this.value * (1 + fee);
     }
 
     public String getWkn() {
         return wkn;
+    }
+
+    public void toggl() {
+        if(active)
+            setActive(false);
+        else
+            setActive(true);
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active= active;
     }
 }

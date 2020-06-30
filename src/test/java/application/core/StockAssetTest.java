@@ -16,18 +16,18 @@ public class StockAssetTest extends UnitTest {
     StockAsset cut;
 
     @Test
-    public void when_three_buys_are_added_then_the_first_is_returned() throws ParseException, NoBuys {
-        ArrayList<StockPoint> stockPoints = new ArrayList<>();
+    public void when_three_buys_are_added_then_the_first_is_returned() throws NoBuys {
+        ArrayList<WknPoint> wknPoints = new ArrayList<>();
         LocalDate firstDate = LocalDate.parse("2000-12-31");
         LocalDate secondDate = LocalDate.parse("2001-12-31");
         LocalDate thirdDate = LocalDate.parse("2002-12-31");
-        stockPoints.add(new StockPoint(thirdDate, 0.0));
-        stockPoints.add(new StockPoint(secondDate, 0.0));
-        stockPoints.add(new StockPoint(firstDate, 0.0));
-        cut = new StockAsset(new StockRow(stockPoints));
-        cut.addBuy(new StockBuy("", thirdDate, 1, null));
-        cut.addBuy(new StockBuy("", firstDate, 1, null));
-        cut.addBuy(new StockBuy("", secondDate, 1, null));
+        wknPoints.add(new WknPoint(thirdDate, 0.0));
+        wknPoints.add(new WknPoint(secondDate, 0.0));
+        wknPoints.add(new WknPoint(firstDate, 0.0));
+        cut = new StockAsset(new WknkRow(wknPoints));
+        cut.addBuy(new StockBuy("", thirdDate, 1, null, 0.0));
+        cut.addBuy(new StockBuy("", firstDate, 1, null, 0.0));
+        cut.addBuy(new StockBuy("", secondDate, 1, null, 0.0));
 
         assertEquals(firstDate, cut.getFirstBuyDate());
     }
@@ -35,48 +35,48 @@ public class StockAssetTest extends UnitTest {
     @Test
     public void when_at_day_was_buy_then_get_day_without_buy_is_correct() throws ParseException, DateNotFound {
         LocalDate buyDate = LocalDate.parse("2000-12-31");
-        ArrayList<StockPoint> stockPoints = new ArrayList<>();
-        stockPoints.add(new StockPoint(buyDate.plusDays(1), 1.1));
-        stockPoints.add(new StockPoint(buyDate, 1.2));
-        stockPoints.add(new StockPoint(buyDate.minusDays(1), 1.1));
-        cut = new StockAsset(new StockRow(stockPoints));
-        cut.addBuy(new StockBuy("", buyDate.minusDays(1), 1, null));
-        cut.addBuy(new StockBuy("", buyDate, 1, null));
+        ArrayList<WknPoint> wknPoints = new ArrayList<>();
+        wknPoints.add(new WknPoint(buyDate.plusDays(1), 1.1));
+        wknPoints.add(new WknPoint(buyDate, 1.2));
+        wknPoints.add(new WknPoint(buyDate.minusDays(1), 1.1));
+        cut = new StockAsset(new WknkRow(wknPoints));
+        cut.addBuy(new StockBuy("", buyDate.minusDays(1), 1, null, 1.1));
+        cut.addBuy(new StockBuy("", buyDate, 1, null, 1.2));
 
         assertEquals((Double)1.2, cut.getValueAtDateWithoutBuy(buyDate).getValue());
     }
     @Test
     public void when_at_day_was_buy_then_get_day_with_buy_is_correct() throws ParseException, DateNotFound {
         LocalDate buyDate = LocalDate.parse("2000-12-31");
-        ArrayList<StockPoint> stockPoints = new ArrayList<>();
-        stockPoints.add(new StockPoint(buyDate, 1.2));
-        stockPoints.add(new StockPoint(buyDate.minusDays(1), 1.1));
-        cut = new StockAsset(new StockRow(stockPoints));
-        cut.addBuy(new StockBuy("", buyDate.minusDays(1), 1, null));
-        cut.addBuy(new StockBuy("", buyDate, 1, null));
+        ArrayList<WknPoint> wknPoints = new ArrayList<>();
+        wknPoints.add(new WknPoint(buyDate, 1.2));
+        wknPoints.add(new WknPoint(buyDate.minusDays(1), 1.1));
+        cut = new StockAsset(new WknkRow(wknPoints));
+        cut.addBuy(new StockBuy("", buyDate.minusDays(1), 1, null, 1.2));
+        cut.addBuy(new StockBuy("", buyDate, 1, null, 1.1));
 
         assertEquals((Double)2.4,cut.getValueAtDateWithBuy(buyDate).getValue());
     }
     @Test
     public void when_buys_are_added_then_all_amounts_are_correctly() throws ParseException, DateNotFound {
         LocalDate date = LocalDate.parse("2000-12-31");
-        ArrayList<StockPoint> stockPoints = new ArrayList<>();
-        stockPoints.add(new StockPoint(date.plusDays(5), 5.0));
-        stockPoints.add(new StockPoint(date.plusDays(4), 4.0));
-        stockPoints.add(new StockPoint(date.plusDays(3), 3.0));
-        stockPoints.add(new StockPoint(date.plusDays(2), 2.0));
-        stockPoints.add(new StockPoint(date.plusDays(1), 1.0));
-        stockPoints.add(new StockPoint(date, 0.0));
-        cut = new StockAsset(new StockRow(stockPoints));
-        cut.addBuy(new StockBuy("", date.plusDays(2), 1, null));
+        ArrayList<WknPoint> wknPoints = new ArrayList<>();
+        wknPoints.add(new WknPoint(date.plusDays(5), 5.0));
+        wknPoints.add(new WknPoint(date.plusDays(4), 4.0));
+        wknPoints.add(new WknPoint(date.plusDays(3), 3.0));
+        wknPoints.add(new WknPoint(date.plusDays(2), 2.0));
+        wknPoints.add(new WknPoint(date.plusDays(1), 1.0));
+        wknPoints.add(new WknPoint(date, 0.0));
+        cut = new StockAsset(new WknkRow(wknPoints));
+        cut.addBuy(new StockBuy("", date.plusDays(2), 1, null, 2.0));
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
-        cut.addBuy(new StockBuy("", date.plusDays(5), 1, null));
+        cut.addBuy(new StockBuy("", date.plusDays(5), 1, null, 5.0));
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
-        cut.addBuy(new StockBuy("", date.plusDays(4), 1, null));
+        cut.addBuy(new StockBuy("", date.plusDays(4), 1, null, 4.0));
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
-        cut.addBuy(new StockBuy("", date.plusDays(3), 1, null));
+        cut.addBuy(new StockBuy("", date.plusDays(3), 1, null, 3.0));
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
-        cut.addBuy(new StockBuy("", date.plusDays(1), 1, null));
+        cut.addBuy(new StockBuy("", date.plusDays(1), 1, null, 1.0));
         assertEquals((Double)4.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
 
         assertEquals((Double)0.0,cut.getValueAtDateWithBuy(date.plusDays(0)).getValue());
@@ -89,14 +89,14 @@ public class StockAssetTest extends UnitTest {
     @Test
     public void when_stock_point_is_missing_then_last_point_is_used() throws ParseException, DateNotFound {
         LocalDate date = LocalDate.parse("2000-12-31");
-        ArrayList<StockPoint> stockPoints = new ArrayList<>();
-        stockPoints.add(new StockPoint(date.plusDays(5), 5.0));
-        stockPoints.add(new StockPoint(date.plusDays(4), 4.0));
-        stockPoints.add(new StockPoint(date.plusDays(2), 2.0));
-        stockPoints.add(new StockPoint(date.plusDays(1), 1.0));
-        stockPoints.add(new StockPoint(date, 0.0));
-        cut = new StockAsset(new StockRow(stockPoints));
-        cut.addBuy(new StockBuy("", date.plusDays(2), 1, null));
+        ArrayList<WknPoint> wknPoints = new ArrayList<>();
+        wknPoints.add(new WknPoint(date.plusDays(5), 5.0));
+        wknPoints.add(new WknPoint(date.plusDays(4), 4.0));
+        wknPoints.add(new WknPoint(date.plusDays(2), 2.0));
+        wknPoints.add(new WknPoint(date.plusDays(1), 1.0));
+        wknPoints.add(new WknPoint(date, 0.0));
+        cut = new StockAsset(new WknkRow(wknPoints));
+        cut.addBuy(new StockBuy("", date.plusDays(2), 1, null, 2.0));
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
 
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
@@ -105,16 +105,16 @@ public class StockAssetTest extends UnitTest {
     @Test
     public void when_buys_are_added_then_costs_are_correct() throws ParseException, DateNotFound {
         LocalDate date = LocalDate.parse("2000-12-31");
-        ArrayList<StockPoint> stockPoints = new ArrayList<>();
-        stockPoints.add(new StockPoint(date.plusDays(5), 5.0));
-        stockPoints.add(new StockPoint(date.plusDays(4), 4.0));
-        stockPoints.add(new StockPoint(date.plusDays(3), 3.0));
-        stockPoints.add(new StockPoint(date.plusDays(2), 2.0));
-        stockPoints.add(new StockPoint(date.plusDays(1), 1.0));
-        stockPoints.add(new StockPoint(date, 0.0));
-        cut = new StockAsset(new StockRow(stockPoints));
-        cut.addBuy(new StockBuy("", date.plusDays(2), 2, null));
-        cut.addBuy(new StockBuy("", date.plusDays(4), 4, null));
+        ArrayList<WknPoint> wknPoints = new ArrayList<>();
+        wknPoints.add(new WknPoint(date.plusDays(5), 5.0));
+        wknPoints.add(new WknPoint(date.plusDays(4), 4.0));
+        wknPoints.add(new WknPoint(date.plusDays(3), 3.0));
+        wknPoints.add(new WknPoint(date.plusDays(2), 2.0));
+        wknPoints.add(new WknPoint(date.plusDays(1), 1.0));
+        wknPoints.add(new WknPoint(date, 0.0));
+        cut = new StockAsset(new WknkRow(wknPoints));
+        cut.addBuy(new StockBuy("", date.plusDays(2), 2, 0.0, 2.0));
+        cut.addBuy(new StockBuy("", date.plusDays(4), 4, 0.0, 4.0));
 
         assertEquals((Double)4.0,cut.getCostAtDate(date.plusDays(2)));
         assertEquals((Double)20.0,cut.getCostAtDate(date.plusDays(4)));

@@ -2,11 +2,11 @@ package application.core;
 
 import java.time.LocalDate;
 
-public class StockPoint {
+public class WknPoint {
     private final LocalDate date;
     private final Double value;
 
-    public StockPoint(LocalDate date, Double value) {
+    public WknPoint(LocalDate date, Double value) {
         this.date = date;
         this.value = value;
     }
