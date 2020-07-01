@@ -14,4 +14,6 @@ public abstract class ApplicationInput {
     public abstract List<StockBuy> readBuys() throws IOException;
 
     public abstract String getWknName(String wkn) throws IOException;
+
+    public abstract String getWknType(String wkn) throws IOException;
 }

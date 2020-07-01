@@ -9,7 +9,6 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 public class StockAssetTest extends UnitTest {
@@ -33,7 +32,7 @@ public class StockAssetTest extends UnitTest {
     }
 
     @Test
-    public void when_at_day_was_buy_then_get_day_without_buy_is_correct() throws ParseException, DateNotFound {
+    public void when_at_day_was_buy_then_get_day_without_buy_is_correct() throws DateNotFound {
         LocalDate buyDate = LocalDate.parse("2000-12-31");
         ArrayList<WknPoint> wknPoints = new ArrayList<>();
         wknPoints.add(new WknPoint(buyDate.plusDays(1), 1.1));
@@ -46,7 +45,7 @@ public class StockAssetTest extends UnitTest {
         assertEquals((Double)1.2, cut.getValueAtDateWithoutBuy(buyDate).getValue());
     }
     @Test
-    public void when_at_day_was_buy_then_get_day_with_buy_is_correct() throws ParseException, DateNotFound {
+    public void when_at_day_was_buy_then_get_day_with_buy_is_correct() throws DateNotFound {
         LocalDate buyDate = LocalDate.parse("2000-12-31");
         ArrayList<WknPoint> wknPoints = new ArrayList<>();
         wknPoints.add(new WknPoint(buyDate, 1.2));
@@ -58,7 +57,7 @@ public class StockAssetTest extends UnitTest {
         assertEquals((Double)2.4,cut.getValueAtDateWithBuy(buyDate).getValue());
     }
     @Test
-    public void when_buys_are_added_then_all_amounts_are_correctly() throws ParseException, DateNotFound {
+    public void when_buys_are_added_then_all_amounts_are_correctly() throws DateNotFound {
         LocalDate date = LocalDate.parse("2000-12-31");
         ArrayList<WknPoint> wknPoints = new ArrayList<>();
         wknPoints.add(new WknPoint(date.plusDays(5), 5.0));
@@ -87,7 +86,7 @@ public class StockAssetTest extends UnitTest {
         assertEquals((Double)25.0,cut.getValueAtDateWithBuy(date.plusDays(5)).getValue());
     }
     @Test
-    public void when_stock_point_is_missing_then_last_point_is_used() throws ParseException, DateNotFound {
+    public void when_stock_point_is_missing_then_last_point_is_used() throws DateNotFound {
         LocalDate date = LocalDate.parse("2000-12-31");
         ArrayList<WknPoint> wknPoints = new ArrayList<>();
         wknPoints.add(new WknPoint(date.plusDays(5), 5.0));
@@ -103,7 +102,7 @@ public class StockAssetTest extends UnitTest {
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(3)).getValue());
     }
     @Test
-    public void when_buys_are_added_then_costs_are_correct() throws ParseException, DateNotFound {
+    public void when_buys_are_added_then_costs_are_correct() {
         LocalDate date = LocalDate.parse("2000-12-31");
         ArrayList<WknPoint> wknPoints = new ArrayList<>();
         wknPoints.add(new WknPoint(date.plusDays(5), 5.0));

@@ -17,10 +17,10 @@ import static ui.console.ConsoleControllerType.*;
 
 public class HybridView extends JFrame implements View {
     private final ApplicationViewAccess model;
-    private HashMap<ConsoleControllerType, ConsoleController> controllers;
+    private final HashMap<ConsoleControllerType, ConsoleController> controllers;
     private boolean active = true;
     private Integer maxRange = 1000;
-    private int width = 1200;
+    private final int width = 1200;
     private boolean showBuyLines = false;
     private int showLines = 1;
     private final HybridViewPrinter hybridViewPrinter;
@@ -48,7 +48,11 @@ public class HybridView extends JFrame implements View {
         hybridViewPrinter.drawLines(arg0, model, maxRange, width, showLines);
         if (showBuyLines)
             hybridViewPrinter.printBuyLines(arg0, model, maxRange, width);
+
+
+        hybridViewPrinter.printUrls(model);
         hybridViewPrinter.printWkns(model);
+        hybridViewPrinter.printBuys(model);
         hybridViewPrinter.printToday(model);
     }
 

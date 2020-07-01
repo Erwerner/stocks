@@ -1,8 +1,6 @@
 package ui.console;
 
 import application.mvc.ApplicationControllerAccess;
-import helper.ResourceFileReader;
-import helper.ResourceNotFound;
 import ui.template.Model;
 
 import java.io.BufferedReader;
@@ -16,20 +14,25 @@ public class ConsoleControllerFactory {
 
     public HashMap<ConsoleControllerType, ConsoleController> initController(HybridView hybridView, Model model) {
         HashMap<ConsoleControllerType, ConsoleController> controllers = new HashMap<>();
-        controllers.put(ConsoleControllerType.EXIT, hybridView.initExitController((ApplicationControllerAccess) model));
-        controllers.put(ConsoleControllerType.BUYS, hybridView.initBuysController((ApplicationControllerAccess) model));
-        controllers.put(ConsoleControllerType.LINE, hybridView.initLinesController((ApplicationControllerAccess) model));
-        controllers.put(EXEC,
-                initDoController((ApplicationControllerAccess) model));
-        controllers.put(TOGL,
-                initTogglController((ApplicationControllerAccess) model));
-        controllers.put(RNGE,
-                hybridView.initRangeController((ApplicationControllerAccess) model));
-        controllers.put(TGAL,
-                initTogglAllController((ApplicationControllerAccess) model));
-        controllers.put(TGWN,
-                initTogglWinController((ApplicationControllerAccess) model));
+        controllers.put(EXIT, hybridView.initExitController((ApplicationControllerAccess) model));
+        controllers.put(BUYS, hybridView.initBuysController((ApplicationControllerAccess) model));
+        controllers.put(LINE, hybridView.initLinesController((ApplicationControllerAccess) model));
+        controllers.put(RNGE, hybridView.initRangeController((ApplicationControllerAccess) model));
+        controllers.put(EXEC, initDoController((ApplicationControllerAccess) model));
+        controllers.put(TOGL, initTogglController((ApplicationControllerAccess) model));
+        controllers.put(TGAL, initTogglAllController((ApplicationControllerAccess) model));
+        controllers.put(TGWN, initTogglWinController((ApplicationControllerAccess) model));
+        controllers.put(BRWS, initBrowserWinController((ApplicationControllerAccess) model));
         return controllers;
+    }
+
+    private ConsoleController initBrowserWinController(ApplicationControllerAccess model) {
+        return new ConsoleController(model) {
+            @Override
+            public void execute() {
+                model.openBrowser();
+            }
+        };
     }
 
     public ConsoleController initDoController(ApplicationControllerAccess model) {
@@ -37,14 +40,9 @@ public class ConsoleControllerFactory {
             @Override
             public void execute() {
                 try {
-                    for (String wkn : ResourceFileReader.getFilenamesInResourceFolder("wkn")) {
-                        model.addWkn(wkn);
-                    }
                     model.importBuys();
                 } catch (IOException e) {
                     e.printStackTrace();
-                } catch (ResourceNotFound resourceNotFound) {
-                    resourceNotFound.printStackTrace();
                 }
             }
         };

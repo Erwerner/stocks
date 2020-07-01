@@ -29,5 +29,15 @@ public interface ApplicationViewAccess {
 
     Double getBuyWin(StockBuy buy);
 
-    Double getWknValueAtDate(String wkn, LocalDate minusDays) throws DateNotFound;
+    Double getWknPointAtDate(String wkn, LocalDate minusDays) throws DateNotFound;
+
+    String getWknType(String wkn);
+
+    Set<String> getWkns();
+
+    Double getValueOfWknAssets(String wkn, LocalDate date) throws DateNotFound;
+
+    List<StockBuy> getBuysOfWkn(String wkn);
+
+    String getWknUrl(String wkn);
 }

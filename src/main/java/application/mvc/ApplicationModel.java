@@ -9,11 +9,15 @@ import application.service.ApplicationInput;
 import application.service.ApplicationService;
 import ui.template.Model;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class ApplicationModel extends Model implements
         ApplicationControllerAccess, ApplicationViewAccess {
@@ -91,12 +95,12 @@ public class ApplicationModel extends Model implements
 
     @Override
     public Double getBuyWin(StockBuy buy) {
-        Double win = 0.0;
+        double win = 0.0;
         try {
             String wkn = buy.getWkn();
             LocalDate lastDate = getLastDate();
             Double buyValue = data.getAssets().get(wkn).getWknPointForDate(lastDate).getValue() * buy.getAmount();
-            win = (buyValue - buy.getCosts())/buy.getCosts();
+            win = (buyValue - buy.getCosts()) / buy.getCosts();
         } catch (DateNotFound dateNotFound) {
             dateNotFound.printStackTrace();
         }
@@ -104,8 +108,33 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public Double getWknValueAtDate(String wkn, LocalDate date) throws DateNotFound {
-        return data.getAssets().get(wkn).getWknValueAtDate(date);
+    public Double getWknPointAtDate(String wkn, LocalDate date) throws DateNotFound {
+        return data.getAssets().get(wkn).getWknPointAtDate(date);
+    }
+
+    @Override
+    public String getWknType(String wkn) {
+        return data.getWknType(wkn);
+    }
+
+    @Override
+    public Set<String> getWkns() {
+        return data.getAssets().keySet();
+    }
+
+    @Override
+    public Double getValueOfWknAssets(String wkn, LocalDate date) throws DateNotFound {
+        return data.getAssets().get(wkn).getValueAtDateWithBuy(date).getValue();
+    }
+
+    @Override
+    public List<StockBuy> getBuysOfWkn(String wkn) {
+        return data.getAssets().get(wkn).getActiveBuys();
+    }
+
+    @Override
+    public String getWknUrl(String wkn) {
+        return data.getWknUrl(wkn);
     }
 
 
@@ -122,14 +151,17 @@ public class ApplicationModel extends Model implements
     // Controller
     @Override
     public void addWkn(String wkn) throws IOException {
-        data.addWkn(wkn, service.getWknName(wkn), service.getStockRow(wkn));
+        data.addWkn(wkn, service.getWknUrl(wkn), service.getStockRow(wkn), service.getWknType(wkn), service.getWknName(wkn));
         notifyViews();
     }
 
     @Override
     public void importBuys() throws IOException {
-        for (StockBuy stockBuy : service.importBuys())
+        for (StockBuy stockBuy : service.importBuys()) {
+            if (!data.getAssets().containsKey(stockBuy.getWkn()))
+                addWkn(stockBuy.getWkn());
             data.addBuy(stockBuy);
+        }
         notifyViews();
     }
 
@@ -166,5 +198,18 @@ public class ApplicationModel extends Model implements
             }
         }
         notifyViews();
+    }
+
+    @Override
+    public void openBrowser() {
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            for (String wkn : data.getAssets().keySet()) {
+                try {
+                    Desktop.getDesktop().browse(new URI(data.getWknUrl(wkn)));
+                } catch (IOException | URISyntaxException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

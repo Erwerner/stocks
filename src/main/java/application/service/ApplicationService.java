@@ -34,45 +34,44 @@ public class ApplicationService {
     }
 
     private void exportProfit(ApplicationData data) {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         LocalDate last = LocalDate.parse("2020-06-29");
         LocalDate date = getFirstDate(data);
         while (!date.isAfter(last)) {
             Double[] profitLine = getProfitLine(date, data);
             Double costsAtDate = getCostsAtDate(date, data);
-            Double minusCosts = new Double(getCostsAtDate(date, data) * -1);
+            double minusCosts = getCostsAtDate(date, data) * -1;
 
-            text += "\n" + new Double(profitLine[0] / costsAtDate).toString().replace(".", ",");
-            text += ";" + new Double(profitLine[0] / getCostsAtDate(last, data)).toString().replace(".", ",");
-            text += ";0";
-            text += ";" + costsAtDate.toString().replace(".", ",");
-            text += ";-" + minusCosts.toString().replace(".", ",");
-            text += ";" + date.toString();
+            text.append("\n").append(Double.toString(profitLine[0] / costsAtDate).replace(".", ","));
+            text.append(";").append(Double.toString(profitLine[0] / getCostsAtDate(last, data)).replace(".", ","));
+            text.append(";0");
+            text.append(";").append(costsAtDate.toString().replace(".", ","));
+            text.append(";-").append(Double.toString(minusCosts).replace(".", ","));
+            text.append(";").append(date.toString());
 
             date = date.plusDays(1);
         }
-        new FilePersister().persistString("out", "profit.csv", text);
+        new FilePersister().persistString("out", "profit.csv", text.toString());
     }
 
     private void exportSum(ApplicationData data) {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         LocalDate last = LocalDate.parse("2020-06-29");
         LocalDate date = getFirstDate(data);
         while (!date.isAfter(last)) {
             if (getDateWasBuy(date, data))
-                text += "\n";
-            text += "\n" + getTotalLine(date, data)[0].toString().replace(".", ",");
+                text.append("\n");
+            text.append("\n").append(getTotalLine(date, data)[0].toString().replace(".", ","));
             date = date.plusDays(1);
         }
-        new FilePersister().persistString("out", "sum.csv", text);
+        new FilePersister().persistString("out", "sum.csv", text.toString());
     }
 
     public LocalDate getFirstDate(ApplicationData data) {
         LocalDate firstBuyDate = null;
         for (String wkn : data.getAssets().keySet()) {
-            LocalDate wknFirstBuyDate = null;
             try {
-                wknFirstBuyDate = data.getAssets().get(wkn).getFirstBuyDate();
+                LocalDate wknFirstBuyDate = data.getAssets().get(wkn).getFirstBuyDate();
                 if (firstBuyDate == null || wknFirstBuyDate.isBefore(firstBuyDate))
                     firstBuyDate = LocalDate.parse(wknFirstBuyDate.toString());
             } catch (NoBuys noBuys) {
@@ -117,7 +116,25 @@ public class ApplicationService {
         return new Double[]{start, end};
     }
 
-    public String getWknName(String wkn) throws IOException {
+    public String getWknUrl(String wkn) throws IOException {
         return input.getWknName(wkn);
+    }
+
+    public String getWknType(String wkn) {
+        try {
+            return input.getWknType(wkn);
+        } catch (IOException e) {
+            return "";
+        }
+    }
+
+    public String getWknName(String wkn) throws IOException {
+        return getWknUrl(wkn)
+                .replace("https://www.finanzen.net","")
+                .replace("kurse","")
+                .replace("historisch","")
+                .replace("/","")
+                .replace("etf","")
+                .replace("etc","");
     }
 }

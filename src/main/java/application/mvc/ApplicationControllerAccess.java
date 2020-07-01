@@ -14,4 +14,6 @@ public interface ApplicationControllerAccess {
     void togglAll();
 
     void togglWin();
+
+    void openBrowser();
 }

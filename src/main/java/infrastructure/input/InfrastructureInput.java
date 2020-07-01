@@ -16,8 +16,11 @@ public class InfrastructureInput extends ApplicationInput {
         ArrayList<WknPoint> wknPoints = new ArrayList<>();
         String[] lines = getWknFileLines(wkn);
         String wknName = lines[0];
+        String wknType = lines[1];
         for (String line : lines) {
             if (line.equals(wknName))
+                continue;
+            if (line.equals(wknType))
                 continue;
             String[] columns = line.split(" \t");
             String dateString = columns[0].substring(6, 10) + "-" + columns[0].substring(3, 5) + "-" + columns[0].substring(0, 2);
@@ -43,6 +46,11 @@ public class InfrastructureInput extends ApplicationInput {
     public String getWknName(String wkn) throws IOException {
         String[] lines = getWknFileLines(wkn);
         return lines[0];
+    }
+    @Override
+    public String getWknType(String wkn) throws IOException {
+        String[] lines = getWknFileLines(wkn);
+        return lines[1];
     }
 
     private String[] getWknFileLines(String wkn) throws IOException {

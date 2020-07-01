@@ -51,6 +51,7 @@ public class HybridViewPrinter {
     }
 
     public void printToday(ApplicationViewAccess model) {
+        System.out.println("\n- Yesterday: --");
         LocalDate lastDate = model.getLastDate();
         Double old = model.getTotalLine(lastDate.minusDays(1))[0];
         Double neu = model.getTotalLine(lastDate)[0];
@@ -61,7 +62,8 @@ public class HybridViewPrinter {
         System.out.println((100 * neu / model.getCostsAtDate(lastDate) - 100) + " %");
     }
 
-    public void printWkns(ApplicationViewAccess model) {
+    public void printBuys(ApplicationViewAccess model) {
+        System.out.println("\n- Buys: --");
         int count = 0;
         for (StockBuy buy : model.getAllBuys()) {
             String active = " ";
@@ -71,30 +73,61 @@ public class HybridViewPrinter {
             Double old = 1.0;
             Double neu = 1.0;
             try {
-                old = model.getWknValueAtDate(buy.getWkn(), lastDate.minusDays(1));
-                neu = model.getWknValueAtDate(buy.getWkn(), lastDate);
+                old = model.getWknPointAtDate(buy.getWkn(), lastDate.minusDays(1));
+                neu = model.getWknPointAtDate(buy.getWkn(), lastDate);
             } catch (DateNotFound dateNotFound) {
                 dateNotFound.printStackTrace();
             }
-            Double buyWin = ((Double) (model.getBuyWin(buy) * 10000)).intValue() / 100.0;
-            Double buyDayWin = ((Double) ((neu / old - 1) * 10000)).intValue() / 100.0;
-            Double winDay = ((neu / old - 1) * buy.getAmount() * neu);
+            double buyWin = ((Double) (model.getBuyWin(buy) * 10000)).intValue() / 100.0;
+            double buyDayWin = ((Double) ((neu / old - 1) * 10000)).intValue() / 100.0;
+            double winDay = ((neu / old - 1) * buy.getAmount() * neu);
 
             Double oldTotal = model.getTotalLine(lastDate.minusDays(1))[0];
             Double neuTotal = model.getTotalLine(lastDate)[0];
-            Double winDayPercentage = ((Double) (winDay / (neuTotal - oldTotal) * 10000)).intValue() / 100.0;
-
+            double winDayPercentage = ((Double) (winDay / (neuTotal - oldTotal) * 10000)).intValue() / 100.0;
+            String dayPositive = "+";
+            if (winDay < 0)
+                dayPositive = "-";
+            if (winDay == 0)
+                dayPositive = " ";
             System.out.println(active +
-                    " [" + count + "] " +
-                    buy.getWkn() + " " +
-                    buy.getDate() +
-                    " (" + buyWin + "%) " +
-                    " (" + buyDayWin + "% ) " +
-                    " (" + winDayPercentage + "%) " +
-                     " = " +
-                    winDay.intValue() + "€ " +
-                    model.getWknName(buy.getWkn()));
+                    "\t" + " [" + count + "] " +
+                    "\t" + buy.getWkn() + " " +
+                    "\t" + buy.getDate() +
+                    "\t (" + buyWin + "%) " +
+                    "\t " + model.getWknType(buy.getWkn()) +
+                    "\t" + dayPositive +
+                    "\t (" + buyDayWin + "% ) " +
+                    "\t (" + winDayPercentage + "%) " +
+                    "\t " + (int) winDay + "€ " +
+                    "\t" + model.getWknName(buy.getWkn()));
             count++;
+        }
+    }
+
+    public void printWkns(ApplicationViewAccess model) {
+        System.out.println("\n- FONDs: --");
+        for (String wkn : model.getWkns()) {
+            if (!model.getWknType(wkn).equals("FOND"))
+                continue;
+            if (model.getBuysOfWkn(wkn).isEmpty())
+                continue;
+            LocalDate date = model.getLastDate();
+            try {
+                double totalK = new Double(model.getValueOfWknAssets(wkn, date) / 100).intValue() / 10.0;
+
+                System.out.println(totalK + " K\t" + model.getWknName(wkn));
+            } catch (DateNotFound dateNotFound) {
+                dateNotFound.printStackTrace();
+            }
+        }
+    }
+
+    public void printUrls(ApplicationViewAccess model) {
+        System.out.println("\n- URLs: --");
+        for (String wkn : model.getWkns()) {
+            String wknUrl = model.getWknUrl(wkn);
+            System.out.println(wknUrl);
         }
     }
 }
