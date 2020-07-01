@@ -1,20 +1,21 @@
 package ui.console;
 
 import application.core.StockBuy;
+import application.core.Wkn;
 import application.core.exception.DateNotFound;
 import application.mvc.ApplicationViewAccess;
 
 import java.awt.*;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 public class HybridViewPrinter {
 
     public void printBuyLines(Graphics arg0, ApplicationViewAccess model, Integer maxRange, int width) {
-        java.util.List<Boolean> buys = model.getBuyLines(maxRange);
         int col = 0;
         int size = width / maxRange;
-        for (Boolean buy : buys) {
+        for (Boolean buy : model.getBuyLines(maxRange)) {
             if (buy)
                 arg0.drawLine(size * col, 0, size * col, 900);
             col += 1;
@@ -51,15 +52,9 @@ public class HybridViewPrinter {
     }
 
     public void printToday(ApplicationViewAccess model) {
+        HashMap<String, Double> todayStats = model.getTodayStats();
         System.out.println("\n- Yesterday: --");
-        LocalDate lastDate = model.getLastDate();
-        Double old = model.getTotalLine(lastDate.minusDays(1))[0];
-        Double neu = model.getTotalLine(lastDate)[0];
-        System.out.println("old:  " + old);
-        System.out.println("new:  " + neu);
-        System.out.println("diff: " + (neu - old));
-        System.out.println("win:  " + (neu - model.getCostsAtDate(lastDate)));
-        System.out.println((100 * neu / model.getCostsAtDate(lastDate) - 100) + " %");
+        todayStats.forEach((key, value) -> System.out.println(key + ": " + value));
     }
 
     public void printBuys(ApplicationViewAccess model) {
@@ -90,44 +85,32 @@ public class HybridViewPrinter {
                 dayPositive = "-";
             if (winDay == 0)
                 dayPositive = " ";
+            Wkn wkn = model.getWkn(buy.getWkn());
             System.out.println(active +
                     "\t" + " [" + count + "] " +
                     "\t" + buy.getWkn() + " " +
                     "\t" + buy.getDate() +
                     "\t (" + buyWin + "%) " +
-                    "\t " + model.getWknType(buy.getWkn()) +
+                    "\t " + wkn.getWknType() +
                     "\t" + dayPositive +
                     "\t (" + buyDayWin + "% ) " +
                     "\t (" + winDayPercentage + "%) " +
                     "\t " + (int) winDay + "€ " +
-                    "\t" + model.getWknName(buy.getWkn()));
+                    "\t" + wkn.getWknName());
             count++;
         }
     }
 
-    public void printWkns(ApplicationViewAccess model) {
+    public void printFonds(ApplicationViewAccess model) {
         System.out.println("\n- FONDs: --");
-        for (String wkn : model.getWkns()) {
-            if (!model.getWknType(wkn).equals("FOND"))
-                continue;
-            if (model.getBuysOfWkn(wkn).isEmpty())
-                continue;
-            LocalDate date = model.getLastDate();
-            try {
-                double totalK = new Double(model.getValueOfWknAssets(wkn, date) / 100).intValue() / 10.0;
-
-                System.out.println(totalK + " K\t" + model.getWknName(wkn));
-            } catch (DateNotFound dateNotFound) {
-                dateNotFound.printStackTrace();
-            }
-        }
+        HashMap<String, Double> fonds = model.getFondValues();
+        fonds.forEach((wkn, value) -> System.out.println(value + " K \t" + wkn));
     }
 
     public void printUrls(ApplicationViewAccess model) {
         System.out.println("\n- URLs: --");
-        for (String wkn : model.getWkns()) {
-            String wknUrl = model.getWknUrl(wkn);
-            System.out.println(wknUrl);
+        for (Wkn wkn : model.getWkns()) {
+            System.out.println(wkn.getWknUrl());
         }
     }
 }

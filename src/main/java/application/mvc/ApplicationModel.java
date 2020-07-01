@@ -1,12 +1,11 @@
 package application.mvc;
 
-import application.core.ApplicationData;
-import application.core.StockAsset;
-import application.core.StockBuy;
-import application.core.StockValue;
+import application.core.*;
 import application.core.exception.DateNotFound;
 import application.service.ApplicationInput;
-import application.service.ApplicationService;
+import application.service.DataService;
+import application.service.OutputService;
+import application.service.ReaderService;
 import ui.template.Model;
 
 import java.awt.*;
@@ -14,35 +13,32 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ApplicationModel extends Model implements
         ApplicationControllerAccess, ApplicationViewAccess {
     private final ApplicationData data;
-    private final ApplicationService service;
+    private final DataService dataService;
+    private final ReaderService readerService;
+    private final OutputService outputService;
 
     public ApplicationModel(ApplicationInput input) {
         data = new ApplicationData();
-        service = new ApplicationService(input);
+        dataService = new DataService();
+        outputService = new OutputService(dataService);
+        readerService = new ReaderService(input);
     }
 
     // View
     @Override
     public Double[] getTotalLine(LocalDate date) {
-        return service.getTotalLine(date, data);
+        return outputService.getTotalLine(date, data);
     }
 
     @Override
     public LocalDate getLastDate() {
-        return LocalDate.parse("2020-06-30");
-    }
-
-    @Override
-    public Double getCostsAtDate(LocalDate date) {
-        return service.getCostsAtDate(date, data);
+        return dataService.calcLastDate(data);
     }
 
     @Override
@@ -58,54 +54,24 @@ public class ApplicationModel extends Model implements
 
     @Override
     public List<Double[]> getProfitLines(Integer maxRange) {
-        List<Double[]> printLines = new ArrayList<>();
-        for (int i = maxRange; i >= 0; i--) {
-            LocalDate date = getLastDate().minusDays(i);
-            printLines.add(service.getProfitLine(date, data));
-        }
-        return printLines;
-    }
-
-    @Override
-    public String getWknName(String wkn) {
-        return data.getWknName(wkn);
+        return outputService.createProfitLines(maxRange, data);
     }
 
     @Override
     public List<Boolean> getBuyLines(Integer maxRange) {
-        List<Boolean> buys = new ArrayList<>();
-        for (int i = maxRange; i >= 0; i--) {
-            buys.add(hasBuyAtDate(getLastDate().minusDays(i)));
-        }
-        return buys;
+        return outputService.createBuyLines(maxRange, data);
     }
 
     @Override
     public List<Double[]> getRelativeLines(Integer maxRange) {
-        List<Double[]> lines = new ArrayList<>();
-        for (int i = maxRange; i >= 0; i--) {
-            LocalDate date = getLastDate().minusDays(i);
-            Double[] profitLine = service.getProfitLine(date, data);
-            profitLine[0] = profitLine[0] / service.getCostsAtDate(date, data);
-            profitLine[1] = profitLine[1] / service.getCostsAtDate(date, data);
-            lines.add(profitLine);
-        }
-        return lines;
+        return outputService.createRelativeLines(maxRange, data);
     }
 
     @Override
     public Double getBuyWin(StockBuy buy) {
-        double win = 0.0;
-        try {
-            String wkn = buy.getWkn();
-            LocalDate lastDate = getLastDate();
-            Double buyValue = data.getAssets().get(wkn).getWknPointForDate(lastDate).getValue() * buy.getAmount();
-            win = (buyValue - buy.getCosts()) / buy.getCosts();
-        } catch (DateNotFound dateNotFound) {
-            dateNotFound.printStackTrace();
-        }
-        return win;
+        return dataService.calcBuyWin(buy, data);
     }
+
 
     @Override
     public Double getWknPointAtDate(String wkn, LocalDate date) throws DateNotFound {
@@ -113,61 +79,42 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public String getWknType(String wkn) {
-        return data.getWknType(wkn);
+    public Set<Wkn> getWkns() {
+        Set<Wkn> wkns = new HashSet<>();
+        data.getAssets().keySet().forEach(wkn -> wkns.add(getWkn(wkn)));
+        return wkns;
     }
 
     @Override
-    public Set<String> getWkns() {
-        return data.getAssets().keySet();
+    public HashMap<String, Double> getTodayStats() {
+        return outputService.createTodayStats(data);
     }
 
     @Override
-    public Double getValueOfWknAssets(String wkn, LocalDate date) throws DateNotFound {
-        return data.getAssets().get(wkn).getValueAtDateWithBuy(date).getValue();
+    public Wkn getWkn(String wkn) {
+        return dataService.createWkn(wkn, data);
     }
+
 
     @Override
-    public List<StockBuy> getBuysOfWkn(String wkn) {
-        return data.getAssets().get(wkn).getActiveBuys();
+    public HashMap<String, Double> getFondValues() {
+        return outputService.createFondValues(data);
     }
 
-    @Override
-    public String getWknUrl(String wkn) {
-        return data.getWknUrl(wkn);
-    }
-
-
-    private boolean hasBuyAtDate(LocalDate date) {
-        for (StockAsset stockAsset : data.getAssets().values()) {
-            for (StockBuy buy : stockAsset.getActiveBuys()) {
-                if (buy.getDate().equals(date))
-                    return true;
-            }
-        }
-        return false;
-    }
 
     // Controller
-    @Override
-    public void addWkn(String wkn) throws IOException {
-        data.addWkn(wkn, service.getWknUrl(wkn), service.getStockRow(wkn), service.getWknType(wkn), service.getWknName(wkn));
+    private void addWkn(String wkn) throws IOException {
+        data.addWkn(wkn, readerService.getWknUrl(wkn), readerService.getStockRow(wkn), readerService.getWknType(wkn), readerService.getWknName(wkn));
         notifyViews();
     }
 
     @Override
     public void importBuys() throws IOException {
-        for (StockBuy stockBuy : service.importBuys()) {
+        for (StockBuy stockBuy : readerService.importBuys()) {
             if (!data.getAssets().containsKey(stockBuy.getWkn()))
                 addWkn(stockBuy.getWkn());
             data.addBuy(stockBuy);
         }
-        notifyViews();
-    }
-
-    @Override
-    public void export() {
-        service.export(data);
         notifyViews();
     }
 

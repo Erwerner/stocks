@@ -1,10 +1,12 @@
 package application.mvc;
 
 import application.core.StockBuy;
+import application.core.Wkn;
 import application.core.exception.DateNotFound;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -15,13 +17,9 @@ public interface ApplicationViewAccess {
 
     LocalDate getLastDate();
 
-    Double getCostsAtDate(LocalDate date);
-
     ArrayList<StockBuy> getAllBuys();
 
     List<Double[]> getProfitLines(Integer maxRange);
-
-    String getWknName(String wkn);
 
     List<Boolean> getBuyLines(Integer maxRange);
 
@@ -31,13 +29,11 @@ public interface ApplicationViewAccess {
 
     Double getWknPointAtDate(String wkn, LocalDate minusDays) throws DateNotFound;
 
-    String getWknType(String wkn);
+    Set<Wkn> getWkns();
 
-    Set<String> getWkns();
+    HashMap<String, Double> getTodayStats();
 
-    Double getValueOfWknAssets(String wkn, LocalDate date) throws DateNotFound;
+    Wkn getWkn(String wkn);
 
-    List<StockBuy> getBuysOfWkn(String wkn);
-
-    String getWknUrl(String wkn);
+    HashMap<String, Double> getFondValues();
 }

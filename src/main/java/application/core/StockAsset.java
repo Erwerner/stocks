@@ -20,9 +20,7 @@ public class StockAsset {
         stockBuys = new ArrayList<>();
         stockAmount = new ArrayList<>();
 
-        wknkRow.getWknPoints().forEach(point -> {
-            stockAmount.add(0);
-        });
+        wknkRow.getWknPoints().forEach(point -> stockAmount.add(0));
     }
 
     private void assertRowIsAscending(List<WknPoint> wknPoints) {
@@ -53,9 +51,7 @@ public class StockAsset {
 
     private void refreshAmounts() {
         stockAmount.clear();
-        wknkRow.getWknPoints().forEach(point -> {
-            stockAmount.add(0);
-        });
+        wknkRow.getWknPoints().forEach(point -> stockAmount.add(0));
         for (StockBuy stockBuy : getActiveBuys()) {
 
             try {
@@ -165,5 +161,9 @@ public class StockAsset {
 
     public Double getWknPointAtDate(LocalDate date) throws DateNotFound {
         return wknkRow.getPointAtDate(getLastFoundDateFor(date)).getValue();
+    }
+
+    public LocalDate getLastDate() {
+        return wknkRow.getWknPoints().get(0).getDate();
     }
 }

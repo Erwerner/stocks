@@ -51,12 +51,10 @@ public class HybridView extends JFrame implements View {
 
 
         hybridViewPrinter.printUrls(model);
-        hybridViewPrinter.printWkns(model);
+        hybridViewPrinter.printFonds(model);
         hybridViewPrinter.printBuys(model);
         hybridViewPrinter.printToday(model);
     }
-
-
 
     private void run() {
         this.show();
@@ -84,10 +82,7 @@ public class HybridView extends JFrame implements View {
         return new ConsoleController(model) {
             @Override
             public void execute() {
-                if (showBuyLines)
-                    showBuyLines = false;
-                else
-                    showBuyLines = true;
+                showBuyLines = !showBuyLines;
                 repaint();
             }
         };
