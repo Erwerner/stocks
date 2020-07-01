@@ -116,14 +116,6 @@ public class StockAsset {
         throw new DateNotFound(date);
     }
 
-    public boolean hasBuyAtDate(LocalDate date) {
-        for (StockBuy stockBuy : getActiveBuys()) {
-            if (stockBuy.getDate().equals(date))
-                return true;
-        }
-        return false;
-    }
-
     public Double getCostAtDate(LocalDate date) {
         Double costs = 0.0;
         for (StockBuy stockBuy : getActiveBuys()) {

@@ -4,6 +4,7 @@ import application.core.StockBuy;
 import application.core.Wkn;
 import application.core.exception.DateNotFound;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,4 +37,8 @@ public interface ApplicationViewAccess {
     Wkn getWkn(String wkn);
 
     HashMap<String, Double> getFondValues();
+
+    HashMap<String, Double[]> getWatchChange() throws IOException;
+
+    double getWknChangeAtDate(String wkn, LocalDate date);
 }

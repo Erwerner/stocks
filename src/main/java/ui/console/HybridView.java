@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
-import static ui.console.ConsoleControllerType.*;
+import static ui.console.ConsoleControllerType.EXEC;
 
 public class HybridView extends JFrame implements View {
     private final ApplicationViewAccess model;
@@ -30,7 +30,7 @@ public class HybridView extends JFrame implements View {
         this.model = (ApplicationViewAccess) model;
         model.registerView(this);
         initWindow();
-        controllers = new ConsoleControllerFactory().initController(this,model);
+        controllers = new ConsoleControllerFactory().initController(this, model);
         hybridViewPrinter = new HybridViewPrinter();
         run();
     }
@@ -49,10 +49,10 @@ public class HybridView extends JFrame implements View {
         if (showBuyLines)
             hybridViewPrinter.printBuyLines(arg0, model, maxRange, width);
 
-
         hybridViewPrinter.printUrls(model);
         hybridViewPrinter.printFonds(model);
         hybridViewPrinter.printBuys(model);
+        hybridViewPrinter.printWatch(model);
         hybridViewPrinter.printToday(model);
     }
 

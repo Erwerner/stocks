@@ -30,6 +30,11 @@ public class ApplicationModel extends Model implements
         readerService = new ReaderService(input);
     }
 
+    private void addWkn(String wkn) throws IOException {
+        if (!data.getAssets().containsKey(wkn))
+            data.addWkn(wkn, readerService.getWknUrl(wkn), readerService.getStockRow(wkn), readerService.getWknType(wkn), readerService.getWknName(wkn));
+    }
+
     // View
     @Override
     public Double[] getTotalLine(LocalDate date) {
@@ -95,19 +100,26 @@ public class ApplicationModel extends Model implements
         return dataService.createWkn(wkn, data);
     }
 
-
     @Override
     public HashMap<String, Double> getFondValues() {
         return outputService.createFondValues(data);
     }
 
-
-    // Controller
-    private void addWkn(String wkn) throws IOException {
-        data.addWkn(wkn, readerService.getWknUrl(wkn), readerService.getStockRow(wkn), readerService.getWknType(wkn), readerService.getWknName(wkn));
-        notifyViews();
+    @Override
+    public HashMap<String, Double[]> getWatchChange() throws IOException {
+        String[] watchWkns = readerService.getWatchWkns();
+        for (String watchWkn : watchWkns) {
+            addWkn(watchWkn);
+        }
+        return outputService.createWatchChangeToday(watchWkns, data);
     }
 
+    @Override
+    public double getWknChangeAtDate(String wkn, LocalDate date) {
+        return dataService.calcWknChangeToday(wkn, data, date);
+    }
+
+    // Controller
     @Override
     public void importBuys() throws IOException {
         for (StockBuy stockBuy : readerService.importBuys()) {
@@ -150,7 +162,15 @@ public class ApplicationModel extends Model implements
     @Override
     public void openBrowser() {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            HashSet<String> wkns = new HashSet<>();
             for (String wkn : data.getAssets().keySet()) {
+                wkns.add(wkn);
+            }
+            for (String wkn : readerService.getWatchWkns()) {
+                wkns.add(wkn);
+            }
+
+            for (String wkn : wkns) {
                 try {
                     Desktop.getDesktop().browse(new URI(data.getWknUrl(wkn)));
                 } catch (IOException | URISyntaxException e) {

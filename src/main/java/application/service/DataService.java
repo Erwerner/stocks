@@ -54,4 +54,17 @@ public class DataService {
     public Wkn createWkn(String wkn, ApplicationData data) {
         return new Wkn(wkn, data.getWknName(wkn), data.getWknType(wkn), data.getWknUrl(wkn));
     }
+
+
+    public double calcWknChangeToday(String wkn, ApplicationData data, LocalDate date) {
+        Double old = 1.0;
+        Double neu = 1.0;
+        try {
+            old = data.getAssets().get(wkn).getWknPointAtDate(date.minusDays(1));
+            neu = data.getAssets().get(wkn).getWknPointAtDate(date);
+        } catch (DateNotFound dateNotFound) {
+            dateNotFound.printStackTrace();
+        }
+        return neu / old - 1;
+    }
 }

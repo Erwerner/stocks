@@ -93,11 +93,29 @@ public class OutputService {
             try {
                 double totalK = new Double(data.getAssets().get(wkn.getWkn()).getValueAtDateWithBuy(date).getValue() / 100).intValue() / 10.0;
 
-                fonds.put( wkn.getWknName(), totalK );
+                fonds.put(wkn.getWknName(), totalK);
             } catch (DateNotFound dateNotFound) {
                 dateNotFound.printStackTrace();
             }
         }
         return fonds;
+    }
+
+    public HashMap<String, Double[]> createWatchChangeToday(String[] watchWkns, ApplicationData data) {
+        HashMap<String, Double[]> watchToday = new HashMap<>();
+        LocalDate lastDate = dataService.calcLastDate(data);
+        for (String watchWkn : watchWkns) {
+            watchToday.put(watchWkn, new Double[]{
+                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(8)),
+                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(7)),
+                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(6)),
+                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(5)),
+                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(4)),
+                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(3)),
+                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(2)),
+                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(1)),
+                    dataService.calcWknChangeToday(watchWkn, data, lastDate)});
+        }
+        return watchToday;
     }
 }

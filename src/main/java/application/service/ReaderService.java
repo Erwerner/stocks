@@ -22,6 +22,7 @@ public class ReaderService {
     public List<StockBuy> importBuys() throws IOException {
         return input.readBuys();
     }
+
     public String getWknUrl(String wkn) throws IOException {
         return input.getWknName(wkn);
     }
@@ -42,5 +43,14 @@ public class ReaderService {
                 .replace("/", "")
                 .replace("etf", "")
                 .replace("etc", "");
+    }
+
+    public String[] getWatchWkns() {
+        try {
+            return input.readWatchWkns();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

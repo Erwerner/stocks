@@ -53,6 +53,13 @@ public class InfrastructureInput extends ApplicationInput {
         return lines[1];
     }
 
+    @Override
+    public String[] readWatchWkns() throws IOException {
+        String file = ResourceFileReader.readResource("watch");
+        String[] watchWkns = file.split("\n");
+        return watchWkns;
+    }
+
     private String[] getWknFileLines(String wkn) throws IOException {
         String resource = ResourceFileReader.readResource("wkn/" + wkn);
         return resource.split("\n");

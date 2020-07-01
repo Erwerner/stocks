@@ -6,9 +6,13 @@ import application.core.exception.DateNotFound;
 import application.mvc.ApplicationViewAccess;
 
 import java.awt.*;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+
+import static java.lang.StrictMath.sqrt;
 
 public class HybridViewPrinter {
 
@@ -65,21 +69,21 @@ public class HybridViewPrinter {
             if (buy.isActive())
                 active = "X";
             LocalDate lastDate = model.getLastDate();
-            Double old = 1.0;
-            Double neu = 1.0;
+            double buyWin = ((Double) (model.getBuyWin(buy) * 10000)).intValue() / 100.0;
+            double wknChangeToday = model.getWknChangeAtDate(buy.getWkn(), lastDate);
+            double buyDayWin = ((Double) (wknChangeToday * 10000)).intValue() / 100.0;
+            double winDay = 0;
             try {
-                old = model.getWknPointAtDate(buy.getWkn(), lastDate.minusDays(1));
-                neu = model.getWknPointAtDate(buy.getWkn(), lastDate);
+                winDay = (wknChangeToday * buy.getAmount() * model.getWknPointAtDate(buy.getWkn(), lastDate));
             } catch (DateNotFound dateNotFound) {
                 dateNotFound.printStackTrace();
             }
-            double buyWin = ((Double) (model.getBuyWin(buy) * 10000)).intValue() / 100.0;
-            double buyDayWin = ((Double) ((neu / old - 1) * 10000)).intValue() / 100.0;
-            double winDay = ((neu / old - 1) * buy.getAmount() * neu);
 
             Double oldTotal = model.getTotalLine(lastDate.minusDays(1))[0];
             Double neuTotal = model.getTotalLine(lastDate)[0];
-            double winDayPercentage = ((Double) (winDay / (neuTotal - oldTotal) * 10000)).intValue() / 100.0;
+            double totalChange = (neuTotal - oldTotal);
+            totalChange = sqrt(totalChange * totalChange);
+            double winDayPercentage = ((Double) (winDay / totalChange * 10000)).intValue() / 100.0;
             String dayPositive = "+";
             if (winDay < 0)
                 dayPositive = "-";
@@ -101,6 +105,7 @@ public class HybridViewPrinter {
         }
     }
 
+
     public void printFonds(ApplicationViewAccess model) {
         System.out.println("\n- FONDs: --");
         HashMap<String, Double> fonds = model.getFondValues();
@@ -109,8 +114,33 @@ public class HybridViewPrinter {
 
     public void printUrls(ApplicationViewAccess model) {
         System.out.println("\n- URLs: --");
+        HashSet<String> urls = new HashSet<>();
         for (Wkn wkn : model.getWkns()) {
-            System.out.println(wkn.getWknUrl());
+            urls.add(wkn.getWknUrl());
+        }
+        try {
+            for (String wkn : model.getWatchChange().keySet()) {
+                urls.add(model.getWkn(wkn).getWknUrl());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        urls.forEach(System.out::println);
+    }
+
+    public void printWatch(ApplicationViewAccess model) {
+        System.out.println("\n- Watch: --");
+        try {
+            model.getWatchChange().forEach((wkn, todays) -> {
+                Wkn wkn1 = model.getWkn(wkn);
+                System.out.println();
+                for (Double today : todays) {
+                    double outToday = ((Double) (today * 10000)).intValue() / 100.0;
+                    System.out.println( wkn1.getWknName() + "\t" +  outToday);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
