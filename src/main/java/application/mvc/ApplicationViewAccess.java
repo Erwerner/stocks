@@ -27,9 +27,4 @@ public interface ApplicationViewAccess {
     List<Double[]> getRelativeLines(Integer maxRange);
 
     Double getBuyWin(StockBuy buy);
-
-
-    //Todo
-    //Toggle Win
-    //Toggle Lose
 }

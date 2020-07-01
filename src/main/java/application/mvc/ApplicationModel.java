@@ -33,7 +33,7 @@ public class ApplicationModel extends Model implements
 
     @Override
     public LocalDate getLastDate() {
-        return LocalDate.parse("2020-06-29");
+        return LocalDate.parse("2020-06-30");
     }
 
     @Override

@@ -24,6 +24,8 @@ public class HybridView extends JFrame implements View {
     private boolean active = true;
     private Integer maxRange = 1000;
     private int width = 1200;
+    private boolean showBuyLines = false;
+    private int showLines = 1;
 
 
     public HybridView(Model model) {
@@ -44,8 +46,14 @@ public class HybridView extends JFrame implements View {
     @Override
     public void paint(Graphics arg0) {
         super.paint(arg0);
-        drawLines(arg0);
-        printBuyLines(arg0);
+        List<Double[]> lines;
+        if (showLines == 1)
+            lines = model.getRelativeLines(maxRange);
+        else
+            lines = model.getProfitLines(maxRange);
+        drawLines(arg0, lines);
+        if (showBuyLines)
+            printBuyLines(arg0);
         printWkns();
         printToday();
     }
@@ -61,17 +69,27 @@ public class HybridView extends JFrame implements View {
         }
     }
 
-    private void drawLines(Graphics arg0) {
-        List<Double[]> printLines = model.getRelativeLines(maxRange);
+    private void drawLines(Graphics arg0, List<Double[]> printLines) {
         int col = 0;
-        int size = width / this.maxRange;
-        int zero = 300;
-        int scale = -800;
+        int size;
+        int zero;
+        Double scale;
+        size = width / this.maxRange;
+        if (showLines == 1) {
+            zero = 300;
+            scale = -800.0;
+        } else {
+            zero = 200;
+            scale = -0.06;
+        }
         for (Double[] printLine : printLines) {
             printLine[0] *= scale;
             printLine[1] *= scale;
             printLine[0] += zero;
             printLine[1] += zero;
+        }
+        for (Double[] printLine : printLines) {
+            System.out.println(printLine[0]);
             arg0.drawLine(size * col, printLine[0].intValue(), size + size * col, printLine[1].intValue());
             arg0.drawLine(size * col, zero, size + size * col, zero);
             col += 1;
@@ -116,7 +134,9 @@ public class HybridView extends JFrame implements View {
     private void initController(Model model) {
         controllers = new HashMap<>();
         ConsoleControllerFactory controllerFactory = new ConsoleControllerFactory();
-        controllers.put(ConsoleControllerType.EXIT, initExitController(model));
+        controllers.put(ConsoleControllerType.EXIT, initExitController((ApplicationControllerAccess) model));
+        controllers.put(ConsoleControllerType.BUYS, initBuysController((ApplicationControllerAccess) model));
+        controllers.put(ConsoleControllerType.LINE, initLinesController((ApplicationControllerAccess) model));
         controllers.put(EXEC,
                 controllerFactory.initDoController((ApplicationControllerAccess) model));
         controllers.put(TOGL,
@@ -127,6 +147,29 @@ public class HybridView extends JFrame implements View {
                 controllerFactory.initTogglAllController((ApplicationControllerAccess) model));
         controllers.put(TGWN,
                 controllerFactory.initTogglWinController((ApplicationControllerAccess) model));
+    }
+
+    private ConsoleController initLinesController(ApplicationControllerAccess model) {
+        return new ConsoleController(model) {
+            @Override
+            public void execute() {
+                showLines *= -1;
+                repaint();
+            }
+        };
+    }
+
+    private ConsoleController initBuysController(ApplicationControllerAccess model) {
+        return new ConsoleController(model) {
+            @Override
+            public void execute() {
+                if (showBuyLines)
+                    showBuyLines = false;
+                else
+                    showBuyLines = true;
+                repaint();
+            }
+        };
     }
 
 
@@ -144,8 +187,8 @@ public class HybridView extends JFrame implements View {
         };
     }
 
-    private ConsoleController initExitController(Model model) {
-        return new ConsoleController((ApplicationControllerAccess) model) {
+    private ConsoleController initExitController(ApplicationControllerAccess model) {
+        return new ConsoleController(model) {
             @Override
             public void execute() {
                 System.out.println("Closing View...");
