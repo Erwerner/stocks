@@ -8,6 +8,8 @@ import application.core.exception.DateNotFound;
 import java.time.LocalDate;
 import java.util.*;
 
+import static java.lang.StrictMath.sqrt;
+
 public class OutputService {
     private DataService dataService;
 
@@ -101,20 +103,28 @@ public class OutputService {
         return fonds;
     }
 
-    public HashMap<String, Double[]> createWatchChangeToday(String[] watchWkns, ApplicationData data) {
-        HashMap<String, Double[]> watchToday = new HashMap<>();
+    public HashMap<String, List<Double>> createWatchChangeToday(String[] watchWkns, ApplicationData data) {
+        HashMap<String, List<Double>> watchToday = new HashMap<>();
         LocalDate lastDate = dataService.calcLastDate(data);
         for (String watchWkn : watchWkns) {
-            watchToday.put(watchWkn, new Double[]{
-                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(8)),
-                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(7)),
-                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(6)),
-                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(5)),
-                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(4)),
-                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(3)),
-                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(2)),
-                    dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(1)),
-                    dataService.calcWknChangeToday(watchWkn, data, lastDate)});
+            List<Double> values = new ArrayList<>();
+            List<Double> allToday = new ArrayList<>();
+            for (int i = 14; i >= 0; i--) {
+                double today = dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(i));
+                if (today == 0.0)
+                    continue;
+                if (sqrt(today * today) < 0.002)
+                    continue;
+                values.add(today);
+                allToday.add(today);
+                double sumCollect = 0;
+                for (Double collectToday : values) {
+                    sumCollect += collectToday;
+                }
+                if (sqrt(sumCollect * sumCollect) < 0.002)
+                        values.clear();
+            }
+            watchToday.put(watchWkn, values);
         }
         return watchToday;
     }

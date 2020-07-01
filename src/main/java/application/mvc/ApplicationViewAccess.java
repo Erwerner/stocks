@@ -38,7 +38,7 @@ public interface ApplicationViewAccess {
 
     HashMap<String, Double> getFondValues();
 
-    HashMap<String, Double[]> getWatchChange() throws IOException;
+    HashMap<String, List<Double>> getWatchChange() throws IOException;
 
     double getWknChangeAtDate(String wkn, LocalDate date);
 }

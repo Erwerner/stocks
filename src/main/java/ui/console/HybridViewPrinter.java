@@ -8,6 +8,7 @@ import application.mvc.ApplicationViewAccess;
 import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -69,9 +70,9 @@ public class HybridViewPrinter {
             if (buy.isActive())
                 active = "X";
             LocalDate lastDate = model.getLastDate();
-            double buyWin = ((Double) (model.getBuyWin(buy) * 10000)).intValue() / 100.0;
+            double buyWin = convToPercentage(model.getBuyWin(buy));
             double wknChangeToday = model.getWknChangeAtDate(buy.getWkn(), lastDate);
-            double buyDayWin = ((Double) (wknChangeToday * 10000)).intValue() / 100.0;
+            double buyDayWin = convToPercentage(wknChangeToday);
             double winDay = 0;
             try {
                 winDay = (wknChangeToday * buy.getAmount() * model.getWknPointAtDate(buy.getWkn(), lastDate));
@@ -83,7 +84,7 @@ public class HybridViewPrinter {
             Double neuTotal = model.getTotalLine(lastDate)[0];
             double totalChange = (neuTotal - oldTotal);
             totalChange = sqrt(totalChange * totalChange);
-            double winDayPercentage = ((Double) (winDay / totalChange * 10000)).intValue() / 100.0;
+            double winDayPercentage = convToPercentage(winDay / totalChange);
             String dayPositive = "+";
             if (winDay < 0)
                 dayPositive = "-";
@@ -131,16 +132,23 @@ public class HybridViewPrinter {
     public void printWatch(ApplicationViewAccess model) {
         System.out.println("\n- Watch: --");
         try {
-            model.getWatchChange().forEach((wkn, todays) -> {
+            HashMap<String, List<Double>> watchChange = model.getWatchChange();
+            watchChange.forEach((wkn, todays) -> {
+                String values = "";
                 Wkn wkn1 = model.getWkn(wkn);
-                System.out.println();
+                double sum=0.0;
                 for (Double today : todays) {
-                    double outToday = ((Double) (today * 10000)).intValue() / 100.0;
-                    System.out.println( wkn1.getWknName() + "\t" +  outToday);
+                    sum+=today;
+                    values += ("\t  " + convToPercentage(today));
                 }
+                System.out.println(wkn1.getWknUrl() + " (" + convToPercentage(sum) +  ") " + values);
             });
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private double convToPercentage(Double today) {
+        return ((Double) (today * 10000)).intValue() / 100.0;
     }
 }

@@ -106,7 +106,7 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public HashMap<String, Double[]> getWatchChange() throws IOException {
+    public HashMap<String, List<Double>> getWatchChange() throws IOException {
         String[] watchWkns = readerService.getWatchWkns();
         for (String watchWkn : watchWkns) {
             addWkn(watchWkn);
