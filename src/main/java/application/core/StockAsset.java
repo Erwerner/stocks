@@ -162,4 +162,8 @@ public class StockAsset {
     public WknPoint getWknPointForDate(LocalDate date) throws DateNotFound {
         return wknkRow.getPointAtDate(getLastFoundDateFor(date));
     }
+
+    public Double getWknValueAtDate(LocalDate date) throws DateNotFound {
+        return wknkRow.getPointAtDate(getLastFoundDateFor(date)).getValue();
+    }
 }

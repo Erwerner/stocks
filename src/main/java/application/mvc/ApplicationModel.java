@@ -103,6 +103,11 @@ public class ApplicationModel extends Model implements
         return win;
     }
 
+    @Override
+    public Double getWknValueAtDate(String wkn, LocalDate date) throws DateNotFound {
+        return data.getAssets().get(wkn).getWknValueAtDate(date);
+    }
+
 
     private boolean hasBuyAtDate(LocalDate date) {
         for (StockAsset stockAsset : data.getAssets().values()) {

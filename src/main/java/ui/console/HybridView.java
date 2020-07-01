@@ -1,6 +1,5 @@
 package ui.console;
 
-import application.core.StockBuy;
 import application.mvc.ApplicationControllerAccess;
 import application.mvc.ApplicationViewAccess;
 import helper.IO;
@@ -12,9 +11,7 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 
 import static ui.console.ConsoleControllerType.*;
 
@@ -26,98 +23,35 @@ public class HybridView extends JFrame implements View {
     private int width = 1200;
     private boolean showBuyLines = false;
     private int showLines = 1;
+    private final HybridViewPrinter hybridViewPrinter;
 
 
     public HybridView(Model model) {
         this.model = (ApplicationViewAccess) model;
         model.registerView(this);
         initWindow();
-        initController(model);
+        controllers = new ConsoleControllerFactory().initController(this,model);
+        hybridViewPrinter = new HybridViewPrinter();
         run();
     }
 
     private void initWindow() {
         JPanel panel = new JPanel();
         getContentPane().add(panel);
-        setSize(width, 650);
+        setSize(width, 550);
         setAlwaysOnTop(true);
     }
 
     @Override
     public void paint(Graphics arg0) {
         super.paint(arg0);
-        List<Double[]> lines;
-        if (showLines == 1)
-            lines = model.getRelativeLines(maxRange);
-        else
-            lines = model.getProfitLines(maxRange);
-        drawLines(arg0, lines);
+        hybridViewPrinter.drawLines(arg0, model, maxRange, width, showLines);
         if (showBuyLines)
-            printBuyLines(arg0);
-        printWkns();
-        printToday();
+            hybridViewPrinter.printBuyLines(arg0, model, maxRange, width);
+        hybridViewPrinter.printWkns(model);
+        hybridViewPrinter.printToday(model);
     }
 
-    private void printBuyLines(Graphics arg0) {
-        List<Boolean> buys = model.getBuyLines(maxRange);
-        int col = 0;
-        int size = width / this.maxRange;
-        for (Boolean buy : buys) {
-            if (buy)
-                arg0.drawLine(size * col, 0, size * col, 900);
-            col += 1;
-        }
-    }
-
-    private void drawLines(Graphics arg0, List<Double[]> printLines) {
-        int col = 0;
-        int size;
-        int zero;
-        Double scale;
-        size = width / this.maxRange;
-        if (showLines == 1) {
-            zero = 300;
-            scale = -800.0;
-        } else {
-            zero = 200;
-            scale = -0.06;
-        }
-        for (Double[] printLine : printLines) {
-            printLine[0] *= scale;
-            printLine[1] *= scale;
-            printLine[0] += zero;
-            printLine[1] += zero;
-        }
-        for (Double[] printLine : printLines) {
-            System.out.println(printLine[0]);
-            arg0.drawLine(size * col, printLine[0].intValue(), size + size * col, printLine[1].intValue());
-            arg0.drawLine(size * col, zero, size + size * col, zero);
-            col += 1;
-        }
-    }
-
-    private void printToday() {
-        LocalDate lastDate = model.getLastDate();
-        Double old = model.getTotalLine(lastDate.minusDays(1))[0];
-        Double neu = model.getTotalLine(lastDate)[0];
-        System.out.println("old:  " + old);
-        System.out.println("new:  " + neu);
-        System.out.println("diff: " + (neu - old));
-        System.out.println("win:  " + (neu - model.getCostsAtDate(lastDate)));
-        System.out.println((100 * neu / model.getCostsAtDate(lastDate) - 100) + " %");
-    }
-
-    private void printWkns() {
-        int count = 0;
-        for (StockBuy buy : model.getAllBuys()) {
-            String active = " ";
-            if (buy.isActive())
-                active = "X";
-            Double buyWin = ((Double) (model.getBuyWin(buy) * 10000)).intValue() / 100.0;
-            System.out.println(active + " [" + count + "] " + buy.getWkn() + " " + buy.getDate() + " (" + buyWin + "%) " + model.getWknName(buy.getWkn()));
-            count++;
-        }
-    }
 
 
     private void run() {
@@ -131,25 +65,8 @@ public class HybridView extends JFrame implements View {
         }
     }
 
-    private void initController(Model model) {
-        controllers = new HashMap<>();
-        ConsoleControllerFactory controllerFactory = new ConsoleControllerFactory();
-        controllers.put(ConsoleControllerType.EXIT, initExitController((ApplicationControllerAccess) model));
-        controllers.put(ConsoleControllerType.BUYS, initBuysController((ApplicationControllerAccess) model));
-        controllers.put(ConsoleControllerType.LINE, initLinesController((ApplicationControllerAccess) model));
-        controllers.put(EXEC,
-                controllerFactory.initDoController((ApplicationControllerAccess) model));
-        controllers.put(TOGL,
-                controllerFactory.initTogglController((ApplicationControllerAccess) model));
-        controllers.put(RNGE,
-                initRangeController((ApplicationControllerAccess) model));
-        controllers.put(TGAL,
-                controllerFactory.initTogglAllController((ApplicationControllerAccess) model));
-        controllers.put(TGWN,
-                controllerFactory.initTogglWinController((ApplicationControllerAccess) model));
-    }
 
-    private ConsoleController initLinesController(ApplicationControllerAccess model) {
+    public ConsoleController initLinesController(ApplicationControllerAccess model) {
         return new ConsoleController(model) {
             @Override
             public void execute() {
@@ -159,7 +76,7 @@ public class HybridView extends JFrame implements View {
         };
     }
 
-    private ConsoleController initBuysController(ApplicationControllerAccess model) {
+    public ConsoleController initBuysController(ApplicationControllerAccess model) {
         return new ConsoleController(model) {
             @Override
             public void execute() {
@@ -173,7 +90,7 @@ public class HybridView extends JFrame implements View {
     }
 
 
-    private ConsoleController initRangeController(ApplicationControllerAccess model) {
+    public ConsoleController initRangeController(ApplicationControllerAccess model) {
         return new ConsoleController(model) {
             @Override
             public void execute() {
@@ -187,7 +104,7 @@ public class HybridView extends JFrame implements View {
         };
     }
 
-    private ConsoleController initExitController(ApplicationControllerAccess model) {
+    public ConsoleController initExitController(ApplicationControllerAccess model) {
         return new ConsoleController(model) {
             @Override
             public void execute() {

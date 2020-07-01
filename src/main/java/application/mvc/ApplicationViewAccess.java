@@ -1,6 +1,7 @@
 package application.mvc;
 
 import application.core.StockBuy;
+import application.core.exception.DateNotFound;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,4 +28,6 @@ public interface ApplicationViewAccess {
     List<Double[]> getRelativeLines(Integer maxRange);
 
     Double getBuyWin(StockBuy buy);
+
+    Double getWknValueAtDate(String wkn, LocalDate minusDays) throws DateNotFound;
 }
