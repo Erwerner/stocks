@@ -41,4 +41,6 @@ public interface ApplicationViewAccess {
     HashMap<String, List<Double>> getWatchChange() throws IOException;
 
     double getWknChangeAtDate(String wkn, LocalDate date);
+
+    HashMap<String, Double> getWknTypeSums();
 }

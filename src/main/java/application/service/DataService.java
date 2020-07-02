@@ -1,12 +1,10 @@
 package application.service;
 
-import application.core.ApplicationData;
-import application.core.Asset;
-import application.core.AssetBuy;
-import application.core.Wkn;
+import application.core.*;
 import application.core.exception.DateNotFound;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 
 public class DataService {
 
@@ -51,6 +49,7 @@ public class DataService {
         }
         return win;
     }
+
     public Wkn createWkn(String wkn, ApplicationData data) {
         return new Wkn(wkn, data.getWknName(wkn), data.getWknType(wkn), data.getWknUrl(wkn));
     }
@@ -67,4 +66,5 @@ public class DataService {
         }
         return neu / old - 1;
     }
+
 }

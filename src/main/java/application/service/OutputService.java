@@ -2,6 +2,7 @@ package application.service;
 
 import application.core.ApplicationData;
 import application.core.Asset;
+import application.core.Value;
 import application.core.Wkn;
 import application.core.exception.DateNotFound;
 
@@ -87,7 +88,7 @@ public class OutputService {
         Set<Wkn> wkns = new HashSet<>();
         data.getAssets().keySet().forEach(wkn1 -> wkns.add(dataService.createWkn(wkn1, data)));
         for (Wkn wkn : wkns) {
-            if (!wkn.getWknType().equals("FOND"))
+            if (!wkn.getWknType().startsWith("FOND"))
                 continue;
             if (data.getAssets().get(wkn.getWkn()).getActiveBuys().isEmpty())
                 continue;
@@ -119,5 +120,26 @@ public class OutputService {
             watchToday.put(watchWkn, values);
         }
         return watchToday;
+    }
+
+    public HashMap<String, Double> calcWknTypeSums(ApplicationData data) {
+        HashMap<String, Double> sums = new HashMap<>();
+        data.getAssets().forEach((wkn, asset) -> {
+            if (!asset.getActiveBuys().isEmpty()) {
+
+                String wknType = data.getWknType(wkn);
+                if (!sums.containsKey(wknType))
+                    sums.put(wknType, 0.0);
+                try {
+                    Value value = asset.getValueAtDateWithBuy(dataService.calcLastDate(data));
+                    Double typeValue = sums.get(wknType) + value.getValue();
+                    sums.put(wknType, typeValue);
+                } catch (DateNotFound dateNotFound) {
+                    dateNotFound.printStackTrace();
+                }
+            }
+        });
+
+        return sums;
     }
 }

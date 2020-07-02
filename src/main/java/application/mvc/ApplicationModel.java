@@ -119,6 +119,11 @@ public class ApplicationModel extends Model implements
         return dataService.calcWknChangeToday(wkn, data, date);
     }
 
+    @Override
+    public HashMap<String, Double> getWknTypeSums() {
+        return outputService.calcWknTypeSums(data);
+    }
+
     // Controller
     @Override
     public void importBuys() throws IOException {

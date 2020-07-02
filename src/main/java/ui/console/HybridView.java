@@ -50,6 +50,7 @@ public class HybridView extends JFrame implements View {
             hybridViewPrinter.printBuyLines(arg0, model, maxRange, width);
 
         hybridViewPrinter.printUrls(model);
+        hybridViewPrinter.printWknTypeSum(model);
         hybridViewPrinter.printFonds(model);
         hybridViewPrinter.printBuys(model);
         hybridViewPrinter.printWatch(model);

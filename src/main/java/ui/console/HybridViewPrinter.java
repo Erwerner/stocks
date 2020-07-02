@@ -8,6 +8,7 @@ import application.mvc.ApplicationViewAccess;
 import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -95,7 +96,7 @@ public class HybridViewPrinter {
                     "\t" + buy.getWkn() + " " +
                     "\t" + buy.getDate() +
                     "\t (" + buyWin + "%) " +
-                    "\t " + wkn.getWknType() +
+                    "\t " + convWknType(wkn.getWknType()) +
                     "\t" + dayPositive +
                     "\t (" + buyDayWin + "% ) " +
                     "\t (" + winDayPercentage + "%) " +
@@ -103,6 +104,13 @@ public class HybridViewPrinter {
                     "\t" + wkn.getWknName());
             count++;
         }
+    }
+
+    private String convWknType(String wknType1) {
+        String wknType = wknType1;
+        while (wknType.length() < 8)
+            wknType += " ";
+        return wknType;
     }
 
 
@@ -143,8 +151,8 @@ public class HybridViewPrinter {
                     values += ("\t  " + convToPercentage(today));
                 }
                 System.out.println();
-                System.out.println(wkn1.getWknUrl() + " " + wkn1.getWknType() + values);
-                System.out.println(wkn1.getWknUrl() + " " + wkn1.getWknType() + sums);
+                System.out.println(wkn1.getWknUrl() + " " + convWknType(wkn1.getWknType()) + values);
+                System.out.println(wkn1.getWknUrl() + " " + convWknType(wkn1.getWknType()) + sums);
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -153,5 +161,31 @@ public class HybridViewPrinter {
 
     private double convToPercentage(Double today) {
         return ((Double) (today * 10000)).intValue() / 100.0;
+    }
+
+    public void printWknTypeSum(ApplicationViewAccess model) {
+        List<String> combEtc = Arrays.asList("ETC", "GOLD");
+        List<String> combFond = Arrays.asList("FOND SW", "FOND DIV", "FOND");
+        System.out.println("\n- Types --");
+        HashMap<String, Double> sums = model.getWknTypeSums();
+        double total = 0.0;
+        for (Double value : sums.values()) {
+            total += value;
+        }
+        double finalTotal = total;
+        sums.forEach((wknType, value) -> {
+            System.out.println(convWknType(wknType) + " \t" + convToPercentage(value / finalTotal) + "%" + " \t" + value);
+        });
+        printComb(combEtc, sums, finalTotal, "Comb ETC");
+        printComb(combFond, sums, finalTotal, "Comb FOND");
+    }
+
+    private void printComb(List<String> combEtc, HashMap<String, Double> sums, double finalTotal, String comb_etc) {
+        final double[] sum = {0.0};
+        sums.forEach((wknType, value) -> {
+            if (combEtc.contains(wknType))
+                sum[0] += value;
+        });
+        System.out.println(convWknType(comb_etc) + " \t" + convToPercentage(sum[0] / finalTotal) + "%" + " \t" + sum[0]);
     }
 }
