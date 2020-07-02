@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class AssetTest extends UnitTest {
-    Asset cut;
+    private Asset cut;
 
     @Test
     public void when_three_buys_are_added_then_the_first_is_returned() throws NoBuys {

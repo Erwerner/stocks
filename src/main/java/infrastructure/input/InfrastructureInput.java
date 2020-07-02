@@ -32,7 +32,7 @@ public class InfrastructureInput extends ApplicationInput {
     @Override
     public List<AssetBuy> readBuys() throws IOException {
         ArrayList<AssetBuy> assetBuys = new ArrayList<>();
-        String file = ResourceFileReader.readResource("buys");
+        String file = ResourceFileReader.readResource("assetBuys");
         String[] buys = file.split("\n");
         for (String buy : buys) {
             String[] buyData = buy.split(",");
