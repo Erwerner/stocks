@@ -43,4 +43,6 @@ public interface ApplicationViewAccess {
     double getWknChangeAtDate(String wkn, LocalDate date);
 
     HashMap<String, Double> getWknTypeSums();
+
+    double getCash();
 }

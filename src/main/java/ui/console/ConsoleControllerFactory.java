@@ -22,11 +22,26 @@ public class ConsoleControllerFactory {
         controllers.put(TOGL, initTogglController((ApplicationControllerAccess) model));
         controllers.put(TGAL, initTogglAllController((ApplicationControllerAccess) model));
         controllers.put(TGWN, initTogglWinController((ApplicationControllerAccess) model));
-        controllers.put(BRWS, initBrowserWinController((ApplicationControllerAccess) model));
+        controllers.put(BRWS, initBrowserController((ApplicationControllerAccess) model));
+        controllers.put(CASH, initCashController((ApplicationControllerAccess) model));
         return controllers;
     }
 
-    private ConsoleController initBrowserWinController(ApplicationControllerAccess model) {
+    private ConsoleController initCashController(ApplicationControllerAccess model) {
+        return new ConsoleController(model) {
+            @Override
+            public void execute() {
+                try {
+                    String cash = new BufferedReader(new InputStreamReader(System.in)).readLine();
+                    model.setCash(new Double(cash));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    private ConsoleController initBrowserController(ApplicationControllerAccess model) {
         return new ConsoleController(model) {
             @Override
             public void execute() {

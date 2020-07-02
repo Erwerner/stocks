@@ -34,6 +34,8 @@ public class HybridViewPrinter {
         Double scale;
         size = width / maxRange;
         List<Double[]> lines;
+        Double minusTen = 0.0;
+        Double plusTen = 0.0;
         if (showLines == 1) {
             lines = model.getRelativeLines(maxRange);
             zero = 300;
@@ -44,14 +46,23 @@ public class HybridViewPrinter {
             scale = -0.06;
         }
         for (Double[] printLine : lines) {
+            plusTen = 0.1;
+            minusTen = -0.1;
             printLine[0] *= scale;
             printLine[1] *= scale;
             printLine[0] += zero;
             printLine[1] += zero;
+            minusTen *= scale;
+            minusTen += zero;
+            plusTen *= scale;
+            plusTen += zero;
+            System.out.println(minusTen);
         }
         for (Double[] printLine : lines) {
             arg0.drawLine(size * col, printLine[0].intValue(), size + size * col, printLine[1].intValue());
             arg0.drawLine(size * col, zero, size + size * col, zero);
+            arg0.drawLine(size * col, plusTen.intValue(), size + size * col, plusTen.intValue());
+            arg0.drawLine(size * col, minusTen.intValue(), size + size * col, minusTen.intValue());
             col += 1;
         }
     }
@@ -147,12 +158,12 @@ public class HybridViewPrinter {
                 String sums = "";
                 for (Double today : todays) {
                     sum += today;
-                    sums += ("\t  " + convToPercentage(sum));
-                    values += ("\t  " + convToPercentage(today));
+                    sums += (convToPercentage(sum) + "\t");
+                    values += (convToPercentage(today) + "\t");
                 }
-                System.out.println();
-                System.out.println(wkn1.getWknUrl() + " " + convWknType(wkn1.getWknType()) + values);
-                System.out.println(wkn1.getWknUrl() + " " + convWknType(wkn1.getWknType()) + sums);
+                System.out.println(wkn1.getWknUrl() + " " + convWknType(wkn1.getWknType()));
+                System.out.println(values);
+                System.out.println(sums);
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -164,11 +175,12 @@ public class HybridViewPrinter {
     }
 
     public void printWknTypeSum(ApplicationViewAccess model) {
+        double cash = model.getCash();
         List<String> combEtc = Arrays.asList("ETC", "GOLD");
         List<String> combFond = Arrays.asList("FOND SW", "FOND DIV", "FOND");
         System.out.println("\n- Types --");
         HashMap<String, Double> sums = model.getWknTypeSums();
-        double total = 0.0;
+        double total = cash;
         for (Double value : sums.values()) {
             total += value;
         }
@@ -176,6 +188,8 @@ public class HybridViewPrinter {
         sums.forEach((wknType, value) -> {
             System.out.println(convWknType(wknType) + " \t" + convToPercentage(value / finalTotal) + "%" + " \t" + value);
         });
+        System.out.println();
+        System.out.println(convWknType("CASH") + "\t" + convToPercentage(cash / total) + "\t" + cash);
         printComb(combEtc, sums, finalTotal, "Comb ETC");
         printComb(combFond, sums, finalTotal, "Comb FOND");
     }

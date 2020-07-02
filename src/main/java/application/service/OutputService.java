@@ -109,7 +109,7 @@ public class OutputService {
         LocalDate lastDate = dataService.calcLastDate(data);
         for (String watchWkn : watchWkns) {
             List<Double> values = new ArrayList<>();
-            for (int i = 0; i < 15; i++) {
+            for (int i = 0; i < 31; i++) {
                 double today = dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(i));
                 if (today == 0.0)
                     continue;

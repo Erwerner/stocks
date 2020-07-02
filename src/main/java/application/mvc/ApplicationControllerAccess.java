@@ -13,4 +13,6 @@ public interface ApplicationControllerAccess {
     void togglWin();
 
     void openBrowser();
+
+    void setCash(double cash);
 }

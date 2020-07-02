@@ -9,6 +9,7 @@ public class ApplicationData {
     private final HashMap<String, String> wknNames;
     private final HashMap<String, String> wknTypes;
     private final HashMap<String, String> wknUrls;
+    private double cash=0.0;
 
     public ApplicationData() {
         assets = new HashMap<>();
@@ -45,5 +46,13 @@ public class ApplicationData {
 
     public String getWknUrl(String wkn) {
         return wknUrls.get(wkn);
+    }
+
+    public double getCash() {
+        return cash;
+    }
+
+    public void setCash(double cash) {
+        this.cash = cash;
     }
 }

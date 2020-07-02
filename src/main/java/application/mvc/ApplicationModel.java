@@ -124,6 +124,11 @@ public class ApplicationModel extends Model implements
         return outputService.calcWknTypeSums(data);
     }
 
+    @Override
+    public double getCash() {
+        return data.getCash();
+    }
+
     // Controller
     @Override
     public void importBuys() throws IOException {
@@ -183,5 +188,11 @@ public class ApplicationModel extends Model implements
                 }
             }
         }
+    }
+
+    @Override
+    public void setCash(double cash) {
+        data.setCash(cash);
+        notifyViews();
     }
 }
