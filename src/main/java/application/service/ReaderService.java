@@ -1,6 +1,6 @@
 package application.service;
 
-import application.core.StockBuy;
+import application.core.AssetBuy;
 import application.core.WknPoint;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class ReaderService {
         return input.getWknPoints(wkn);
     }
 
-    public List<StockBuy> importBuys() throws IOException {
+    public List<AssetBuy> importBuys() throws IOException {
         return input.readBuys();
     }
 

@@ -1,6 +1,6 @@
 package ui.console;
 
-import application.core.StockBuy;
+import application.core.AssetBuy;
 import application.core.Wkn;
 import application.core.exception.DateNotFound;
 import application.mvc.ApplicationViewAccess;
@@ -8,7 +8,6 @@ import application.mvc.ApplicationViewAccess;
 import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -65,7 +64,7 @@ public class HybridViewPrinter {
     public void printBuys(ApplicationViewAccess model) {
         System.out.println("\n- Buys: --");
         int count = 0;
-        for (StockBuy buy : model.getAllBuys()) {
+        for (AssetBuy buy : model.getAllBuys()) {
             String active = " ";
             if (buy.isActive())
                 active = "X";
@@ -136,12 +135,16 @@ public class HybridViewPrinter {
             watchChange.forEach((wkn, todays) -> {
                 String values = "";
                 Wkn wkn1 = model.getWkn(wkn);
-                double sum=0.0;
+                double sum = 0.0;
+                String sums = "";
                 for (Double today : todays) {
-                    sum+=today;
+                    sum += today;
+                    sums += ("\t  " + convToPercentage(sum));
                     values += ("\t  " + convToPercentage(today));
                 }
-                System.out.println(wkn1.getWknUrl() + " (" + convToPercentage(sum) +  ") " + values);
+                System.out.println();
+                System.out.println(wkn1.getWknUrl() + " " + wkn1.getWknType() + values);
+                System.out.println(wkn1.getWknUrl() + " " + wkn1.getWknType() + sums);
             });
         } catch (IOException e) {
             e.printStackTrace();

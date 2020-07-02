@@ -47,14 +47,14 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public ArrayList<StockBuy> getAllBuys() {
-        ArrayList<StockBuy> stockBuys = new ArrayList<>();
-        for (StockAsset stockAsset : data.getAssets().values()) {
-            List<StockBuy> buys = stockAsset.getAllBuys();
-            stockBuys.addAll(buys);
+    public ArrayList<AssetBuy> getAllBuys() {
+        ArrayList<AssetBuy> assetBuys = new ArrayList<>();
+        for (Asset asset : data.getAssets().values()) {
+            List<AssetBuy> buys = asset.getAllBuys();
+            assetBuys.addAll(buys);
         }
-        stockBuys.sort(Comparator.comparing(StockBuy::getDate));
-        return stockBuys;
+        assetBuys.sort(Comparator.comparing(AssetBuy::getDate));
+        return assetBuys;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public Double getBuyWin(StockBuy buy) {
+    public Double getBuyWin(AssetBuy buy) {
         return dataService.calcBuyWin(buy, data);
     }
 
@@ -122,17 +122,17 @@ public class ApplicationModel extends Model implements
     // Controller
     @Override
     public void importBuys() throws IOException {
-        for (StockBuy stockBuy : readerService.importBuys()) {
-            if (!data.getAssets().containsKey(stockBuy.getWkn()))
-                addWkn(stockBuy.getWkn());
-            data.addBuy(stockBuy);
+        for (AssetBuy assetBuy : readerService.importBuys()) {
+            if (!data.getAssets().containsKey(assetBuy.getWkn()))
+                addWkn(assetBuy.getWkn());
+            data.addBuy(assetBuy);
         }
         notifyViews();
     }
 
     @Override
     public void togglBuy(Integer id) {
-        StockBuy buy = getAllBuys().get(id);
+        AssetBuy buy = getAllBuys().get(id);
         data.togglBuy(buy);
         notifyViews();
     }
@@ -146,11 +146,11 @@ public class ApplicationModel extends Model implements
     @Override
     public void togglWin() {
         LocalDate lastDate = getLastDate();
-        for (StockAsset stockAsset : data.getAssets().values()) {
+        for (Asset asset : data.getAssets().values()) {
             try {
-                StockValue valueAtDateWithBuy = stockAsset.getValueAtDateWithBuy(lastDate);
-                Double costAtDate = stockAsset.getCostAtDate(lastDate);
-                for (StockBuy buy : stockAsset.getAllBuys())
+                Value valueAtDateWithBuy = asset.getValueAtDateWithBuy(lastDate);
+                Double costAtDate = asset.getCostAtDate(lastDate);
+                for (AssetBuy buy : asset.getAllBuys())
                     buy.setActive(valueAtDateWithBuy.getValue() >= costAtDate);
             } catch (DateNotFound dateNotFound) {
                 dateNotFound.printStackTrace();

@@ -1,6 +1,6 @@
 package infrastructure.input;
 
-import application.core.StockBuy;
+import application.core.AssetBuy;
 import application.core.WknPoint;
 import application.service.ApplicationInput;
 import helper.ResourceFileReader;
@@ -30,16 +30,16 @@ public class InfrastructureInput extends ApplicationInput {
     }
 
     @Override
-    public List<StockBuy> readBuys() throws IOException {
-        ArrayList<StockBuy> stockBuys = new ArrayList<>();
+    public List<AssetBuy> readBuys() throws IOException {
+        ArrayList<AssetBuy> assetBuys = new ArrayList<>();
         String file = ResourceFileReader.readResource("buys");
         String[] buys = file.split("\n");
         for (String buy : buys) {
             String[] buyData = buy.split(",");
             System.out.println(buy);
-            stockBuys.add(new StockBuy(buyData[0], LocalDate.parse(buyData[1]), Integer.parseInt(buyData[2]), Double.parseDouble(buyData[3]), Double.parseDouble(buyData[4])));
+            assetBuys.add(new AssetBuy(buyData[0], LocalDate.parse(buyData[1]), Integer.parseInt(buyData[2]), Double.parseDouble(buyData[3]), Double.parseDouble(buyData[4])));
         }
-        return stockBuys;
+        return assetBuys;
     }
 
     @Override

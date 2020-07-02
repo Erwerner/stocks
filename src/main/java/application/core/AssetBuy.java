@@ -2,7 +2,7 @@ package application.core;
 
 import java.time.LocalDate;
 
-public class StockBuy {
+public class AssetBuy {
     private final String wkn;
     private final LocalDate date;
     private final Integer amount;
@@ -11,7 +11,7 @@ public class StockBuy {
 
     private boolean active;
 
-    public StockBuy(String wkn, LocalDate date, Integer amount, Double fee, Double value) {
+    public AssetBuy(String wkn, LocalDate date, Integer amount, Double fee, Double value) {
         this.wkn = wkn;
         this.date = date;
         this.amount = amount;
@@ -37,10 +37,7 @@ public class StockBuy {
     }
 
     public void toggl() {
-        if(active)
-            setActive(false);
-        else
-            setActive(true);
+        setActive(!active);
     }
 
     public boolean isActive() {
@@ -48,6 +45,6 @@ public class StockBuy {
     }
 
     public void setActive(boolean active) {
-        this.active= active;
+        this.active = active;
     }
 }

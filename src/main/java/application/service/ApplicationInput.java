@@ -1,6 +1,6 @@
 package application.service;
 
-import application.core.StockBuy;
+import application.core.AssetBuy;
 import application.core.WknPoint;
 
 import java.io.IOException;
@@ -11,7 +11,7 @@ public abstract class ApplicationInput {
 
     public abstract ArrayList<WknPoint> getWknPoints(String wkn) throws IOException;
 
-    public abstract List<StockBuy> readBuys() throws IOException;
+    public abstract List<AssetBuy> readBuys() throws IOException;
 
     public abstract String getWknName(String wkn) throws IOException;
 

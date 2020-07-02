@@ -1,6 +1,6 @@
 package application.mvc;
 
-import application.core.StockBuy;
+import application.core.AssetBuy;
 import application.core.Wkn;
 import application.core.exception.DateNotFound;
 
@@ -18,7 +18,7 @@ public interface ApplicationViewAccess {
 
     LocalDate getLastDate();
 
-    ArrayList<StockBuy> getAllBuys();
+    ArrayList<AssetBuy> getAllBuys();
 
     List<Double[]> getProfitLines(Integer maxRange);
 
@@ -26,7 +26,7 @@ public interface ApplicationViewAccess {
 
     List<Double[]> getRelativeLines(Integer maxRange);
 
-    Double getBuyWin(StockBuy buy);
+    Double getBuyWin(AssetBuy buy);
 
     Double getWknPointAtDate(String wkn, LocalDate minusDays) throws DateNotFound;
 

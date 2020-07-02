@@ -1,7 +1,7 @@
 package application.service;
 
 import application.core.ApplicationData;
-import application.core.StockAsset;
+import application.core.Asset;
 import application.core.Wkn;
 import application.core.exception.DateNotFound;
 
@@ -73,9 +73,9 @@ public class OutputService {
         Double end = 0.0;
         for (String wkn : data.getAssets().keySet()) {
             try {
-                StockAsset stockAsset = data.getAssets().get(wkn);
-                start += stockAsset.getValueAtDateWithBuy(date).getValue();
-                end += stockAsset.getValueAtDateWithoutBuy(date.plusDays(1)).getValue();
+                Asset asset = data.getAssets().get(wkn);
+                start += asset.getValueAtDateWithBuy(date).getValue();
+                end += asset.getValueAtDateWithoutBuy(date.plusDays(1)).getValue();
             } catch (DateNotFound dateNotFound) {
             }
         }
@@ -108,21 +108,13 @@ public class OutputService {
         LocalDate lastDate = dataService.calcLastDate(data);
         for (String watchWkn : watchWkns) {
             List<Double> values = new ArrayList<>();
-            List<Double> allToday = new ArrayList<>();
-            for (int i = 14; i >= 0; i--) {
+            for (int i = 0; i < 15; i++) {
                 double today = dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(i));
                 if (today == 0.0)
                     continue;
                 if (sqrt(today * today) < 0.002)
                     continue;
                 values.add(today);
-                allToday.add(today);
-                double sumCollect = 0;
-                for (Double collectToday : values) {
-                    sumCollect += collectToday;
-                }
-                if (sqrt(sumCollect * sumCollect) < 0.002)
-                        values.clear();
             }
             watchToday.put(watchWkn, values);
         }
