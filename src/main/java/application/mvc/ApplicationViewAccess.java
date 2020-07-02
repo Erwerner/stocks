@@ -14,26 +14,21 @@ import java.util.Set;
 
 public interface ApplicationViewAccess {
 
-    // View
-    Double[] getTotalLine(LocalDate date);
-
     LocalDate getLastDate();
 
     ArrayList<AssetBuy> getAllBuys();
 
-    List<Double[]> getProfitLines(Integer maxRange);
-
     List<Boolean> getBuyLines(Integer maxRange);
 
-    List<Double[]> getRelativeLines(Integer maxRange);
+    List<Value[]> getRelativeLines(Integer maxRange);
 
-    Double getBuyWin(AssetBuy buy);
+    Value getBuyWin(AssetBuy buy);
 
     Double getWknPointAtDate(String wkn, LocalDate minusDays) throws DateNotFound;
 
     Set<Wkn> getWkns();
 
-    HashMap<String, Double> getTodayStats();
+    HashMap<String, Value> getTodayStats();
 
     Wkn getWkn(String wkn);
 
@@ -45,5 +40,5 @@ public interface ApplicationViewAccess {
 
     HashMap<String, Value> getWknTypeSums();
 
-    double getCash();
+    double getTotalChangeAtDate(LocalDate date);
 }

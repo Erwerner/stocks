@@ -18,18 +18,18 @@ public class OutputService {
         this.dataService = dataService;
     }
 
-    public HashMap<String, Double> createTodayStats(ApplicationData data) {
-        HashMap<String, Double> todayStats = new HashMap<>();
+    public HashMap<String, Value> createTodayStats(ApplicationData data) {
+        HashMap<String, Value> todayStats = new HashMap<>();
         LocalDate lastDate = dataService.calcLastDate(data);
-        Double old = getTotalLine(lastDate.minusDays(1), data)[0];
-        Double neu = getTotalLine(lastDate, data)[0];
+        Value old = new Value(getTotalLineAtDate(lastDate.minusDays(1), data)[0]);
+        Value neu = new Value(getTotalLineAtDate(lastDate, data)[0]);
         Double todayCosts = dataService.calcCostsAtDate(lastDate, data);
 
         todayStats.put("old ", old);
         todayStats.put("new", neu);
-        todayStats.put("diff", (neu - old));
-        todayStats.put("win ", (neu - todayCosts));
-        todayStats.put("win%", (100 * neu / todayCosts - 100));
+        todayStats.put("diff", neu.copy().sub(old));
+        todayStats.put("win ", neu.copy().sub(todayCosts));
+        todayStats.values().forEach(value -> value.setTotal(todayCosts));
         return todayStats;
     }
 
@@ -42,34 +42,21 @@ public class OutputService {
     }
 
 
-    public List<Double[]> createProfitLines(Integer maxRange, ApplicationData data) {
-        List<Double[]> printLines = new ArrayList<>();
+    public List<Value[]> createLines(Integer maxRange, ApplicationData data) {
+        List<Value[]> lines = new ArrayList<>();
         for (int i = maxRange; i >= 0; i--) {
             LocalDate date = dataService.calcLastDate(data).minusDays(i);
-            printLines.add(getProfitLine(date, data));
-        }
-        return printLines;
-    }
-
-    public List<Double[]> createRelativeLines(Integer maxRange, ApplicationData data) {
-        List<Double[]> lines = new ArrayList<>();
-        for (int i = maxRange; i >= 0; i--) {
-            LocalDate date = dataService.calcLastDate(data).minusDays(i);
-            Double[] profitLine = getProfitLine(date, data);
-            profitLine[0] = profitLine[0] / dataService.calcCostsAtDate(date, data);
-            profitLine[1] = profitLine[1] / dataService.calcCostsAtDate(date, data);
-            lines.add(profitLine);
+            Value[] relativeLine = new Value[]{ new Value(),new Value()};
+            Double[] totalLine = getTotalLineAtDate(date, data);
+            Double[] profitLine = new Double[]{totalLine[0] - dataService.calcCostsAtDate(date, data), totalLine[1] - dataService.calcCostsAtDate(date, data)};
+            relativeLine[0] = new Value(profitLine[0]).setTotal(dataService.calcCostsAtDate(date, data));
+            relativeLine[1] = new Value(profitLine[1]).setTotal(dataService.calcCostsAtDate(date, data));
+            lines.add(relativeLine);
         }
         return lines;
     }
 
-
-    public Double[] getProfitLine(LocalDate date, ApplicationData data) {
-        Double[] totalLine = getTotalLine(date, data);
-        return new Double[]{totalLine[0] - dataService.calcCostsAtDate(date, data), totalLine[1] - dataService.calcCostsAtDate(date, data)};
-    }
-
-    public Double[] getTotalLine(LocalDate date, ApplicationData data) {
+    private Double[] getTotalLineAtDate(LocalDate date, ApplicationData data) {
         Double start = 0.0;
         Double end = 0.0;
         for (String wkn : data.getAssets().keySet()) {
@@ -160,5 +147,11 @@ public class OutputService {
                 sums.get(s).addValue(value);
             }
         });
+    }
+
+    public double calcTotalChangeAtDate(LocalDate date, ApplicationData data) {
+        Double oldTotal = getTotalLineAtDate(date.minusDays(1), data)[0];
+        Double neuTotal = getTotalLineAtDate(date, data)[0];
+        return neuTotal - oldTotal;
     }
 }

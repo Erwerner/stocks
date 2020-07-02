@@ -7,6 +7,9 @@ public class Value {
     public Value(Double value) {
         this.value = value;
     }
+    public Value() {
+        this.value = 0.0;
+    }
 
     public static Value calcFromAmount(Double value, Integer amount) {
         return new Value(value * amount);
@@ -20,14 +23,38 @@ public class Value {
         return value / total;
     }
 
-    public void addValue(Double add){
+    public Value addValue(Double add){
         value+= add;
+        return this;
     }
-    public void addValue(Value add){
-        value+= add.getValue();
+    public Value addValue(Value add){
+        addValue(add.getValue());
+        return this;
     }
 
-    public void setTotal(Double total) {
+    public Value setTotal(Double total) {
         this.total = total;
+        return this;
+    }
+
+    public Value copy(){
+        Value value = new Value(this.value);
+        value.setTotal(total);
+        return value;
+    }
+
+    public Value sub(Value old) {
+        value-=old.getValue();
+        return this;
+    }
+
+    public Value sub(Double todayCosts) {
+        value-=todayCosts;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return value.toString();
     }
 }

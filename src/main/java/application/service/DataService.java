@@ -37,17 +37,19 @@ public class DataService {
     }
 
 
-    public Double calcBuyWin(AssetBuy buy, ApplicationData data) {
+    public Value calcBuyWin(AssetBuy buy, ApplicationData data) {
         double win = 0.0;
+        Value value=new Value();
         try {
             String wkn = buy.getWkn();
             LocalDate lastDate = calcLastDate(data);
             Double buyValue = data.getAssets().get(wkn).getWknPointForDate(lastDate).getValue() * buy.getAmount();
             win = (buyValue - buy.getCosts()) / buy.getCosts();
+            value.addValue(buyValue).sub(buy.getCosts()).setTotal(buy.getCosts());
         } catch (DateNotFound dateNotFound) {
             dateNotFound.printStackTrace();
         }
-        return win;
+        return value;
     }
 
     public Wkn createWkn(String wkn, ApplicationData data) {
@@ -66,5 +68,4 @@ public class DataService {
         }
         return neu / old - 1;
     }
-
 }

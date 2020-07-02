@@ -35,12 +35,6 @@ public class ApplicationModel extends Model implements
             data.addWkn(wkn, readerService.getWknUrl(wkn), readerService.getStockRow(wkn), readerService.getWknType(wkn), readerService.getWknName(wkn));
     }
 
-    // View
-    @Override
-    public Double[] getTotalLine(LocalDate date) {
-        return outputService.getTotalLine(date, data);
-    }
-
     @Override
     public LocalDate getLastDate() {
         return dataService.calcLastDate(data);
@@ -57,22 +51,17 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public List<Double[]> getProfitLines(Integer maxRange) {
-        return outputService.createProfitLines(maxRange, data);
-    }
-
-    @Override
     public List<Boolean> getBuyLines(Integer maxRange) {
         return outputService.createBuyLines(maxRange, data);
     }
 
     @Override
-    public List<Double[]> getRelativeLines(Integer maxRange) {
-        return outputService.createRelativeLines(maxRange, data);
+    public List<Value[]> getRelativeLines(Integer maxRange) {
+        return outputService.createLines(maxRange, data);
     }
 
     @Override
-    public Double getBuyWin(AssetBuy buy) {
+    public Value getBuyWin(AssetBuy buy) {
         return dataService.calcBuyWin(buy, data);
     }
 
@@ -90,7 +79,7 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public HashMap<String, Double> getTodayStats() {
+    public HashMap<String, Value> getTodayStats() {
         return outputService.createTodayStats(data);
     }
 
@@ -124,8 +113,8 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public double getCash() {
-        return data.getCash();
+    public double getTotalChangeAtDate(LocalDate date) {
+        return outputService.calcTotalChangeAtDate(date, data);
     }
 
     // Controller

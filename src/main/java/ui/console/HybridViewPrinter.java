@@ -9,6 +9,7 @@ import application.mvc.ApplicationViewAccess;
 import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -36,12 +37,21 @@ public class HybridViewPrinter {
         List<Double[]> lines;
         Double minusTen = 0.0;
         Double plusTen = 0.0;
+        List<Value[]> relativeLines = model.getRelativeLines(maxRange);
+        lines = new ArrayList<>();
+        for (Value[] relativeLine : relativeLines) {
+            Double[] line;
+            if (showLines == 1) {
+                line = new Double[]{relativeLine[0].getPercentage(), relativeLine[1].getPercentage()};
+            } else {
+                line = new Double[]{relativeLine[0].getValue(), relativeLine[1].getValue()};
+            }
+            lines.add(line);
+        }
         if (showLines == 1) {
-            lines = model.getRelativeLines(maxRange);
             zero = 300;
             scale = -800.0;
         } else {
-            lines = model.getProfitLines(maxRange);
             zero = 200;
             scale = -0.06;
         }
@@ -67,9 +77,15 @@ public class HybridViewPrinter {
     }
 
     public void printToday(ApplicationViewAccess model) {
-        HashMap<String, Double> todayStats = model.getTodayStats();
+        HashMap<String, Value> todayStats = model.getTodayStats();
         System.out.println("\n- Yesterday: --");
         todayStats.forEach((key, value) -> System.out.println(key + ": " + value));
+        Value winValue = todayStats.get("win ");
+        System.out.println("win%: " + getPercentageValue(winValue));
+    }
+
+    private double getPercentageValue(Value winValue) {
+        return convToPercentage(winValue.getPercentage());
     }
 
     public void printBuys(ApplicationViewAccess model) {
@@ -80,7 +96,7 @@ public class HybridViewPrinter {
             if (buy.isActive())
                 active = "X";
             LocalDate lastDate = model.getLastDate();
-            double buyWin = convToPercentage(model.getBuyWin(buy));
+            double buyWin = getPercentageValue(model.getBuyWin(buy));
             double wknChangeToday = model.getWknChangeAtDate(buy.getWkn(), lastDate);
             double buyDayWin = convToPercentage(wknChangeToday);
             double winDay = 0;
@@ -90,9 +106,7 @@ public class HybridViewPrinter {
                 dateNotFound.printStackTrace();
             }
 
-            Double oldTotal = model.getTotalLine(lastDate.minusDays(1))[0];
-            Double neuTotal = model.getTotalLine(lastDate)[0];
-            double totalChange = (neuTotal - oldTotal);
+            double totalChange = model.getTotalChangeAtDate(lastDate);
             totalChange = sqrt(totalChange * totalChange);
             double winDayPercentage = convToPercentage(winDay / totalChange);
             String dayPositive = "+";
@@ -115,6 +129,7 @@ public class HybridViewPrinter {
             count++;
         }
     }
+
 
     private String convWknType(String wknType1) {
         String wknType = wknType1;
@@ -178,12 +193,12 @@ public class HybridViewPrinter {
         HashMap<String, Value> sums = model.getWknTypeSums();
         sums.forEach((wknType, value) -> {
             if (!wknType.startsWith(">"))
-                System.out.println(convWknType(wknType) + " \t" + convToPercentage(value.getPercentage()) + "%" + " \t" + value.getValue());
+                System.out.println(convWknType(wknType) + " \t" + getPercentageValue(value) + "%" + " \t" + value.getValue());
         });
         System.out.println();
         sums.forEach((wknType, value) -> {
             if (wknType.startsWith(">"))
-                System.out.println(convWknType(wknType) + " \t" + convToPercentage(value.getPercentage()) + "%" + " \t" + value.getValue());
+                System.out.println(convWknType(wknType) + " \t" + getPercentageValue(value) + "%" + " \t" + value.getValue());
         });
     }
 

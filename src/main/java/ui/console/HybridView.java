@@ -119,4 +119,13 @@ public class HybridView extends JFrame implements View {
     public void update() {
         this.repaint();
     }
+
+    public ConsoleController initRefreshController(ApplicationControllerAccess model) {
+        return new ConsoleController(model) {
+            @Override
+            public void execute() {
+                repaint();
+            }
+        };
+    }
 }
