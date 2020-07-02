@@ -1,6 +1,7 @@
 package application.mvc;
 
 import application.core.AssetBuy;
+import application.core.Value;
 import application.core.Wkn;
 import application.core.exception.DateNotFound;
 
@@ -36,13 +37,13 @@ public interface ApplicationViewAccess {
 
     Wkn getWkn(String wkn);
 
-    HashMap<String, Double> getFondValues();
+    HashMap<String, Double> getAssetSize();
 
     HashMap<String, List<Double>> getWatchChange() throws IOException;
 
     double getWknChangeAtDate(String wkn, LocalDate date);
 
-    HashMap<String, Double> getWknTypeSums();
+    HashMap<String, Value> getWknTypeSums();
 
     double getCash();
 }

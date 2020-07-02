@@ -60,6 +60,13 @@ public class InfrastructureInput extends ApplicationInput {
         return watchWkns;
     }
 
+    @Override
+    public Integer readCash() throws IOException {
+        String cash = ResourceFileReader.readResource("cash");
+        String[] split = cash.split("\n");
+        return Integer.parseInt(split[0]);
+    }
+
     private String[] getWknFileLines(String wkn) throws IOException {
         String resource = ResourceFileReader.readResource("wkn/" + wkn);
         return resource.split("\n");

@@ -93,7 +93,7 @@ public class Asset {
         LocalDate lastFoundDate = getLastFoundDateFor(date);
         Integer indexOfDate = getIndexOfDate(lastFoundDate);
         try {
-            return Value.calc(wknkRow.getPointAtDate(lastFoundDate).getValue(), getAmountAtIndex(indexOfDate + 1));
+            return Value.calcFromAmount(wknkRow.getPointAtDate(lastFoundDate).getValue(), getAmountAtIndex(indexOfDate + 1));
         } catch (Exception e) {
             throw new DateNotFound(date);
         }
@@ -102,7 +102,7 @@ public class Asset {
     public Value getValueAtDateWithBuy(LocalDate date) throws DateNotFound {
         try {
             LocalDate lastFoundDate = getLastFoundDateFor(date);
-            return Value.calc(wknkRow.getPointAtDate(lastFoundDate).getValue(), getAmountAtIndex(getIndexOfDate(lastFoundDate)));
+            return Value.calcFromAmount(wknkRow.getPointAtDate(lastFoundDate).getValue(), getAmountAtIndex(getIndexOfDate(lastFoundDate)));
         } catch (Exception e) {
             throw new DateNotFound(date);
         }

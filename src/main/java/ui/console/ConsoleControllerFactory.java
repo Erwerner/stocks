@@ -56,6 +56,8 @@ public class ConsoleControllerFactory {
             public void execute() {
                 try {
                     model.importBuys();
+                    model.importCash();
+                    model.togglBuy(7);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

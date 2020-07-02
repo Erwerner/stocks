@@ -1,6 +1,7 @@
 package ui.console;
 
 import application.core.AssetBuy;
+import application.core.Value;
 import application.core.Wkn;
 import application.core.exception.DateNotFound;
 import application.mvc.ApplicationViewAccess;
@@ -8,7 +9,6 @@ import application.mvc.ApplicationViewAccess;
 import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -56,7 +56,6 @@ public class HybridViewPrinter {
             minusTen += zero;
             plusTen *= scale;
             plusTen += zero;
-            System.out.println(minusTen);
         }
         for (Double[] printLine : lines) {
             arg0.drawLine(size * col, printLine[0].intValue(), size + size * col, printLine[1].intValue());
@@ -125,10 +124,10 @@ public class HybridViewPrinter {
     }
 
 
-    public void printFonds(ApplicationViewAccess model) {
-        System.out.println("\n- FONDs: --");
-        HashMap<String, Double> fonds = model.getFondValues();
-        fonds.forEach((wkn, value) -> System.out.println(value + " K \t" + wkn));
+    public void printAssetSize(ApplicationViewAccess model) {
+        System.out.println("\n- Asset Size: --");
+        HashMap<String, Double> assetSize = model.getAssetSize();
+        assetSize.forEach((wkn, value) -> System.out.println(value + " K \t" + wkn));
     }
 
     public void printUrls(ApplicationViewAccess model) {
@@ -175,31 +174,17 @@ public class HybridViewPrinter {
     }
 
     public void printWknTypeSum(ApplicationViewAccess model) {
-        double cash = model.getCash();
-        List<String> combEtc = Arrays.asList("ETC", "GOLD");
-        List<String> combFond = Arrays.asList("FOND SW", "FOND DIV", "FOND");
         System.out.println("\n- Types --");
-        HashMap<String, Double> sums = model.getWknTypeSums();
-        double total = cash;
-        for (Double value : sums.values()) {
-            total += value;
-        }
-        double finalTotal = total;
+        HashMap<String, Value> sums = model.getWknTypeSums();
         sums.forEach((wknType, value) -> {
-            System.out.println(convWknType(wknType) + " \t" + convToPercentage(value / finalTotal) + "%" + " \t" + value);
+            if (!wknType.startsWith(">"))
+                System.out.println(convWknType(wknType) + " \t" + convToPercentage(value.getPercentage()) + "%" + " \t" + value.getValue());
         });
         System.out.println();
-        System.out.println(convWknType("CASH") + "\t" + convToPercentage(cash / total) + "\t" + cash);
-        printComb(combEtc, sums, finalTotal, "Comb ETC");
-        printComb(combFond, sums, finalTotal, "Comb FOND");
+        sums.forEach((wknType, value) -> {
+            if (wknType.startsWith(">"))
+                System.out.println(convWknType(wknType) + " \t" + convToPercentage(value.getPercentage()) + "%" + " \t" + value.getValue());
+        });
     }
 
-    private void printComb(List<String> combEtc, HashMap<String, Double> sums, double finalTotal, String comb_etc) {
-        final double[] sum = {0.0};
-        sums.forEach((wknType, value) -> {
-            if (combEtc.contains(wknType))
-                sum[0] += value;
-        });
-        System.out.println(convWknType(comb_etc) + " \t" + convToPercentage(sum[0] / finalTotal) + "%" + " \t" + sum[0]);
-    }
 }

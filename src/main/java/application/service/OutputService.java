@@ -83,20 +83,18 @@ public class OutputService {
         return new Double[]{start, end};
     }
 
-    public HashMap<String, Double> createFondValues(ApplicationData data) {
+    public HashMap<String, Double> createAssetSize(ApplicationData data) {
         HashMap<String, Double> fonds = new HashMap<>();
         Set<Wkn> wkns = new HashSet<>();
         data.getAssets().keySet().forEach(wkn1 -> wkns.add(dataService.createWkn(wkn1, data)));
         for (Wkn wkn : wkns) {
-            if (!wkn.getWknType().startsWith("FOND"))
-                continue;
             if (data.getAssets().get(wkn.getWkn()).getActiveBuys().isEmpty())
                 continue;
             LocalDate date = dataService.calcLastDate(data);
             try {
                 double totalK = new Double(data.getAssets().get(wkn.getWkn()).getValueAtDateWithBuy(date).getValue() / 100).intValue() / 10.0;
 
-                fonds.put(wkn.getWknName(), totalK);
+                fonds.put(wkn.getWknName() + " " + wkn.getWknType(), totalK);
             } catch (DateNotFound dateNotFound) {
                 dateNotFound.printStackTrace();
             }
@@ -122,24 +120,45 @@ public class OutputService {
         return watchToday;
     }
 
-    public HashMap<String, Double> calcWknTypeSums(ApplicationData data) {
-        HashMap<String, Double> sums = new HashMap<>();
+    public HashMap<String, Value> calcWknTypeSums(ApplicationData data) {
+        HashMap<String, Value> sums = new HashMap<>();
+        double total = 0.0;
         data.getAssets().forEach((wkn, asset) -> {
             if (!asset.getActiveBuys().isEmpty()) {
-
                 String wknType = data.getWknType(wkn);
                 if (!sums.containsKey(wknType))
-                    sums.put(wknType, 0.0);
+                    sums.put(wknType, new Value(0.0));
                 try {
                     Value value = asset.getValueAtDateWithBuy(dataService.calcLastDate(data));
-                    Double typeValue = sums.get(wknType) + value.getValue();
-                    sums.put(wknType, typeValue);
+                    sums.get(wknType).addValue(value);
                 } catch (DateNotFound dateNotFound) {
                     dateNotFound.printStackTrace();
                 }
             }
         });
+        sums.put("CASH", new Value(data.getCash()));
 
+        for (Value value : sums.values()) {
+            total += value.getValue();
+        }
+
+        addComb(sums, Arrays.asList("CASH"), "> CASH");
+        addComb(sums, Arrays.asList("ETC", "GOLD"), "> ETC");
+        addComb(sums, Arrays.asList("FOND SW", "FOND DIV", "FOND"), "> FOND");
+        addComb(sums, Arrays.asList("FOND SW", "FOND DIV", "FOND", "ETC", "GOLD", "CASH"), "> Total");
+
+        for (Value value : sums.values()) {
+            value.setTotal(total);
+        }
         return sums;
+    }
+
+    private void addComb(HashMap<String, Value> sums, List<String> combFond, String s) {
+        sums.put(s, new Value(0.0));
+        sums.forEach((wknType, value) -> {
+            if (combFond.contains(wknType)) {
+                sums.get(s).addValue(value);
+            }
+        });
     }
 }

@@ -53,4 +53,8 @@ public class ReaderService {
         }
         return null;
     }
+
+    public Integer readCash() throws IOException {
+        return input.readCash();
+    }
 }

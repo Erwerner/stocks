@@ -18,4 +18,6 @@ public abstract class ApplicationInput {
     public abstract String getWknType(String wkn) throws IOException;
 
     public abstract String[] readWatchWkns() throws IOException;
+
+    public abstract Integer readCash() throws IOException;
 }

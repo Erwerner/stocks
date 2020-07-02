@@ -50,8 +50,7 @@ public class ApplicationModel extends Model implements
     public ArrayList<AssetBuy> getAllBuys() {
         ArrayList<AssetBuy> assetBuys = new ArrayList<>();
         for (Asset asset : data.getAssets().values()) {
-            List<AssetBuy> buys = asset.getAllBuys();
-            assetBuys.addAll(buys);
+            assetBuys.addAll(asset.getAllBuys());
         }
         assetBuys.sort(Comparator.comparing(AssetBuy::getDate));
         return assetBuys;
@@ -101,8 +100,8 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public HashMap<String, Double> getFondValues() {
-        return outputService.createFondValues(data);
+    public HashMap<String, Double> getAssetSize() {
+        return outputService.createAssetSize(data);
     }
 
     @Override
@@ -120,7 +119,7 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public HashMap<String, Double> getWknTypeSums() {
+    public HashMap<String, Value> getWknTypeSums() {
         return outputService.calcWknTypeSums(data);
     }
 
@@ -192,6 +191,13 @@ public class ApplicationModel extends Model implements
 
     @Override
     public void setCash(double cash) {
+        data.setCash(cash);
+        notifyViews();
+    }
+
+    @Override
+    public void importCash() throws IOException {
+        Integer cash = readerService.readCash();
         data.setCash(cash);
         notifyViews();
     }
