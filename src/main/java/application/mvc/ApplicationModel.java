@@ -161,12 +161,8 @@ public class ApplicationModel extends Model implements
     public void openBrowser() {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
             HashSet<String> wkns = new HashSet<>();
-            for (String wkn : data.getAssets().keySet()) {
-                wkns.add(wkn);
-            }
-            for (String wkn : readerService.getWatchWkns()) {
-                wkns.add(wkn);
-            }
+            wkns.addAll(data.getAssets().keySet());
+            wkns.addAll(Arrays.asList(readerService.getWatchWkns()));
 
             for (String wkn : wkns) {
                 try {

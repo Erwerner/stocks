@@ -18,7 +18,7 @@ public class ConsoleControllerFactory {
         controllers.put(BUYS, hybridView.initBuysController((ApplicationControllerAccess) model));
         controllers.put(LINE, hybridView.initLinesController((ApplicationControllerAccess) model));
         controllers.put(RNGE, hybridView.initRangeController((ApplicationControllerAccess) model));
-        controllers.put(RNGE, hybridView.initRefreshController((ApplicationControllerAccess) model));
+        controllers.put(REFR, hybridView.initRefreshController((ApplicationControllerAccess) model));
         controllers.put(EXEC, initDoController((ApplicationControllerAccess) model));
         controllers.put(TOGL, initTogglController((ApplicationControllerAccess) model));
         controllers.put(TGAL, initTogglAllController((ApplicationControllerAccess) model));
@@ -51,7 +51,7 @@ public class ConsoleControllerFactory {
         };
     }
 
-    public ConsoleController initDoController(ApplicationControllerAccess model) {
+    private ConsoleController initDoController(ApplicationControllerAccess model) {
         return new ConsoleController(model) {
             @Override
             public void execute() {
@@ -66,7 +66,7 @@ public class ConsoleControllerFactory {
         };
     }
 
-    public ConsoleController initTogglAllController(ApplicationControllerAccess model) {
+    private ConsoleController initTogglAllController(ApplicationControllerAccess model) {
         return new ConsoleController(model) {
 
             @Override
@@ -76,7 +76,7 @@ public class ConsoleControllerFactory {
         };
     }
 
-    public ConsoleController initTogglController(ApplicationControllerAccess model) {
+    private ConsoleController initTogglController(ApplicationControllerAccess model) {
         return new ConsoleController(model) {
             @Override
             public void execute() {
@@ -94,7 +94,7 @@ public class ConsoleControllerFactory {
         };
     }
 
-    public ConsoleController initTogglWinController(ApplicationControllerAccess model) {
+    private ConsoleController initTogglWinController(ApplicationControllerAccess model) {
         return new ConsoleController(model) {
             @Override
             public void execute() {

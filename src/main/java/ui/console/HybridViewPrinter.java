@@ -132,10 +132,10 @@ public class HybridViewPrinter {
 
 
     private String convWknType(String wknType1) {
-        String wknType = wknType1;
+        StringBuilder wknType = new StringBuilder(wknType1);
         while (wknType.length() < 8)
-            wknType += " ";
-        return wknType;
+            wknType.append(" ");
+        return wknType.toString();
     }
 
 
@@ -166,14 +166,14 @@ public class HybridViewPrinter {
         try {
             HashMap<String, List<Double>> watchChange = model.getWatchChange();
             watchChange.forEach((wkn, todays) -> {
-                String values = "";
+                StringBuilder values = new StringBuilder();
                 Wkn wkn1 = model.getWkn(wkn);
                 double sum = 0.0;
-                String sums = "";
+                StringBuilder sums = new StringBuilder();
                 for (Double today : todays) {
                     sum += today;
-                    sums += (convToPercentage(sum) + "\t");
-                    values += (convToPercentage(today) + "\t");
+                    sums.append(convToPercentage(sum)).append("\t");
+                    values.append(convToPercentage(today)).append("\t");
                 }
                 System.out.println(wkn1.getWknUrl() + " " + convWknType(wkn1.getWknType()));
                 System.out.println(values);

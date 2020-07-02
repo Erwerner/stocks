@@ -4,7 +4,6 @@ import application.core.*;
 import application.core.exception.DateNotFound;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 
 public class DataService {
 
@@ -38,13 +37,11 @@ public class DataService {
 
 
     public Value calcBuyWin(AssetBuy buy, ApplicationData data) {
-        double win = 0.0;
         Value value=new Value();
         try {
             String wkn = buy.getWkn();
             LocalDate lastDate = calcLastDate(data);
             Double buyValue = data.getAssets().get(wkn).getWknPointForDate(lastDate).getValue() * buy.getAmount();
-            win = (buyValue - buy.getCosts()) / buy.getCosts();
             value.addValue(buyValue).sub(buy.getCosts()).setTotal(buy.getCosts());
         } catch (DateNotFound dateNotFound) {
             dateNotFound.printStackTrace();

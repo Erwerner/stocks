@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class DateNotFound extends Exception {
 
-    private String date;
+    private final String date;
 
     public DateNotFound(LocalDate date) {
         this.date = date.toString();

@@ -12,7 +12,7 @@ import java.util.*;
 import static java.lang.StrictMath.sqrt;
 
 public class OutputService {
-    private DataService dataService;
+    private final DataService dataService;
 
     public OutputService(DataService dataService) {
         this.dataService = dataService;

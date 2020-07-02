@@ -56,8 +56,7 @@ public class InfrastructureInput extends ApplicationInput {
     @Override
     public String[] readWatchWkns() throws IOException {
         String file = ResourceFileReader.readResource("watch");
-        String[] watchWkns = file.split("\n");
-        return watchWkns;
+        return file.split("\n");
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReaderService {
-    private ApplicationInput input;
+    private final ApplicationInput input;
 
     public ReaderService(ApplicationInput input) {
 

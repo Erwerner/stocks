@@ -1,10 +1,10 @@
 package application.core;
 
 public class Wkn {
-    private String wkn;
-    private String wknName;
-    private String wknType;
-    private String wknUrl;
+    private final String wkn;
+    private final String wknName;
+    private final String wknType;
+    private final String wknUrl;
 
     public String getWkn() {
         return wkn;
