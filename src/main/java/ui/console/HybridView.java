@@ -50,11 +50,14 @@ public class HybridView extends JFrame implements View {
             hybridViewPrinter.printBuyLines(arg0, model, maxRange, width);
 
         hybridViewPrinter.printUrls(model);
-        hybridViewPrinter.printWknTypeSum(model);
+        hybridViewPrinter.printWatchAll(model);
         hybridViewPrinter.printAssetSize(model);
+        hybridViewPrinter.printWknTypeSum(model);
+        hybridViewPrinter.printChangeDate(arg0, model, maxRange, width);
         hybridViewPrinter.printBuys(model);
-        hybridViewPrinter.printWatch(model);
         hybridViewPrinter.printToday(model);
+        hybridViewPrinter.printBuyWatch(model);
+        hybridViewPrinter.printBuyCash(model);
     }
 
     private void run() {

@@ -43,8 +43,8 @@ public class Value {
         return value;
     }
 
-    public Value sub(Value old) {
-        value-=old.getValue();
+    public Value sub(Value sub) {
+        value-=sub.getValue();
         return this;
     }
 

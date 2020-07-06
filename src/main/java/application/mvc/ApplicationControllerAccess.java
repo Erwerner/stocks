@@ -1,6 +1,7 @@
 package application.mvc;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public interface ApplicationControllerAccess {
 
@@ -17,4 +18,10 @@ public interface ApplicationControllerAccess {
     void setCash(double cash);
 
     void importCash() throws IOException;
+
+    void browseWatch();
+
+    void addCash(Double aDouble);
+
+    void changeDate(LocalDate date);
 }

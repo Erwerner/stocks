@@ -1,5 +1,6 @@
 package application.core;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,6 +11,7 @@ public class ApplicationData {
     private final HashMap<String, String> wknTypes;
     private final HashMap<String, String> wknUrls;
     private double cash=0.0;
+    private LocalDate markDate;
 
     public ApplicationData() {
         assets = new HashMap<>();
@@ -54,5 +56,13 @@ public class ApplicationData {
 
     public void setCash(double cash) {
         this.cash = cash;
+    }
+
+    public LocalDate getMarkDate() {
+        return markDate;
+    }
+
+    public void setMarkDate(LocalDate markDate) {
+        this.markDate = markDate;
     }
 }

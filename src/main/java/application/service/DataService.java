@@ -37,7 +37,7 @@ public class DataService {
 
 
     public Value calcBuyWin(AssetBuy buy, ApplicationData data) {
-        Value value=new Value();
+        Value value = new Value();
         try {
             String wkn = buy.getWkn();
             LocalDate lastDate = calcLastDate(data);
@@ -64,5 +64,25 @@ public class DataService {
             dateNotFound.printStackTrace();
         }
         return neu / old - 1;
+    }
+
+    public double calcBuyCash(ApplicationData data) {
+        double buyCash;
+        double cash = data.getCash();
+        double total = calcTotalAtDate(data, calcLastDate(data));
+        buyCash = total * ((cash / total) - 0.20);
+        return buyCash;
+    }
+
+    public double calcTotalAtDate(ApplicationData data, LocalDate date) {
+        double total = data.getCash();
+        for (Asset asset : data.getAssets().values()) {
+            try {
+                total += asset.getValueAtDateWithBuy(date).getValue();
+            } catch (DateNotFound dateNotFound) {
+                dateNotFound.printStackTrace();
+            }
+        }
+        return total;
     }
 }

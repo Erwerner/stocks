@@ -34,11 +34,17 @@ public interface ApplicationViewAccess {
 
     HashMap<String, Double> getAssetSize();
 
-    HashMap<String, List<Double>> getWatchChange() throws IOException;
+    HashMap<String, List<Double>> getBuyWatch() throws IOException;
 
     double getWknChangeAtDate(String wkn, LocalDate date);
 
     HashMap<String, Value> getWknTypeSums();
 
-    double getTotalChangeAtDate(LocalDate date);
+    HashMap<String, List<Double>> getWatchAll() throws IOException;
+
+    double getBuyCash();
+
+    HashMap<LocalDate, Value> getChangeDate();
+
+    List<LocalDate> getDates(Integer maxRange);
 }

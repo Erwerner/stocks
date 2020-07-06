@@ -46,7 +46,7 @@ public class OutputService {
         List<Value[]> lines = new ArrayList<>();
         for (int i = maxRange; i >= 0; i--) {
             LocalDate date = dataService.calcLastDate(data).minusDays(i);
-            Value[] relativeLine = new Value[]{ new Value(),new Value()};
+            Value[] relativeLine = new Value[]{new Value(), new Value()};
             Double[] totalLine = getTotalLineAtDate(date, data);
             Double[] profitLine = new Double[]{totalLine[0] - dataService.calcCostsAtDate(date, data), totalLine[1] - dataService.calcCostsAtDate(date, data)};
             relativeLine[0] = new Value(profitLine[0]).setTotal(dataService.calcCostsAtDate(date, data));
@@ -98,8 +98,6 @@ public class OutputService {
                 double today = dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(i));
                 if (today == 0.0)
                     continue;
-                if (sqrt(today * today) < 0.002)
-                    continue;
                 values.add(today);
             }
             watchToday.put(watchWkn, values);
@@ -130,9 +128,10 @@ public class OutputService {
         }
 
         addComb(sums, Arrays.asList("CASH"), "> CASH");
-        addComb(sums, Arrays.asList("ETC", "GOLD"), "> ETC");
-        addComb(sums, Arrays.asList("FOND SW", "FOND DIV", "FOND"), "> FOND");
-        addComb(sums, Arrays.asList("FOND SW", "FOND DIV", "FOND", "ETC", "GOLD", "CASH"), "> Total");
+        addComb(sums, Arrays.asList("ETC GOLD", "GOLD"), "> GOLD");
+        addComb(sums, Arrays.asList("ETC"), "> METAL");
+        addComb(sums, Arrays.asList("FOND SW", "FOND DIV", "FOND", "FOND ROB"), "> FOND");
+        addComb(sums, Arrays.asList("FOND SW", "FOND DIV", "FOND", "FOND ROB", "ETC", "ETC GOLD", "GOLD", "CASH"), "> Total");
 
         for (Value value : sums.values()) {
             value.setTotal(total);
@@ -153,5 +152,38 @@ public class OutputService {
         Double oldTotal = getTotalLineAtDate(date.minusDays(1), data)[0];
         Double neuTotal = getTotalLineAtDate(date, data)[0];
         return neuTotal - oldTotal;
+    }
+
+    public HashMap<String, List<Double>> createBuyWatch(String[] watchWkns, ApplicationData data) {
+        HashMap<String, List<Double>> watchChangeToday = createWatchChangeToday(watchWkns, data);
+        HashMap<String, List<Double>> relevantWatchs = new HashMap<>();
+        watchChangeToday.forEach((s, doubles) -> {
+            int countNegative = 0;
+            double sumChange = 0;
+            for (Double aDouble : doubles) {
+                sumChange += aDouble;
+                if (sumChange < 0)
+                    countNegative++;
+            }
+            if (countNegative > 3)
+                relevantWatchs.put(s, doubles);
+        });
+        return relevantWatchs;
+    }
+
+    public HashMap<LocalDate, Value> createChangeDate(ApplicationData data, LocalDate date) {
+        LocalDate lastDate = dataService.calcLastDate(data);
+        double todayProfit = dataService.calcTotalAtDate(data, lastDate) - dataService.calcCostsAtDate(lastDate, data);
+        Value change = new Value(todayProfit);
+
+        double dateProfit = dataService.calcTotalAtDate(data, date) - dataService.calcCostsAtDate(date, data);
+        change.sub(dateProfit);
+
+        double todayTotal = dataService.calcTotalAtDate(data, lastDate);
+        change.setTotal(todayTotal + change.getValue() * -1);
+
+        HashMap<LocalDate, Value> dateChange = new HashMap<>();
+        dateChange.put(date, change);
+        return dateChange;
     }
 }

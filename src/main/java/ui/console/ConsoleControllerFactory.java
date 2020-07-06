@@ -6,6 +6,7 @@ import ui.template.Model;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 import static ui.console.ConsoleControllerType.*;
@@ -25,7 +26,49 @@ public class ConsoleControllerFactory {
         controllers.put(TGWN, initTogglWinController((ApplicationControllerAccess) model));
         controllers.put(BRWS, initBrowserController((ApplicationControllerAccess) model));
         controllers.put(CASH, initCashController((ApplicationControllerAccess) model));
+        controllers.put(BRWT, initBrowseWatchController((ApplicationControllerAccess) model));
+        controllers.put(ADDC, initAddCashController((ApplicationControllerAccess) model));
+        controllers.put(CDAT, initChangeDateController((ApplicationControllerAccess) model));
         return controllers;
+    }
+
+    private ConsoleController initChangeDateController(ApplicationControllerAccess model) {
+        return new ConsoleController(model) {
+            @Override
+            public void execute() {
+                try {
+                    String input = null;
+                    input = new BufferedReader(new InputStreamReader(System.in)).readLine();
+                    LocalDate date = LocalDate.parse(input);
+                    model.changeDate(date);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    private ConsoleController initAddCashController(ApplicationControllerAccess model) {
+        return new ConsoleController(model) {
+            @Override
+            public void execute() {
+                try {
+                    String cash = new BufferedReader(new InputStreamReader(System.in)).readLine();
+                    model.addCash(new Double(cash));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    private ConsoleController initBrowseWatchController(ApplicationControllerAccess model) {
+        return new ConsoleController(model) {
+            @Override
+            public void execute() {
+                model.browseWatch();
+            }
+        };
     }
 
     private ConsoleController initCashController(ApplicationControllerAccess model) {

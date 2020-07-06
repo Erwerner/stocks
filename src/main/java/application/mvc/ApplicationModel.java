@@ -2,16 +2,10 @@ package application.mvc;
 
 import application.core.*;
 import application.core.exception.DateNotFound;
-import application.service.ApplicationInput;
-import application.service.DataService;
-import application.service.OutputService;
-import application.service.ReaderService;
+import application.service.*;
 import ui.template.Model;
 
-import java.awt.*;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.*;
@@ -22,12 +16,14 @@ public class ApplicationModel extends Model implements
     private final DataService dataService;
     private final ReaderService readerService;
     private final OutputService outputService;
+    private final ExecuteService executeService;
 
     public ApplicationModel(ApplicationInput input) {
         data = new ApplicationData();
         dataService = new DataService();
         outputService = new OutputService(dataService);
         readerService = new ReaderService(input);
+        executeService = new ExecuteService();
     }
 
     private void addWkn(String wkn) throws IOException {
@@ -94,12 +90,12 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public HashMap<String, List<Double>> getWatchChange() throws IOException {
+    public HashMap<String, List<Double>> getBuyWatch() throws IOException {
         String[] watchWkns = readerService.getWatchWkns();
         for (String watchWkn : watchWkns) {
             addWkn(watchWkn);
         }
-        return outputService.createWatchChangeToday(watchWkns, data);
+        return outputService.createBuyWatch(watchWkns, data);
     }
 
     @Override
@@ -112,9 +108,42 @@ public class ApplicationModel extends Model implements
         return outputService.calcWknTypeSums(data);
     }
 
-    @Override
     public double getTotalChangeAtDate(LocalDate date) {
         return outputService.calcTotalChangeAtDate(date, data);
+    }
+
+    @Override
+    public HashMap<String, List<Double>> getWatchAll() throws IOException {
+        String[] watchWkns = data.getAssets().keySet().toArray(new String[0]);
+        for (String watchWkn : watchWkns) {
+            addWkn(watchWkn);
+        }
+        return outputService.createWatchChangeToday(watchWkns, data);
+    }
+
+    @Override
+    public double getBuyCash() {
+        return dataService.calcBuyCash(data);
+    }
+
+    @Override
+    public HashMap<LocalDate, Value> getChangeDate() {
+        LocalDate markDate = data.getMarkDate();
+        if (markDate != null) {
+            HashMap<LocalDate, Value> changeDate = outputService.createChangeDate(data, markDate);
+            return changeDate;
+        }
+        return null;
+    }
+
+    @Override
+    public List<LocalDate> getDates(Integer maxRange) {
+        List<LocalDate> dates = new ArrayList<>();
+        LocalDate localDate = dataService.calcLastDate(data);
+        for (int i = maxRange; i >= 0; i--) {
+            dates.add(localDate.minusDays(i));
+        }
+        return dates;
     }
 
     // Controller
@@ -159,20 +188,12 @@ public class ApplicationModel extends Model implements
 
     @Override
     public void openBrowser() {
-        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-            HashSet<String> wkns = new HashSet<>();
-            wkns.addAll(data.getAssets().keySet());
-            wkns.addAll(Arrays.asList(readerService.getWatchWkns()));
-
-            for (String wkn : wkns) {
-                try {
-                    Desktop.getDesktop().browse(new URI(data.getWknUrl(wkn)));
-                } catch (IOException | URISyntaxException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        HashSet<String> wkns = new HashSet<>();
+        wkns.addAll(data.getAssets().keySet());
+        wkns.addAll(Arrays.asList(readerService.getWatchWkns()));
+        executeService.browseWkns(data, wkns);
     }
+
 
     @Override
     public void setCash(double cash) {
@@ -184,6 +205,26 @@ public class ApplicationModel extends Model implements
     public void importCash() throws IOException {
         Integer cash = readerService.readCash();
         data.setCash(cash);
+        notifyViews();
+    }
+
+    @Override
+    public void browseWatch() {
+        HashSet<String> wkns = new HashSet<>();
+        wkns.addAll(Arrays.asList(readerService.getWatchWkns()));
+        executeService.browseWkns(data, wkns);
+        notifyViews();
+    }
+
+    @Override
+    public void addCash(Double cash) {
+        data.setCash(data.getCash() + cash);
+        notifyViews();
+    }
+
+    @Override
+    public void changeDate(LocalDate date) {
+        data.setMarkDate(date);
         notifyViews();
     }
 }
