@@ -51,7 +51,7 @@ public class HybridViewPrinter {
             zero = 300;
             scale = -800.0;
         } else {
-            zero = 200;
+            zero = 300;
             scale = -0.06;
         }
         for (Double[] printLine : lines) {
@@ -125,8 +125,8 @@ public class HybridViewPrinter {
                     "\t" + buy.getDate() +
                     "\t (" + buyWin + "%) " +
                     "\t (" + winEachYeahr + " %Y ) " +
-                    "\t " + convWknType(wkn.getWknType()) +
                     "\t" + dayPositive +
+                    "\t " + convWknType(wkn.getWknType()) +
                     "\t (" + buyDayWin + "% ) " +
                     "\t " + (int) winDay + "€ " +
                     "\t" + wkn.getWknName());

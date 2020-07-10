@@ -47,6 +47,7 @@ public class InfrastructureInput extends ApplicationInput {
         String[] lines = getWknFileLines(wkn);
         return lines[0];
     }
+
     @Override
     public String getWknType(String wkn) throws IOException {
         String[] lines = getWknFileLines(wkn);
@@ -61,9 +62,13 @@ public class InfrastructureInput extends ApplicationInput {
 
     @Override
     public Integer readCash() throws IOException {
-        String cash = ResourceFileReader.readResource("cash");
-        String[] split = cash.split("\n");
-        return Integer.parseInt(split[0]);
+        String cashFile = ResourceFileReader.readResource("cash");
+        String[] entries = cashFile.split("\n");
+        int cashSum = 0;
+        for (String entry : entries) {
+            cashSum += Integer.parseInt(entry.split(" ")[0]);
+        }
+        return cashSum;
     }
 
     private String[] getWknFileLines(String wkn) throws IOException {

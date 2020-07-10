@@ -20,7 +20,6 @@ public class ConsoleControllerFactory {
         controllers.put(LINE, hybridView.initLinesController((ApplicationControllerAccess) model));
         controllers.put(RNGE, hybridView.initRangeController((ApplicationControllerAccess) model));
         controllers.put(REFR, hybridView.initRefreshController((ApplicationControllerAccess) model));
-        controllers.put(EXEC, initDoController((ApplicationControllerAccess) model));
         controllers.put(TOGL, initTogglController((ApplicationControllerAccess) model));
         controllers.put(TGAL, initTogglAllController((ApplicationControllerAccess) model));
         controllers.put(TGWN, initTogglWinController((ApplicationControllerAccess) model));
@@ -37,8 +36,7 @@ public class ConsoleControllerFactory {
             @Override
             public void execute() {
                 try {
-                    String input = null;
-                    input = new BufferedReader(new InputStreamReader(System.in)).readLine();
+                    String input = new BufferedReader(new InputStreamReader(System.in)).readLine();
                     LocalDate date = LocalDate.parse(input);
                     model.changeDate(date);
                 } catch (IOException e) {
@@ -90,21 +88,6 @@ public class ConsoleControllerFactory {
             @Override
             public void execute() {
                 model.openBrowser();
-            }
-        };
-    }
-
-    private ConsoleController initDoController(ApplicationControllerAccess model) {
-        return new ConsoleController(model) {
-            @Override
-            public void execute() {
-                try {
-                    model.importBuys();
-                    model.importCash();
-                    model.togglBuy(7);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         };
     }

@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
-import static ui.console.ConsoleControllerType.EXEC;
-
 public class HybridView extends JFrame implements View {
     private final ApplicationViewAccess model;
     private final HashMap<ConsoleControllerType, ConsoleController> controllers;
@@ -62,7 +60,13 @@ public class HybridView extends JFrame implements View {
 
     private void run() {
         this.show();
-        controllers.get(EXEC).execute();
+        try {
+            ((ApplicationControllerAccess) model).importBuys();
+            ((ApplicationControllerAccess) model).importCash();
+            //((ApplicationControllerAccess) model).togglBuy(7);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         while (active) {
             ConsoleControllerType controller = (ConsoleControllerType) IO
                     .getEnumFromInput("Choose Command",
