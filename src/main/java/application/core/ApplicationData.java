@@ -38,6 +38,7 @@ public class ApplicationData {
     public String getWknType(String wkn){
         return wknTypes.get(wkn);
     }
+
     public String getWknName(String wkn){
         return wknNames.get(wkn);
     }
@@ -64,5 +65,10 @@ public class ApplicationData {
 
     public void setMarkDate(LocalDate markDate) {
         this.markDate = markDate;
+    }
+    public void refreshAssets(){
+        for (Asset asset : assets.values()) {
+            asset.refreshAmounts();
+        }
     }
 }

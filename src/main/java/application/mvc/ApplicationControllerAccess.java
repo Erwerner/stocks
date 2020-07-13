@@ -24,4 +24,6 @@ public interface ApplicationControllerAccess {
     void addCash(Double aDouble);
 
     void changeDate(LocalDate date);
+
+    void togglSold();
 }

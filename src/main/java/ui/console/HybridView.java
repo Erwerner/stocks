@@ -56,6 +56,7 @@ public class HybridView extends JFrame implements View {
         hybridViewPrinter.printToday(model);
         hybridViewPrinter.printBuyWatch(model);
         hybridViewPrinter.printBuyCash(model);
+        hybridViewPrinter.printConfig(model);
     }
 
     private void run() {

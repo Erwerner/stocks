@@ -49,11 +49,10 @@ public class Asset {
         refreshAmounts();
     }
 
-    private void refreshAmounts() {
+    public void refreshAmounts() {
         stockAmount.clear();
         wknkRow.getWknPoints().forEach(point -> stockAmount.add(0));
         for (AssetBuy assetBuy : getActiveBuys()) {
-
             try {
                 Integer buyDateIndex = getIndexOfDate(assetBuy.getDate());
                 Integer buyAmount = assetBuy.getAmount();
@@ -86,7 +85,7 @@ public class Asset {
     public LocalDate getFirstBuyDate() throws NoBuys {
         if (getActiveBuys().isEmpty())
             throw new NoBuys();
-        return assetBuys.get(0).getDate();
+        return getShowBuys().get(0).getDate();
     }
 
     public Value getValueAtDateWithoutBuy(LocalDate date) throws DateNotFound {
@@ -128,7 +127,7 @@ public class Asset {
 
     public List<AssetBuy> getActiveBuys() {
         ArrayList<AssetBuy> activeBuys = new ArrayList<>();
-        for (AssetBuy assetBuy : assetBuys) {
+        for (AssetBuy assetBuy : getShowBuys()) {
             if (assetBuy.isActive())
                 activeBuys.add(assetBuy);
         }
@@ -136,15 +135,20 @@ public class Asset {
     }
 
     public void togglBuy(AssetBuy buy) {
-        for (AssetBuy assetBuy : assetBuys) {
+        for (AssetBuy assetBuy : getShowBuys()) {
             if (assetBuy == buy)
                 assetBuy.toggl();
         }
         refreshAmounts();
     }
 
-    public List<AssetBuy> getAllBuys() {
-        return assetBuys;
+    public List<AssetBuy> getShowBuys() {
+        ArrayList<AssetBuy> showBuys = new ArrayList<>();
+        for (AssetBuy assetBuy : assetBuys) {
+            if (assetBuy.show())
+                showBuys.add(assetBuy);
+        }
+        return showBuys;
     }
 
     public WknPoint getWknPointForDate(LocalDate date) throws DateNotFound {

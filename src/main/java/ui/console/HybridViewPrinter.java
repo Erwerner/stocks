@@ -252,4 +252,8 @@ public class HybridViewPrinter {
             });
         }
     }
+
+    public void printConfig(ApplicationViewAccess model) {
+        System.out.println("SOLD: " + AssetBuy.showSold);
+    }
 }

@@ -37,7 +37,7 @@ public class InfrastructureInput extends ApplicationInput {
         for (String buy : buys) {
             String[] buyData = buy.split(",");
             System.out.println(buy);
-            assetBuys.add(new AssetBuy(buyData[0], LocalDate.parse(buyData[1]), Integer.parseInt(buyData[2]), Double.parseDouble(buyData[3]), Double.parseDouble(buyData[4])));
+            assetBuys.add(new AssetBuy(buyData[0], LocalDate.parse(buyData[1]), Integer.parseInt(buyData[2]), Double.parseDouble(buyData[3]), Double.parseDouble(buyData[4]), Boolean.parseBoolean(buyData[5])));
         }
         return assetBuys;
     }

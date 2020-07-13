@@ -8,15 +8,18 @@ public class AssetBuy {
     private final Integer amount;
     private final Double fee;
     private final Double value;
+    private final boolean sold;
 
     private boolean active;
+    public static boolean showSold = true;
 
-    public AssetBuy(String wkn, LocalDate date, Integer amount, Double fee, Double value) {
+    public AssetBuy(String wkn, LocalDate date, Integer amount, Double fee, Double value, boolean sold) {
         this.wkn = wkn;
         this.date = date;
         this.amount = amount;
         this.fee = fee;
         this.value = value;
+        this.sold = sold;
         setActive(true);
     }
 
@@ -46,5 +49,9 @@ public class AssetBuy {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public boolean show(){
+        return !sold || showSold;
     }
 }

@@ -28,7 +28,17 @@ public class ConsoleControllerFactory {
         controllers.put(BRWT, initBrowseWatchController((ApplicationControllerAccess) model));
         controllers.put(ADDC, initAddCashController((ApplicationControllerAccess) model));
         controllers.put(CDAT, initChangeDateController((ApplicationControllerAccess) model));
+        controllers.put(SOLD, initSoldController((ApplicationControllerAccess) model));
         return controllers;
+    }
+
+    private ConsoleController initSoldController(ApplicationControllerAccess model) {
+        return new ConsoleController(model) {
+            @Override
+            public void execute() {
+                model.togglSold();
+            }
+        };
     }
 
     private ConsoleController initChangeDateController(ApplicationControllerAccess model) {

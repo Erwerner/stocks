@@ -40,7 +40,7 @@ public class ApplicationModel extends Model implements
     public ArrayList<AssetBuy> getAllBuys() {
         ArrayList<AssetBuy> assetBuys = new ArrayList<>();
         for (Asset asset : data.getAssets().values()) {
-            assetBuys.addAll(asset.getAllBuys());
+            assetBuys.addAll(asset.getShowBuys());
         }
         assetBuys.sort(Comparator.comparing(AssetBuy::getDate));
         return assetBuys;
@@ -177,12 +177,13 @@ public class ApplicationModel extends Model implements
             try {
                 Value valueAtDateWithBuy = asset.getValueAtDateWithBuy(lastDate);
                 Double costAtDate = asset.getCostAtDate(lastDate);
-                for (AssetBuy buy : asset.getAllBuys())
+                for (AssetBuy buy : asset.getShowBuys())
                     buy.setActive(valueAtDateWithBuy.getValue() >= costAtDate);
             } catch (DateNotFound dateNotFound) {
                 dateNotFound.printStackTrace();
             }
         }
+        data.refreshAssets();
         notifyViews();
     }
 
@@ -225,6 +226,13 @@ public class ApplicationModel extends Model implements
     @Override
     public void changeDate(LocalDate date) {
         data.setMarkDate(date);
+        notifyViews();
+    }
+
+    @Override
+    public void togglSold() {
+        AssetBuy.showSold = !AssetBuy.showSold;
+        data.refreshAssets();
         notifyViews();
     }
 }
