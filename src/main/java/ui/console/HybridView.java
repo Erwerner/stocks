@@ -1,5 +1,6 @@
 package ui.console;
 
+import application.core.AssetBuy;
 import application.mvc.ApplicationControllerAccess;
 import application.mvc.ApplicationViewAccess;
 import helper.IO;
@@ -50,12 +51,15 @@ public class HybridView extends JFrame implements View {
         hybridViewPrinter.printUrls(model);
         hybridViewPrinter.printWatchAll(model);
         hybridViewPrinter.printAssetSize(model);
-        hybridViewPrinter.printWknTypeSum(model);
+        if (!AssetBuy.showSold)
+            hybridViewPrinter.printWknTypeSum(model);
         hybridViewPrinter.printChangeDate(arg0, model, maxRange, width);
         hybridViewPrinter.printBuys(model);
-        hybridViewPrinter.printToday(model);
+        if (!AssetBuy.showSold)
+            hybridViewPrinter.printToday(model);
         hybridViewPrinter.printBuyWatch(model);
-        hybridViewPrinter.printBuyCash(model);
+        if (!AssetBuy.showSold)
+            hybridViewPrinter.printBuyCash(model);
         hybridViewPrinter.printConfig(model);
     }
 

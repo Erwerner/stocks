@@ -9,8 +9,6 @@ import application.core.exception.DateNotFound;
 import java.time.LocalDate;
 import java.util.*;
 
-import static java.lang.StrictMath.sqrt;
-
 public class OutputService {
     private final DataService dataService;
 
@@ -89,7 +87,7 @@ public class OutputService {
         return fonds;
     }
 
-    public HashMap<String, List<Double>> createWatchChangeToday(String[] watchWkns, ApplicationData data) {
+    public HashMap<String, List<Double>> createWatchChangeToday(Collection<String> watchWkns, ApplicationData data) {
         HashMap<String, List<Double>> watchToday = new HashMap<>();
         LocalDate lastDate = dataService.calcLastDate(data);
         for (String watchWkn : watchWkns) {
@@ -154,7 +152,7 @@ public class OutputService {
         return neuTotal - oldTotal;
     }
 
-    public HashMap<String, List<Double>> createBuyWatch(String[] watchWkns, ApplicationData data) {
+    public HashMap<String, List<Double>> createBuyWatch(List<String> watchWkns, ApplicationData data) {
         HashMap<String, List<Double>> watchChangeToday = createWatchChangeToday(watchWkns, data);
         HashMap<String, List<Double>> relevantWatchs = new HashMap<>();
         watchChangeToday.forEach((s, doubles) -> {

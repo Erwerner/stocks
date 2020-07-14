@@ -54,6 +54,15 @@ public class ReaderService {
         return null;
     }
 
+    public String[] getWatchTypes() {
+        try {
+            return input.readWatchTypes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Integer readCash() throws IOException {
         return input.readCash();
     }

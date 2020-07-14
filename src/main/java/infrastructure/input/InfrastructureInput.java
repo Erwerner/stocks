@@ -59,6 +59,11 @@ public class InfrastructureInput extends ApplicationInput {
         String file = ResourceFileReader.readResource("watch");
         return file.split("\n");
     }
+    @Override
+    public String[] readWatchTypes() throws IOException {
+        String file = ResourceFileReader.readResource("watchType");
+        return file.split("\n");
+    }
 
     @Override
     public Integer readCash() throws IOException {

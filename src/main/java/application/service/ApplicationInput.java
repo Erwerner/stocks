@@ -19,5 +19,7 @@ public abstract class ApplicationInput {
 
     public abstract String[] readWatchWkns() throws IOException;
 
+    public abstract String[] readWatchTypes() throws IOException;
+
     public abstract Integer readCash() throws IOException;
 }

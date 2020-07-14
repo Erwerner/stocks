@@ -11,7 +11,7 @@ public class AssetBuy {
     private final boolean sold;
 
     private boolean active;
-    public static boolean showSold = true;
+    public static boolean showSold = false;
 
     public AssetBuy(String wkn, LocalDate date, Integer amount, Double fee, Double value, boolean sold) {
         this.wkn = wkn;

@@ -91,11 +91,20 @@ public class ApplicationModel extends Model implements
 
     @Override
     public HashMap<String, List<Double>> getBuyWatch() throws IOException {
-        String[] watchWkns = readerService.getWatchWkns();
-        for (String watchWkn : watchWkns) {
-            addWkn(watchWkn);
-        }
+        List<String> watchWkns = getWatchWkns();
         return outputService.createBuyWatch(watchWkns, data);
+    }
+
+    private List<String> getWatchWkns() throws IOException {
+        List<String> watchWkns = new ArrayList<>();
+        String[] types = readerService.getWatchTypes();
+        for (String type : types)
+            for (String wkn : data.getAssets().keySet())
+                if (data.getWknType(wkn).equals(type)) {
+                    addWkn(wkn);
+                    watchWkns.add(wkn);
+                }
+        return watchWkns;
     }
 
     @Override
@@ -108,13 +117,9 @@ public class ApplicationModel extends Model implements
         return outputService.calcWknTypeSums(data);
     }
 
-    public double getTotalChangeAtDate(LocalDate date) {
-        return outputService.calcTotalChangeAtDate(date, data);
-    }
-
     @Override
     public HashMap<String, List<Double>> getWatchAll() throws IOException {
-        String[] watchWkns = data.getAssets().keySet().toArray(new String[0]);
+        Collection<String> watchWkns = data.getAssets().keySet();
         for (String watchWkn : watchWkns) {
             addWkn(watchWkn);
         }
@@ -152,6 +157,8 @@ public class ApplicationModel extends Model implements
         for (AssetBuy assetBuy : readerService.importBuys()) {
             if (!data.getAssets().containsKey(assetBuy.getWkn()))
                 addWkn(assetBuy.getWkn());
+            if (assetBuy.getDate().isAfter(dataService.calcLastDate(data)))
+                continue;
             data.addBuy(assetBuy);
         }
         notifyViews();
@@ -191,8 +198,12 @@ public class ApplicationModel extends Model implements
     public void openBrowser() {
         HashSet<String> wkns = new HashSet<>();
         wkns.addAll(data.getAssets().keySet());
-        wkns.addAll(Arrays.asList(readerService.getWatchWkns()));
-        executeService.browseWkns(data, wkns);
+        try {
+            wkns.addAll(getWatchWkns());
+            executeService.browseWkns(data, wkns);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -212,9 +223,13 @@ public class ApplicationModel extends Model implements
     @Override
     public void browseWatch() {
         HashSet<String> wkns = new HashSet<>();
-        wkns.addAll(Arrays.asList(readerService.getWatchWkns()));
-        executeService.browseWkns(data, wkns);
-        notifyViews();
+        try {
+            wkns.addAll(getWatchWkns());
+            executeService.browseWkns(data, wkns);
+            notifyViews();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
