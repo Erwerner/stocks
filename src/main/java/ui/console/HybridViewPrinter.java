@@ -10,12 +10,15 @@ import java.awt.*;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
 public class HybridViewPrinter {
+
+    private LocalDateTime to;
 
     public void printBuyLines(Graphics arg0, ApplicationViewAccess model, Integer maxRange, int width) {
         int col = 0;
@@ -52,7 +55,7 @@ public class HybridViewPrinter {
             scale = -800.0;
         } else {
             zero = 300;
-            scale = -0.06;
+            scale = -0.05;
         }
         for (Double[] printLine : lines) {
             plusTen = 0.1;
@@ -81,6 +84,7 @@ public class HybridViewPrinter {
         todayStats.forEach((key, value) -> System.out.println(key + ": " + value));
         Value winValue = todayStats.get("win ");
         System.out.println("win%: " + getPercentageValue(winValue));
+        System.out.println("winY: " + getPowEachYeahr(model.getFirstDate(), model.getLastDate(), winValue.getPercentage())+"%");
     }
 
     private double getPercentageValue(Value winValue) {
@@ -116,9 +120,7 @@ public class HybridViewPrinter {
             if (winDay == 0)
                 dayPositive = " ";
             Wkn wkn = model.getWkn(buy.getWkn());
-            long daysRunning = Duration.between(buy.getDate().atStartOfDay(), model.getLastDate().atStartOfDay()).toDays();
-            double yearsRunning = daysRunning / 365.0;
-            double winEachYeahr = convToPercentage(Math.pow(1 + model.getBuyWin(buy).getPercentage(), 1 / yearsRunning) - 1);
+            double winEachYeahr = getPowEachYeahr(buy.getDate(), model.getLastDate(), model.getBuyWin(buy).getPercentage());
             System.out.println(active +
                     "\t" + " [" + count + "] " +
                     "\t" + buy.getWkn() + " " +
@@ -132,6 +134,12 @@ public class HybridViewPrinter {
                     "\t" + wkn.getWknName());
             count++;
         }
+    }
+
+    private double getPowEachYeahr(LocalDate date1, LocalDate date2, Double percentage) {
+        long daysRunning = Duration.between(date1.atStartOfDay(), date2.atStartOfDay()).toDays();
+        double yearsRunning = daysRunning / 365.0;
+        return convToPercentage(Math.pow(1 + percentage, 1 / yearsRunning) - 1);
     }
 
 
@@ -242,13 +250,13 @@ public class HybridViewPrinter {
                 System.out.println(localDate);
                 System.out.println(value.getValue().intValue());
                 System.out.println(getPercentageValue(value));
-            int col = 0;
-            int size = width / maxRange;
-            for (LocalDate date : model.getDates(maxRange)) {
-                if (date.equals(localDate))
-                    arg0.drawLine(size * col, 0, size * col, 900);
-                col += 1;
-            }
+                int col = 0;
+                int size = width / maxRange;
+                for (LocalDate date : model.getDates(maxRange)) {
+                    if (date.equals(localDate))
+                        arg0.drawLine(size * col, 0, size * col, 900);
+                    col += 1;
+                }
             });
         }
     }

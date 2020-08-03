@@ -2,6 +2,7 @@ package application.service;
 
 import application.core.AssetBuy;
 import application.core.WknPoint;
+import helper.ResourceNotFound;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,9 +18,9 @@ public abstract class ApplicationInput {
 
     public abstract String getWknType(String wkn) throws IOException;
 
-    public abstract String[] readWatchWkns() throws IOException;
-
     public abstract String[] readWatchTypes() throws IOException;
 
     public abstract Integer readCash() throws IOException;
+
+    public abstract String[] getAllWkns() throws ResourceNotFound;
 }

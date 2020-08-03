@@ -2,6 +2,7 @@ package application.service;
 
 import application.core.AssetBuy;
 import application.core.WknPoint;
+import helper.ResourceNotFound;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,15 +46,6 @@ public class ReaderService {
                 .replace("etc", "");
     }
 
-    public String[] getWatchWkns() {
-        try {
-            return input.readWatchWkns();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public String[] getWatchTypes() {
         try {
             return input.readWatchTypes();
@@ -65,5 +57,9 @@ public class ReaderService {
 
     public Integer readCash() throws IOException {
         return input.readCash();
+    }
+
+    public String[] getAllWkns() throws ResourceNotFound {
+        return input.getAllWkns();
     }
 }

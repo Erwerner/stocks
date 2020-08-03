@@ -47,4 +47,6 @@ public interface ApplicationViewAccess {
     HashMap<LocalDate, Value> getChangeDate();
 
     List<LocalDate> getDates(Integer maxRange);
+
+    LocalDate getFirstDate();
 }

@@ -85,4 +85,17 @@ public class DataService {
         }
         return total;
     }
+
+    public LocalDate calcFirstDate(ApplicationData data) {
+        LocalDate date = null;
+        for (Asset asset : data.getAssets().values()) {
+            for (AssetBuy activeBuy : asset.getActiveBuys()) {
+                LocalDate buyDate = activeBuy.getDate();
+                if (date == null || date.isAfter(buyDate)) {
+                    date = buyDate;
+                }
+            }
+        }
+        return date;
+    }
 }

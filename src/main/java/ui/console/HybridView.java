@@ -55,8 +55,7 @@ public class HybridView extends JFrame implements View {
             hybridViewPrinter.printWknTypeSum(model);
         hybridViewPrinter.printChangeDate(arg0, model, maxRange, width);
         hybridViewPrinter.printBuys(model);
-        if (!AssetBuy.showSold)
-            hybridViewPrinter.printToday(model);
+        hybridViewPrinter.printToday(model);
         hybridViewPrinter.printBuyWatch(model);
         if (!AssetBuy.showSold)
             hybridViewPrinter.printBuyCash(model);
@@ -66,6 +65,7 @@ public class HybridView extends JFrame implements View {
     private void run() {
         this.show();
         try {
+            ((ApplicationControllerAccess) model).importWkns();
             ((ApplicationControllerAccess) model).importBuys();
             ((ApplicationControllerAccess) model).importCash();
             //((ApplicationControllerAccess) model).togglBuy(7);

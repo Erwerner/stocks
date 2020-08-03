@@ -3,6 +3,7 @@ package application.mvc;
 import application.core.*;
 import application.core.exception.DateNotFound;
 import application.service.*;
+import helper.ResourceNotFound;
 import ui.template.Model;
 
 import java.io.IOException;
@@ -101,7 +102,7 @@ public class ApplicationModel extends Model implements
         for (String type : types)
             for (String wkn : data.getAssets().keySet())
                 if (data.getWknType(wkn).equals(type)) {
-                    addWkn(wkn);
+                    //addWkn(wkn);
                     watchWkns.add(wkn);
                 }
         return watchWkns;
@@ -121,7 +122,7 @@ public class ApplicationModel extends Model implements
     public HashMap<String, List<Double>> getWatchAll() throws IOException {
         Collection<String> watchWkns = data.getAssets().keySet();
         for (String watchWkn : watchWkns) {
-            addWkn(watchWkn);
+            //addWkn(watchWkn);
         }
         return outputService.createWatchChangeToday(watchWkns, data);
     }
@@ -151,12 +152,18 @@ public class ApplicationModel extends Model implements
         return dates;
     }
 
+    @Override
+    public LocalDate getFirstDate() {
+        return dataService.calcFirstDate(data);
+    }
+
     // Controller
     @Override
     public void importBuys() throws IOException {
         for (AssetBuy assetBuy : readerService.importBuys()) {
-            if (!data.getAssets().containsKey(assetBuy.getWkn()))
-                addWkn(assetBuy.getWkn());
+            if (!data.getAssets().containsKey(assetBuy.getWkn())) {
+                //addWkn(assetBuy.getWkn());
+            }
             if (assetBuy.getDate().isAfter(dataService.calcLastDate(data)))
                 continue;
             data.addBuy(assetBuy);
@@ -249,5 +256,18 @@ public class ApplicationModel extends Model implements
         AssetBuy.showSold = !AssetBuy.showSold;
         data.refreshAssets();
         notifyViews();
+    }
+
+    @Override
+    public void importWkns() {
+        try {
+            String[] allWkns = readerService.getAllWkns();
+            for (String wkn : allWkns) {
+                if (!data.getAssets().containsKey(wkn))
+                    data.addWkn(wkn, readerService.getWknUrl(wkn), readerService.getStockRow(wkn), readerService.getWknType(wkn), readerService.getWknName(wkn));
+            }
+        } catch (ResourceNotFound | IOException resourceNotFound) {
+            resourceNotFound.printStackTrace();
+        }
     }
 }

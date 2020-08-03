@@ -4,6 +4,7 @@ import application.core.AssetBuy;
 import application.core.WknPoint;
 import application.service.ApplicationInput;
 import helper.ResourceFileReader;
+import helper.ResourceNotFound;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -55,11 +56,6 @@ public class InfrastructureInput extends ApplicationInput {
     }
 
     @Override
-    public String[] readWatchWkns() throws IOException {
-        String file = ResourceFileReader.readResource("watch");
-        return file.split("\n");
-    }
-    @Override
     public String[] readWatchTypes() throws IOException {
         String file = ResourceFileReader.readResource("watchType");
         return file.split("\n");
@@ -74,6 +70,11 @@ public class InfrastructureInput extends ApplicationInput {
             cashSum += Integer.parseInt(entry.split(" ")[0]);
         }
         return cashSum;
+    }
+
+    @Override
+    public String[] getAllWkns() throws ResourceNotFound {
+        return ResourceFileReader.getFilenamesInResourceFolder("wkn");
     }
 
     private String[] getWknFileLines(String wkn) throws IOException {

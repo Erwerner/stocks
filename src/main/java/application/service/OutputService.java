@@ -146,24 +146,21 @@ public class OutputService {
         });
     }
 
-    public double calcTotalChangeAtDate(LocalDate date, ApplicationData data) {
-        Double oldTotal = getTotalLineAtDate(date.minusDays(1), data)[0];
-        Double neuTotal = getTotalLineAtDate(date, data)[0];
-        return neuTotal - oldTotal;
-    }
-
     public HashMap<String, List<Double>> createBuyWatch(List<String> watchWkns, ApplicationData data) {
         HashMap<String, List<Double>> watchChangeToday = createWatchChangeToday(watchWkns, data);
         HashMap<String, List<Double>> relevantWatchs = new HashMap<>();
         watchChangeToday.forEach((s, doubles) -> {
+            boolean maxNeg = false;
             int countNegative = 0;
             double sumChange = 0;
             for (Double aDouble : doubles) {
                 sumChange += aDouble;
+                if (sumChange < -0.02)
+                    maxNeg = true;
                 if (sumChange < 0)
                     countNegative++;
             }
-            if (countNegative > 3)
+            if (countNegative > 3 && maxNeg)
                 relevantWatchs.put(s, doubles);
         });
         return relevantWatchs;

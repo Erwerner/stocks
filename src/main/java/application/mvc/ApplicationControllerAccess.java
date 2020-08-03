@@ -26,4 +26,6 @@ public interface ApplicationControllerAccess {
     void changeDate(LocalDate date);
 
     void togglSold();
+
+    void importWkns();
 }
