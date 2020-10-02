@@ -55,7 +55,7 @@ public class HybridViewPrinter {
             scale = -800.0;
         } else {
             zero = 300;
-            scale = -0.05;
+            scale = -0.045;
         }
         for (Double[] printLine : lines) {
             plusTen = 0.1;
