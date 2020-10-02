@@ -5,45 +5,34 @@
       <artifact name="stocks:jar" />
     </artifacts-to-build>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="760f5633-bee0-4821-9900-c2830a9aa011" name="Default Changelist" comment="6">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/taskHistory/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.3/taskHistory/taskHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileContent/fileContent.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/classAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/jarAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/javaCompile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/taskHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/taskHistory/taskHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/taskHistory/taskHistory.lock" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/application.core.StockAssetTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/application.core.StockAssetTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/application.core.StockAssetTest.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/application.core.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/packages/application.core.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/buys" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/buys" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/wkn/abc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/wkn/xy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-application.core.StockAssetTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-application.core.StockAssetTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-application.core.StockAssetTest.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/core/Wkn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/core/Wkn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/core/exception/DateNotFound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/core/exception/DateNotFound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/mvc/ApplicationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/mvc/ApplicationModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/service/DataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/service/DataService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/service/OutputService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/service/OutputService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/service/ReaderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/service/ReaderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure/input/InfrastructureInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/input/InfrastructureInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/console/HybridViewPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/console/HybridViewPrinter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/buys" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/buys" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/application/core/AssetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/application/core/AssetTest.java" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
-    <ignored path="$PROJECT_DIR$/.gradle/" />
-    <ignored path="$PROJECT_DIR$/build/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,7 +41,6 @@
   <component name="DefaultGradleProjectSettings">
     <option name="testRunner" value="GRADLE" />
     <option name="delegatedBuild" value="true" />
-    <option name="isMigrated" value="true" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -66,122 +54,6 @@
       </state>
     </system>
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ui/console/HybridViewPrinter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="37" column="20" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/application/service/OutputService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="467">
-              <caret line="70" column="5" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/application/service/ApplicationInput.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/application/service/ReaderService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="524">
-              <caret line="57" column="25" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerFactory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/application/core/Value.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="34" column="16" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
-              <folding>
-                <element signature="e#132#133#0" expanded="true" />
-                <element signature="e#166#167#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/application/mvc/ApplicationViewAccess.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/application/mvc/ApplicationModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="59" column="35" selection-start-line="59" selection-start-column="35" selection-end-line="59" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/application/service/DataService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
-              <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/infrastructure/input/InfrastructureInput.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="34" column="64" selection-start-line="34" selection-start-column="64" selection-end-line="34" selection-end-column="64" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -193,250 +65,34 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>.jar</find>
-      <find>FOND</find>
       <find>cash</find>
+      <find>firstB</find>
+      <find>FOND</find>
+      <find>A2ANH0</find>
+      <find>255.831</find>
+      <find>334</find>
+      <find>0.2</find>
+      <find />
     </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/src/main/resources/wkn</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/test/java/utils/UnitTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/core/StockRow.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/java/helper/ResourceNotFound.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Starter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/core/exception/NoBuys.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/xy" />
-        <option value="$PROJECT_DIR$/src/main/resources/abc" />
-        <option value="$PROJECT_DIR$/src/main/resources/wkn/ewg0ld" />
-        <option value="$PROJECT_DIR$/src/main/java/helper/FilePersister.java" />
-        <option value="$PROJECT_DIR$/out/profit" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/test/java/application/core/StockAssetTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/helper/ResourceFileReader.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/core/Wkn.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/service/ExportService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/core/StockBuy.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/service/ApplicationService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/service/CalcService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/core/StockAsset.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/core/Asset.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/core/AssetBuy.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/buys" />
-        <option value="$PROJECT_DIR$/src/main/resources/wkn/LYX0BF" />
-        <option value="$PROJECT_DIR$/src/main/java/application/core/ApplicationData.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/watch" />
-        <option value="$PROJECT_DIR$/src/main/resources/cash" />
-        <option value="$PROJECT_DIR$/src/main/java/application/mvc/ApplicationControllerAccess.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/service/ApplicationInput.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/service/ReaderService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/infrastructure/input/InfrastructureInput.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/core/exception/DateNotFound.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/wkn/A1E0HS" />
-        <option value="$PROJECT_DIR$/src/main/resources/wkn/EWG0LD" />
-        <option value="$PROJECT_DIR$/src/main/resources/wkn/A2AHL7" />
-        <option value="$PROJECT_DIR$/src/main/resources/wkn/PB8R1M" />
-        <option value="$PROJECT_DIR$/src/main/resources/wkn/A14WU5" />
-        <option value="$PROJECT_DIR$/src/main/resources/wkn/A1T8GD" />
-        <option value="$PROJECT_DIR$/src/main/resources/wkn/A2PQ36" />
-        <option value="$PROJECT_DIR$/src/main/resources/wkn/A1EK0H" />
-        <option value="$PROJECT_DIR$/src/main/resources/wkn/A0F5UH" />
-        <option value="$PROJECT_DIR$/src/main/resources/wkn/GOLD" />
-        <option value="$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ui/console/HybridView.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/core/Value.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/mvc/ApplicationModel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/mvc/ApplicationViewAccess.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ui/console/HybridViewPrinter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/service/DataService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/service/OutputService.java" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="821" />
-  </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="exception" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="mvc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="helper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="infrastructure" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="infrastructure" type="462c0819:PsiDirectoryNode" />
-              <item name="input" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="console" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="wkn" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="stocks" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="stocks" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-    </panes>
+  <component name="JupyterTrust" id="23cc7374-36ac-4058-9925-b4d198c1b6df" />
+  <component name="ProjectId" id="1fdIwf9AWrbxiqJ9tWWqWkx7eoA" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
@@ -446,7 +102,7 @@
     <property name="extract.method.default.visibility" value="private" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/wkn" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -470,8 +126,8 @@
       <recent name="helper" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources/wkn" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/resources/wkn" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="application.service" />
@@ -481,22 +137,12 @@
       <recent name="helper" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager" selected="Application.Starter">
     <configuration name="Starter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="Starter" />
-      <module name="stocks.main" />
+      <module name="org.ew.stocks.main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -561,15 +207,44 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="Tests in 'stocks.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests *" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Starter" />
+      <item itemvalue="Gradle.StockAssetTest" />
+      <item itemvalue="Gradle.StockAssetTest.when_stock_point_is_missing_then_last_point_is_used" />
+      <item itemvalue="Gradle.StockAssetTest.when_three_buys_are_added_then_the_first_is_returned" />
+      <item itemvalue="Gradle.Tests in 'stocks.test'" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Starter" />
+        <item itemvalue="Gradle.Tests in 'stocks.test'" />
         <item itemvalue="Gradle.StockAssetTest" />
         <item itemvalue="Gradle.StockAssetTest.when_stock_point_is_missing_then_last_point_is_used" />
-        <item itemvalue="Application.Starter" />
         <item itemvalue="Gradle.StockAssetTest.when_three_buys_are_added_then_the_first_is_returned" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -610,22 +285,177 @@
       <workItem from="1593701878514" duration="1802000" />
       <workItem from="1593703851619" duration="20000" />
       <workItem from="1593714102170" duration="4378000" />
+      <workItem from="1593720739444" duration="104000" />
+      <workItem from="1593720878161" duration="155000" />
+      <workItem from="1593722228790" duration="1796000" />
+      <workItem from="1593760726824" duration="948000" />
+      <workItem from="1593761694889" duration="18000" />
+      <workItem from="1593761735285" duration="48000" />
+      <workItem from="1593765174530" duration="2024000" />
+      <workItem from="1593768474308" duration="9000" />
+      <workItem from="1593772026506" duration="303000" />
+      <workItem from="1593772385555" duration="12000" />
+      <workItem from="1593788234537" duration="192000" />
+      <workItem from="1593797818622" duration="2333000" />
+      <workItem from="1593800341171" duration="229000" />
+      <workItem from="1593816546859" duration="2538000" />
+      <workItem from="1593866250481" duration="2883000" />
+      <workItem from="1593874716150" duration="159000" />
+      <workItem from="1593964503763" duration="594000" />
+      <workItem from="1593969514389" duration="119000" />
+      <workItem from="1594019306300" duration="15000" />
+      <workItem from="1594019863838" duration="13000" />
+      <workItem from="1594056372646" duration="43000" />
+      <workItem from="1594104916961" duration="882000" />
+      <workItem from="1594106583699" duration="14000" />
+      <workItem from="1594126376092" duration="255000" />
+      <workItem from="1594143957950" duration="109000" />
+      <workItem from="1594190358563" duration="400000" />
+      <workItem from="1594191285430" duration="393000" />
+      <workItem from="1594191947746" duration="15000" />
+      <workItem from="1594191984782" duration="72000" />
+      <workItem from="1594193060331" duration="138000" />
+      <workItem from="1594193782823" duration="104000" />
+      <workItem from="1594202027924" duration="9000" />
+      <workItem from="1594219199718" duration="134000" />
+      <workItem from="1594219380695" duration="150000" />
+      <workItem from="1594219546971" duration="36000" />
+      <workItem from="1594276292651" duration="904000" />
+      <workItem from="1594394922562" duration="864000" />
+      <workItem from="1594412781115" duration="667000" />
+      <workItem from="1594451687264" duration="961000" />
+      <workItem from="1594455715906" duration="4000" />
+      <workItem from="1594625607331" duration="3000" />
+      <workItem from="1594671579686" duration="4151000" />
+      <workItem from="1594711319957" duration="386000" />
+      <workItem from="1594723784102" duration="445000" />
+      <workItem from="1594724431348" duration="1243000" />
+      <workItem from="1594725917187" duration="203000" />
+      <workItem from="1594731689591" duration="1898000" />
+      <workItem from="1594742301184" duration="613000" />
+      <workItem from="1594743893721" duration="92000" />
+      <workItem from="1594748190595" duration="173000" />
+      <workItem from="1594749125994" duration="225000" />
+      <workItem from="1594761164495" duration="910000" />
+      <workItem from="1594811453495" duration="202000" />
+      <workItem from="1594816090254" duration="162000" />
+      <workItem from="1594842746769" duration="98000" />
+      <workItem from="1594843004372" duration="124000" />
+      <workItem from="1594851514738" duration="607000" />
+      <workItem from="1594882804383" duration="75000" />
+      <workItem from="1594885938106" duration="53000" />
+      <workItem from="1594937893891" duration="499000" />
+      <workItem from="1594997274681" duration="90000" />
+      <workItem from="1595012618577" duration="177000" />
+      <workItem from="1595059269496" duration="878000" />
+      <workItem from="1595229383126" duration="100000" />
+      <workItem from="1595229821442" duration="6000" />
+      <workItem from="1595235152857" duration="301000" />
+      <workItem from="1595241959016" duration="154000" />
+      <workItem from="1595257540801" duration="62000" />
+      <workItem from="1595262629723" duration="1263000" />
+      <workItem from="1595265251224" duration="2916000" />
+      <workItem from="1595317752825" duration="205000" />
+      <workItem from="1595319655967" duration="28000" />
+      <workItem from="1595402161948" duration="544000" />
+      <workItem from="1595404446777" duration="207000" />
+      <workItem from="1595420684325" duration="2213000" />
+      <workItem from="1595457045085" duration="764000" />
+      <workItem from="1595521929510" duration="136000" />
+      <workItem from="1595575527726" duration="598000" />
+      <workItem from="1595608016688" duration="662000" />
+      <workItem from="1595627900332" duration="597000" />
+      <workItem from="1595847477821" duration="132000" />
+      <workItem from="1595858186872" duration="90000" />
+      <workItem from="1595869839750" duration="99000" />
+      <workItem from="1595918147719" duration="550000" />
+      <workItem from="1595919740707" duration="30000" />
+      <workItem from="1595920119907" duration="70000" />
+      <workItem from="1595931128686" duration="140000" />
+      <workItem from="1595940108304" duration="197000" />
+      <workItem from="1595969771514" duration="131000" />
+      <workItem from="1596013787182" duration="200000" />
+      <workItem from="1596052209556" duration="213000" />
+      <workItem from="1596090806202" duration="156000" />
+      <workItem from="1596092832590" duration="65000" />
+      <workItem from="1596115920482" duration="352000" />
+      <workItem from="1596179412867" duration="346000" />
+      <workItem from="1596205712051" duration="113000" />
+      <workItem from="1596219152297" duration="223000" />
+      <workItem from="1596441834231" duration="61000" />
+      <workItem from="1596461705963" duration="860000" />
+      <workItem from="1596524615576" duration="734000" />
+      <workItem from="1596541783546" duration="304000" />
+      <workItem from="1596543123488" duration="813000" />
+      <workItem from="1596612320190" duration="957000" />
+      <workItem from="1596613778250" duration="77000" />
+      <workItem from="1596620830635" duration="46000" />
+      <workItem from="1596620981751" duration="9000" />
+      <workItem from="1596629426325" duration="407000" />
+      <workItem from="1596699045470" duration="306000" />
+      <workItem from="1596700317693" duration="56000" />
+      <workItem from="1596708677779" duration="177000" />
+      <workItem from="1596714548884" duration="280000" />
+      <workItem from="1596724283257" duration="20000" />
+      <workItem from="1596725834973" duration="206000" />
+      <workItem from="1596751382850" duration="545000" />
+      <workItem from="1596786685663" duration="28000" />
+      <workItem from="1596792238684" duration="218000" />
+      <workItem from="1596799723049" duration="41000" />
+      <workItem from="1596807340916" duration="127000" />
+      <workItem from="1596840306420" duration="446000" />
+      <workItem from="1596873542871" duration="602000" />
+      <workItem from="1597043238084" duration="215000" />
+      <workItem from="1597051428719" duration="65000" />
+      <workItem from="1597071741492" duration="85000" />
+      <workItem from="1597090499197" duration="176000" />
+      <workItem from="1597131472739" duration="197000" />
+      <workItem from="1597134554602" duration="167000" />
+      <workItem from="1597147639617" duration="268000" />
+      <workItem from="1597152879536" duration="96000" />
+      <workItem from="1597213361812" duration="253000" />
+      <workItem from="1597229669138" duration="64000" />
+      <workItem from="1597296203013" duration="335000" />
+      <workItem from="1597332916850" duration="109000" />
+      <workItem from="1597387589246" duration="226000" />
+      <workItem from="1597396793842" duration="126000" />
+      <workItem from="1597474056922" duration="486000" />
+      <workItem from="1597474665240" duration="181000" />
+      <workItem from="1597646704257" duration="91000" />
+      <workItem from="1597656069672" duration="49000" />
+      <workItem from="1597661891087" duration="468000" />
+      <workItem from="1597673905932" duration="51000" />
+      <workItem from="1597732576844" duration="358000" />
+      <workItem from="1597739965991" duration="66000" />
+      <workItem from="1597775838112" duration="62000" />
+      <workItem from="1597817083832" duration="360000" />
+      <workItem from="1597837837089" duration="138000" />
+      <workItem from="1597868397786" duration="336000" />
+      <workItem from="1597906440056" duration="228000" />
+      <workItem from="1597961108122" duration="136000" />
+      <workItem from="1597961426909" duration="5000" />
+      <workItem from="1598043751142" duration="2059000" />
+      <workItem from="1598630313734" duration="1413000" />
+      <workItem from="1598788018537" duration="542000" />
+      <workItem from="1598819927943" duration="74000" />
+      <workItem from="1598869172800" duration="223000" />
+      <workItem from="1599057947227" duration="452000" />
+      <workItem from="1599131500177" duration="5000" />
+      <workItem from="1599138677202" duration="87000" />
+      <workItem from="1599203418807" duration="267000" />
+      <workItem from="1599217399777" duration="320000" />
+      <workItem from="1599466306251" duration="3000" />
+      <workItem from="1599640291095" duration="38000" />
+      <workItem from="1599641011019" duration="1322000" />
+      <workItem from="1599922697339" duration="326000" />
+      <workItem from="1600158248876" duration="1000" />
+      <workItem from="1600264374123" duration="211000" />
+      <workItem from="1600679500781" duration="123000" />
+      <workItem from="1601228816285" duration="1200000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="StockAssetTest - 2020.06.30 at 11h 20m 34s.xml">
-      <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="StockAssetTest - 2020.06.30 at 11h 22m 07s.xml">
-      <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="StockAssetTest - 2020.06.30 at 11h 25m 01s.xml">
-      <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="StockAssetTest - 2020.07.01 at 15h 20m 29s.xml">
-      <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
-    </history-entry>
     <history-entry file="StockAssetTest - 2020.07.01 at 15h 21m 18s.xml">
       <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
     </history-entry>
@@ -644,465 +474,72 @@
     <history-entry file="StockAssetTest - 2020.07.01 at 19h 24m 07s.xml">
       <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
     </history-entry>
+    <history-entry file="StockAssetTest - 2020.07.13 at 22h 52m 24s.xml">
+      <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="StockAssetTest - 2020.07.13 at 22h 52m 54s.xml">
+      <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="Tests_in_'stocks_test' - 2020.07.13 at 22h 53m 15s.xml">
+      <configuration name="Tests in 'stocks.test'" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="Tests_in_'stocks_test' - 2020.07.13 at 22h 54m 37s.xml">
+      <configuration name="Tests in 'stocks.test'" configurationId="GradleRunConfiguration" />
+    </history-entry>
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95117000" />
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="821" extended-state="0" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.45609066" visible="true" weight="0.3762518" />
-      <window_info id="Structure" order="1" sideWeight="0.5439094" side_tool="true" weight="0.35622317" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Image Layers" order="3" />
-      <window_info id="Capture Tool" order="4" />
-      <window_info id="UI Designer" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.45750707" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.57932013" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.3286119" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3286119" />
-      <window_info anchor="bottom" id="Docker" order="9" />
-      <window_info anchor="bottom" id="Gradle View" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" order="12" />
-      <window_info anchor="bottom" id="Version Control" order="13" />
-      <window_info anchor="bottom" id="Messages" order="14" weight="0.3286119" />
-      <window_info anchor="bottom" id="Inspection Results" order="15" weight="0.3286119" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" />
-      <window_info anchor="right" id="PlantUML" order="4" />
-      <window_info anchor="right" id="Palette" order="5" />
-      <window_info anchor="right" id="Capture Analysis" order="6" />
-      <window_info anchor="right" id="Gradle" order="7" />
-      <window_info anchor="right" id="SciView" order="8" />
-      <window_info anchor="right" id="Database" order="9" />
-      <window_info anchor="right" id="Palette&#9;" order="10" />
-      <window_info anchor="right" id="Theme Preview" order="11" />
-      <window_info anchor="right" x="100" y="123" width="1240" height="621" id="DSM" order="12" type="FLOATING" />
-    </layout>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/out/profit" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/helper/FilePersister.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="10" column="29" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/core/WknPoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/initializer/ApplicationInitializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/helper/IO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/src.zip!/java/util/List.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="599" column="6" selection-start-line="599" selection-start-column="6" selection-end-line="599" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/InfrastructureFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ui/console/HybridViewFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/core/WknkRow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/helper/ResourceFileReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="35" column="59" lean-forward="true" selection-start-line="35" selection-start-column="59" selection-end-line="35" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/ExportService.java" />
-    <entry file="jar:///Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/src.zip!/java/time/LocalDate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="1933" column="19" selection-start-line="1933" selection-start-column="19" selection-end-line="1933" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/core/AssetBuy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-          <folding>
-            <element signature="e#763#764#0" expanded="true" />
-            <element signature="e#789#790#0" expanded="true" />
-            <element signature="e#816#817#0" expanded="true" />
-            <element signature="e#856#857#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/core/Wkn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="31" lean-forward="true" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
-          <folding>
-            <element signature="e#181#182#0" expanded="true" />
-            <element signature="e#207#208#0" expanded="true" />
-            <element signature="e#241#242#0" expanded="true" />
-            <element signature="e#271#272#0" expanded="true" />
-            <element signature="e#305#306#0" expanded="true" />
-            <element signature="e#335#336#0" expanded="true" />
-            <element signature="e#397#398#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/core/Asset.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="161" lean-forward="true" selection-start-line="161" selection-end-line="161" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/src.zip!/java/util/Arrays.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/watch">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/application/core/AssetTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-796">
-          <caret line="29" column="55" lean-forward="true" selection-start-line="29" selection-start-column="55" selection-end-line="29" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/core/ApplicationData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1353#1354#0" expanded="true" />
-            <element signature="e#1380#1381#0" expanded="true" />
-            <element signature="e#1420#1421#0" expanded="true" />
-            <element signature="e#1452#1453#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/buys" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/wkn/LYX0BF">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/src.zip!/javax/swing/RepaintManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ui/console/ConsoleController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/mvc/ApplicationControllerAccess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/ReaderService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="524">
-          <caret line="57" column="25" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/ApplicationInput.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/cash">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="4" selection-start-column="4" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/src.zip!/java/lang/Throwable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="632" column="16" selection-start-line="632" selection-start-column="16" selection-end-line="632" selection-end-column="16" />
-          <folding>
-            <element signature="e#27219#27220#0" expanded="true" />
-            <element signature="e#27262#27263#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/wkn/EWG0LD">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/wkn/A1E0HS">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" selection-start-line="2" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/core/exception/DateNotFound.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="54" lean-forward="true" selection-start-line="14" selection-start-column="54" selection-end-line="14" selection-end-column="54" />
-          <folding>
-            <element signature="e#152#153#0" expanded="true" />
-            <element signature="e#183#184#0" expanded="true" />
-            <element signature="e#273#274#0" expanded="true" />
-            <element signature="e#334#335#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/wkn/A0F5UH">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/wkn/GOLD">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/wkn/A2AHL7">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/wkn/PB8R1M">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/wkn/A14WU5">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/wkn/A1T8GD">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/wkn/A2PQ36">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/wkn/A1EK0H">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ui/console/HybridView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="123" column="42" selection-start-line="123" selection-start-column="42" selection-end-line="123" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3876#3877#0" expanded="true" />
-            <element signature="e#3917#3918#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="63" selection-start-line="3" selection-start-column="63" selection-end-line="3" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/infrastructure/input/InfrastructureInput.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="34" column="64" selection-start-line="34" selection-start-column="64" selection-end-line="34" selection-end-column="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/core/Value.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="34" column="16" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
-          <folding>
-            <element signature="e#132#133#0" expanded="true" />
-            <element signature="e#166#167#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/mvc/ApplicationModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="59" column="35" selection-start-line="59" selection-start-column="35" selection-end-line="59" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/mvc/ApplicationViewAccess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ui/console/HybridViewPrinter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="37" column="20" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/DataService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/OutputService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="70" column="5" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+  <component name="WindowStateProjectService">
+    <state x="442" y="259" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598630748510">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="442" y="259" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.900@0.0.1440.900" timestamp="1598630748510" />
+    <state width="1398" height="450" key="GridCell.Tab.0.bottom" timestamp="1601230020632">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="450" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1601230020632" />
+    <state width="1398" height="391" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1596715768092" />
+    <state width="1398" height="450" key="GridCell.Tab.0.center" timestamp="1601230020632">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="450" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1601230020632" />
+    <state width="1398" height="391" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1596715768091" />
+    <state width="1398" height="450" key="GridCell.Tab.0.left" timestamp="1601230020631">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="450" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1601230020631" />
+    <state width="1398" height="391" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1596715768091" />
+    <state width="1398" height="450" key="GridCell.Tab.0.right" timestamp="1601230020632">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="450" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1601230020632" />
+    <state width="1398" height="391" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1596715768092" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/infrastructure/input/InfrastructureInput.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/application/service/ReaderService.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="masterDetails">
     <states>
@@ -1154,12 +591,11 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>main|stocks</last-edited>
+          <last-edited>test|stocks</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
