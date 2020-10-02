@@ -1,8 +1,8 @@
-package application.core;
+package application.core.model;
 
-import application.core.exception.ApplicationFailed;
-import application.core.exception.DateNotFound;
-import application.core.exception.NoBuys;
+import application.core.model.exception.ApplicationFailed;
+import application.core.model.exception.DateNotFound;
+import application.core.model.exception.NoBuys;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

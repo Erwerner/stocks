@@ -1,10 +1,10 @@
 package application.service;
 
-import application.core.ApplicationData;
-import application.core.Asset;
-import application.core.Value;
-import application.core.Wkn;
-import application.core.exception.DateNotFound;
+import application.core.model.ApplicationData;
+import application.core.model.Asset;
+import application.core.model.Value;
+import application.core.model.Wkn;
+import application.core.model.exception.DateNotFound;
 
 import java.time.LocalDate;
 import java.util.*;

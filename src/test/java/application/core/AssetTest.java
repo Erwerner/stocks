@@ -1,7 +1,11 @@
 package application.core;
 
-import application.core.exception.DateNotFound;
-import application.core.exception.NoBuys;
+import application.core.model.Asset;
+import application.core.model.AssetBuy;
+import application.core.model.WknPoint;
+import application.core.model.WknkRow;
+import application.core.model.exception.DateNotFound;
+import application.core.model.exception.NoBuys;
 import org.junit.Test;
 import utils.UnitTest;
 

@@ -1,9 +1,9 @@
 package ui.console;
 
-import application.core.AssetBuy;
-import application.core.Value;
-import application.core.Wkn;
-import application.core.exception.DateNotFound;
+import application.core.model.AssetBuy;
+import application.core.model.Value;
+import application.core.model.Wkn;
+import application.core.model.exception.DateNotFound;
 import application.mvc.ApplicationViewAccess;
 
 import java.awt.*;

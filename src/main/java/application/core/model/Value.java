@@ -1,4 +1,4 @@
-package application.core;
+package application.core.model;
 
 public class Value {
     private Double value;

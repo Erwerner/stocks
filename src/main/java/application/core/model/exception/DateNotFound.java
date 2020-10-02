@@ -1,4 +1,4 @@
-package application.core.exception;
+package application.core.model.exception;
 
 import java.time.LocalDate;
 

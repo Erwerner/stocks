@@ -1,7 +1,7 @@
 package application.service;
 
-import application.core.AssetBuy;
-import application.core.WknPoint;
+import application.core.model.AssetBuy;
+import application.core.model.WknPoint;
 import helper.ResourceNotFound;
 
 import java.io.IOException;

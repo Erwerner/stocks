@@ -1,6 +1,6 @@
-package application.core;
+package application.core.model;
 
-import application.core.exception.DateNotFound;
+import application.core.model.exception.DateNotFound;
 
 import java.time.LocalDate;
 import java.util.List;

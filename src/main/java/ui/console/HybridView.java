@@ -1,6 +1,6 @@
 package ui.console;
 
-import application.core.AssetBuy;
+import application.core.model.AssetBuy;
 import application.mvc.ApplicationControllerAccess;
 import application.mvc.ApplicationViewAccess;
 import helper.IO;
@@ -68,7 +68,7 @@ public class HybridView extends JFrame implements View {
             ((ApplicationControllerAccess) model).importWkns();
             ((ApplicationControllerAccess) model).importBuys();
             ((ApplicationControllerAccess) model).importCash();
-            //((ApplicationControllerAccess) model).togglBuy(7);
+            //((ApplicationControllerAccess) application.core.model).togglBuy(7);
         } catch (IOException e) {
             e.printStackTrace();
         }

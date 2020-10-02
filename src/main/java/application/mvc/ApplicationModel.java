@@ -1,7 +1,7 @@
 package application.mvc;
 
-import application.core.*;
-import application.core.exception.DateNotFound;
+import application.core.model.*;
+import application.core.model.exception.DateNotFound;
 import application.service.*;
 import helper.ResourceNotFound;
 import ui.template.Model;

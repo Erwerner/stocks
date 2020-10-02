@@ -1,6 +1,6 @@
 package application.service;
 
-import application.core.ApplicationData;
+import application.core.model.ApplicationData;
 import helper.ResourceFileReader;
 
 import java.awt.*;
@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.HashSet;
 
 public class ExecuteService {

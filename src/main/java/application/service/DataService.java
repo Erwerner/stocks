@@ -1,7 +1,7 @@
 package application.service;
 
-import application.core.*;
-import application.core.exception.DateNotFound;
+import application.core.model.*;
+import application.core.model.exception.DateNotFound;
 
 import java.time.LocalDate;
 

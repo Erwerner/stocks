@@ -1,9 +1,9 @@
 package application.mvc;
 
-import application.core.AssetBuy;
-import application.core.Value;
-import application.core.Wkn;
-import application.core.exception.DateNotFound;
+import application.core.model.AssetBuy;
+import application.core.model.Value;
+import application.core.model.Wkn;
+import application.core.model.exception.DateNotFound;
 
 import java.io.IOException;
 import java.time.LocalDate;

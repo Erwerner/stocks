@@ -1,7 +1,7 @@
 package infrastructure.input;
 
-import application.core.AssetBuy;
-import application.core.WknPoint;
+import application.core.model.AssetBuy;
+import application.core.model.WknPoint;
 import application.service.ApplicationInput;
 import helper.ResourceFileReader;
 import helper.ResourceNotFound;
