@@ -24,7 +24,7 @@ public class RoiCalculatorTest extends UnitTest {
 
     @Test
     public void when_roi_is_calculated_double_each_day_then_roi_is_2_power_to_356() {
-        LocalDate startDate = LocalDate.of(2001, 01, 01);
+        LocalDate startDate = LocalDate.of(2001, 1, 1);
         LocalDate endDate = startDate.plusDays(1);
         WknPoint point1 = new WknPoint(startDate, 1.0);
         WknPoint point2 = new WknPoint(endDate, 2.0);
@@ -47,7 +47,7 @@ public class RoiCalculatorTest extends UnitTest {
     @Test
     public void when_calc_roi_for_sold_asset_then_result_is_correct() {
         ArrayList<WknPoint> wknPoints = new ArrayList<>();
-        LocalDate startDate = LocalDate.of(2001, 01, 01);
+        LocalDate startDate = LocalDate.of(2001, 1, 1);
         wknPoints.add(new WknPoint(startDate.plusDays(2), 0.0));
         wknPoints.add(new WknPoint(startDate.plusDays(1), 2.0));
         wknPoints.add(new WknPoint(startDate, 1.0));
@@ -62,7 +62,7 @@ public class RoiCalculatorTest extends UnitTest {
     @Test
     public void when_calc_roi_for_not_sold_asset_then_result_is_correct() {
         ArrayList<WknPoint> wknPoints = new ArrayList<>();
-        LocalDate startDate = LocalDate.of(2001, 01, 01);
+        LocalDate startDate = LocalDate.of(2001, 1, 1);
         wknPoints.add(new WknPoint(startDate.plusDays(3), 0.0));
         wknPoints.add(new WknPoint(startDate.plusDays(2), 4.0));
         wknPoints.add(new WknPoint(startDate.plusDays(1), 2.0));
@@ -78,7 +78,7 @@ public class RoiCalculatorTest extends UnitTest {
     @Test
     public void when_calc_roi_for_asset_with_two_buys_then_result_is_correct() {
         ArrayList<WknPoint> wknPoints = new ArrayList<>();
-        LocalDate startDate = LocalDate.of(2001, 01, 01);
+        LocalDate startDate = LocalDate.of(2001, 1, 1);
         wknPoints.add(new WknPoint(startDate.plusDays(4), 16.0));
         wknPoints.add(new WknPoint(startDate.plusDays(2), 0.0));
         wknPoints.add(new WknPoint(startDate.plusDays(1), 2.0));
@@ -96,12 +96,12 @@ public class RoiCalculatorTest extends UnitTest {
 
     @Test
     public void when_calc_roi_for_alot_buys_then_result_is_correct() {
-        LocalDate startDate = LocalDate.of(2001, 01, 01);
+        LocalDate startDate = LocalDate.of(2001, 1, 1);
         LocalDate endDate = startDate.plusDays(365);
 
-        Asset asset1 = makeAsset(1000, 1.0, 1.1, startDate, endDate);
-        Asset asset2 = makeAsset(1000, 1.0, 1.3, startDate, endDate);
-        Asset asset3 = makeAsset(2000, 1.0, 1.4, startDate, endDate);
+        Asset asset1 = makeAsset(1000, 1.1, startDate, endDate);
+        Asset asset2 = makeAsset(1000, 1.3, startDate, endDate);
+        Asset asset3 = makeAsset(2000, 1.4, startDate, endDate);
         List<Asset> assets = new ArrayList<>();
         assets.add(asset1);
         assets.add(asset2);
@@ -113,14 +113,13 @@ public class RoiCalculatorTest extends UnitTest {
 
     @Test
     public void when_calc_roi_for_alot_buys_then_buys_in_future_are_ignored() {
-        ArrayList<WknPoint> wknPoints = new ArrayList<>();
-        LocalDate startDate = LocalDate.of(2001, 01, 01);
+        LocalDate startDate = LocalDate.of(2001, 1, 1);
         LocalDate endDate = startDate.plusDays(365);
 
-        Asset asset1 = makeAsset(1000, 1.0, 1.1, startDate, endDate);
-        Asset asset2 = makeAsset(1000, 1.0, 1.3, startDate, endDate);
-        Asset asset3 = makeAsset(2000, 1.0, 1.4, startDate, endDate);
-        Asset asset4 = makeAsset(2000, 1.0, 1.4, startDate.plusDays(1000), endDate.plusDays(1000));
+        Asset asset1 = makeAsset(1000, 1.1, startDate, endDate);
+        Asset asset2 = makeAsset(1000, 1.3, startDate, endDate);
+        Asset asset3 = makeAsset(2000, 1.4, startDate, endDate);
+        Asset asset4 = makeAsset(2000, 1.4, startDate.plusDays(1000), endDate.plusDays(1000));
         List<Asset> assets = new ArrayList<>();
         assets.add(asset1);
         assets.add(asset2);
@@ -133,12 +132,12 @@ public class RoiCalculatorTest extends UnitTest {
 
     @Test
     public void when_calc_roi_for_alot_buys_then_buys_in_past_are_ignored() {
-        LocalDate startDate = LocalDate.of(2001, 01, 01);
+        LocalDate startDate = LocalDate.of(2001, 1, 1);
         LocalDate endDate = startDate.plusDays(365);
 
-        Asset asset1 = makeAsset(1000, 1.0, 1.1, startDate, endDate);
-        Asset asset2 = makeAsset(1000, 1.0, 1.3, startDate, endDate);
-        Asset asset3 = makeAsset(2000, 1.0, 1.4, startDate, endDate);
+        Asset asset1 = makeAsset(1000, 1.1, startDate, endDate);
+        Asset asset2 = makeAsset(1000, 1.3, startDate, endDate);
+        Asset asset3 = makeAsset(2000, 1.4, startDate, endDate);
         asset3.addBuy(new AssetBuy("", startDate, 2000, 0.0, 1.4, true, startDate.plusDays(1), 1.4));
         List<Asset> assets = new ArrayList<>();
         assets.add(asset1);
@@ -149,14 +148,14 @@ public class RoiCalculatorTest extends UnitTest {
         assertEquals(exp, act);
     }
 
-    private Asset makeAsset(int amount, double buyValue, double endValue, LocalDate startDate, LocalDate endDate) {
-        ArrayList<WknPoint> wknPoints = new ArrayList<WknPoint>();
+    private Asset makeAsset(int amount, double endValue, LocalDate startDate, LocalDate endDate) {
+        ArrayList<WknPoint> wknPoints = new ArrayList<>();
         Asset asset1;
         wknPoints.add(new WknPoint(endDate, endValue));
-        wknPoints.add(new WknPoint(startDate, buyValue));
+        wknPoints.add(new WknPoint(startDate, 1.0));
         WknkRow wknkRow = new WknkRow(wknPoints);
         asset1 = new Asset(wknkRow);
-        asset1.addBuy(new AssetBuy("", startDate, amount, 0.0, buyValue, true, null, null));
+        asset1.addBuy(new AssetBuy("", startDate, amount, 0.0, 1.0, true, null, null));
         return asset1;
     }
 

@@ -1,7 +1,7 @@
 package ui.console;
 
-import ui.template.Model;
-import ui.template.ViewFactory;
+import template.Model;
+import template.ViewFactory;
 
 public class HybridViewFactory extends ViewFactory {
     @Override

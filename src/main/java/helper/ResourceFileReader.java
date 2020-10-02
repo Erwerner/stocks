@@ -10,12 +10,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class ResourceFileReader {
-
     private static final ResourceFileReader resourceFileReader = new ResourceFileReader();
-
-    public ResourceFileReader() {
-
-    }
 
     public static String readResource(String fileName) throws IOException {
         ClassLoader classLoader = resourceFileReader.getClass().getClassLoader();
@@ -31,7 +26,7 @@ public class ResourceFileReader {
 
     public static String[] getFilenamesInResourceFolder(String foldername) throws ResourceNotFound {
         String directory = foldername;
-        if (!foldername.substring(0, 1).equals("/")) {
+        if (foldername.charAt(0) != '/') {
             directory = "/" + directory;
         }
         URL resource = String.class.getResource(directory);

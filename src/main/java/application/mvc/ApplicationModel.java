@@ -4,11 +4,10 @@ import application.core.model.*;
 import application.core.model.exception.DateNotFound;
 import application.service.*;
 import helper.ResourceNotFound;
-import ui.template.Model;
+import template.Model;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.*;
 
 public class ApplicationModel extends Model implements
@@ -27,11 +26,6 @@ public class ApplicationModel extends Model implements
         readerService = new ReaderService(input);
         executeService = new ExecuteService();
         roiService = new RoiService();
-    }
-
-    private void addWkn(String wkn) throws IOException {
-        if (!data.getAssets().containsKey(wkn))
-            data.addWkn(wkn, readerService.getWknUrl(wkn), readerService.getStockRow(wkn), readerService.getWknType(wkn), readerService.getWknName(wkn));
     }
 
     @Override
@@ -93,12 +87,12 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public HashMap<String, List<Double>> getBuyWatch() throws IOException {
+    public HashMap<String, List<Double>> getBuyWatch() {
         List<String> watchWkns = getWatchWkns();
         return outputService.createBuyWatch(watchWkns, data);
     }
 
-    private List<String> getWatchWkns() throws IOException {
+    private List<String> getWatchWkns() {
         List<String> watchWkns = new ArrayList<>();
         String[] types = readerService.getWatchTypes();
         for (String type : types)
@@ -121,11 +115,8 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public HashMap<String, List<Double>> getWatchAll() throws IOException {
+    public HashMap<String, List<Double>> getWatchAll() {
         Collection<String> watchWkns = data.getAssets().keySet();
-        for (String watchWkn : watchWkns) {
-            //addWkn(watchWkn);
-        }
         return outputService.createWatchChangeToday(watchWkns, data);
     }
 
@@ -138,10 +129,10 @@ public class ApplicationModel extends Model implements
     public HashMap<LocalDate, Value> getChangeDate() {
         LocalDate markDate = data.getMarkDate();
         if (markDate != null) {
-            HashMap<LocalDate, Value> changeDate = outputService.createChangeDate(data, markDate);
-            return changeDate;
+            return outputService.createChangeDate(data, markDate);
+        } else {
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -155,27 +146,19 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public LocalDate getFirstDate() {
-        return dataService.calcFirstDate(data);
-    }
-
-    @Override
     public List<Double> getRois() {
         return roiService.getWeightedRois(data, dataService.calcFirstDate(data), dataService.calcLastDate(data));
     }
 
     @Override
     public Double getRoiToday() {
-        return roiService.getRoiForDate(data,dataService.calcLastDate(data));
+        return roiService.getRoiForDate(data, dataService.calcLastDate(data));
     }
 
     // Controller
     @Override
     public void importBuys() throws IOException {
         for (AssetBuy assetBuy : readerService.importBuys()) {
-            if (!data.getAssets().containsKey(assetBuy.getWkn())) {
-                //addWkn(assetBuy.getWkn());
-            }
             if (assetBuy.getDate().isAfter(dataService.calcLastDate(data)))
                 continue;
             data.addBuy(assetBuy);
@@ -217,12 +200,8 @@ public class ApplicationModel extends Model implements
     public void openBrowser() {
         HashSet<String> wkns = new HashSet<>();
         wkns.addAll(data.getAssets().keySet());
-        try {
-            wkns.addAll(getWatchWkns());
-            executeService.browseWkns(data, wkns);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        wkns.addAll(getWatchWkns());
+        executeService.browseWkns(data, wkns);
     }
 
 
@@ -241,14 +220,9 @@ public class ApplicationModel extends Model implements
 
     @Override
     public void browseWatch() {
-        HashSet<String> wkns = new HashSet<>();
-        try {
-            wkns.addAll(getWatchWkns());
-            executeService.browseWkns(data, wkns);
-            notifyViews();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        HashSet<String> wkns = new HashSet<>(getWatchWkns());
+        executeService.browseWkns(data, wkns);
+        notifyViews();
     }
 
     @Override

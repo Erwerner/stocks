@@ -4,8 +4,8 @@ import application.core.model.AssetBuy;
 import application.mvc.ApplicationControllerAccess;
 import application.mvc.ApplicationViewAccess;
 import helper.IO;
-import ui.template.Model;
-import ui.template.View;
+import template.Model;
+import template.View;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +46,7 @@ public class HybridView extends JFrame implements View {
     public void paint(Graphics arg0) {
         super.paint(arg0);
         if(showRois) {
-            hybridViewPrinter.rois(arg0, model, width);
+            hybridViewPrinter.printRois(arg0, model);
         }else {
             hybridViewPrinter.drawLines(arg0, model, maxRange, width, showLines);
         }
@@ -64,7 +64,7 @@ public class HybridView extends JFrame implements View {
         hybridViewPrinter.printBuyWatch(model);
         if (!AssetBuy.showSold)
             hybridViewPrinter.printBuyCash(model);
-        hybridViewPrinter.printConfig(model);
+        hybridViewPrinter.printConfig();
     }
 
     private void run() {

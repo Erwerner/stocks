@@ -5,7 +5,6 @@ import application.core.model.Value;
 import application.core.model.Wkn;
 import application.core.model.exception.DateNotFound;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,21 +33,19 @@ public interface ApplicationViewAccess {
 
     HashMap<String, Double> getAssetSize();
 
-    HashMap<String, List<Double>> getBuyWatch() throws IOException;
+    HashMap<String, List<Double>> getBuyWatch()  ;
 
     double getWknChangeAtDate(String wkn, LocalDate date);
 
     HashMap<String, Value> getWknTypeSums();
 
-    HashMap<String, List<Double>> getWatchAll() throws IOException;
+    HashMap<String, List<Double>> getWatchAll()  ;
 
     double getBuyCash();
 
     HashMap<LocalDate, Value> getChangeDate();
 
     List<LocalDate> getDates(Integer maxRange);
-
-    LocalDate getFirstDate();
 
     List<Double> getRois();
 

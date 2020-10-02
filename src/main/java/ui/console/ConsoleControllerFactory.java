@@ -1,7 +1,7 @@
 package ui.console;
 
 import application.mvc.ApplicationControllerAccess;
-import ui.template.Model;
+import template.Model;
 
 import java.io.BufferedReader;
 import java.io.IOException;

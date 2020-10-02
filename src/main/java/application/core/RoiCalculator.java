@@ -34,6 +34,8 @@ public class RoiCalculator {
     public Double calcRoiForAssetBuyAtDate(Asset asset, AssetBuy assetBuy, LocalDate date) {
         if (assetBuy.getDate().isAfter(date))
             return null;
+        if (assetBuy.getDate().plusDays(70).isAfter(date))//TODO delte for tests
+            return null;
         WknPoint soldWknPoint = assetBuy.getSoldWknPoint();
         WknPoint buyWknPoint = assetBuy.getBuyWknPoint();
         if (soldWknPoint == null) {

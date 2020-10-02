@@ -11,19 +11,16 @@
   <component name="ChangeListManager">
     <list default="true" id="760f5633-bee0-4821-9900-c2830a9aa011" name="Default Changelist" comment="6">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/core/RoiCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/core/RoiCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/core/model/AssetBuy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/core/model/AssetBuy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/core/model/WknPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/core/model/WknPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/initializer/ApplicationInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/initializer/ApplicationInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/application/mvc/ApplicationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/mvc/ApplicationModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/application/mvc/ApplicationViewAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/mvc/ApplicationViewAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/service/RoiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/service/RoiService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure/input/InfrastructureInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/input/InfrastructureInput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/console/HybridView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/console/HybridView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/console/HybridViewFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/console/HybridViewFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/console/HybridViewPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/console/HybridViewPrinter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/application/core/RoiCalculatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/application/core/RoiCalculatorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/application/service/RoiServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/template/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/template/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/template/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/template/View.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/template/ViewFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/template/ViewFactory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,13 +86,6 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="application.core" />
-      <recent name="application.service" />
-      <recent name="ui.console" />
-      <recent name="application.core.exception" />
-      <recent name="helper" />
-    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="application.service" />
       <recent name="application.core" />
@@ -106,33 +96,29 @@
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="helper" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/resources/wkn" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/wkn" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources" />
-      <recent name="$PROJECT_DIR$/src/main/resources/wkn" />
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="helper" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="application.core" />
+      <recent name="application.service" />
+      <recent name="ui.console" />
+      <recent name="application.core.exception" />
+      <recent name="helper" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Starter">
     <configuration name="Starter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Starter" />
       <module name="org.ew.stocks.main" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -215,10 +201,10 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.Starter" />
       <item itemvalue="Gradle.Tests in 'stocks.test'" />
       <item itemvalue="Gradle.RoiCalculatorTest.when_calc_roi_for_not_sold_asset_then_result_is_correct" />
       <item itemvalue="Gradle.RoiCalculatorTest.when_calc_roi_for_asset_with_two_buys_then_result_is_correct" />
-      <item itemvalue="Application.Starter" />
       <item itemvalue="Gradle.RoiCalculatorTest.when_calc_roi_for_alot_buys_then_buys_in_past_are_ignored" />
     </list>
     <recent_temporary>
@@ -445,6 +431,7 @@
       <workItem from="1601665268516" duration="205000" />
       <workItem from="1601665489660" duration="323000" />
       <workItem from="1601665826783" duration="111000" />
+      <workItem from="1601680010943" duration="677000" />
     </task>
     <servers />
   </component>
@@ -469,62 +456,72 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="442" y="259" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.900@0.0.1440.900" timestamp="1598630748510" />
-    <state x="361" y="381" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1601664425171">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="361" y="370" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1601680190435">
+      <screen x="0" y="23" width="1440" height="820" />
     </state>
     <state x="361" y="381" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1440.900@0.0.1440.900" timestamp="1601664425171" />
-    <state x="490" y="338" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1601664391132">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="361" y="370" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.23.1440.820@0.23.1440.820" timestamp="1601680190435" />
+    <state x="490" y="331" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1601680192459">
+      <screen x="0" y="23" width="1440" height="820" />
     </state>
     <state x="490" y="338" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1440.900@0.0.1440.900" timestamp="1601664391132" />
+    <state x="490" y="331" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.23.1440.820@0.23.1440.820" timestamp="1601680192459" />
+    <state x="122" y="23" key="#org.jetbrains.kotlin.idea.refactoring.safeDelete.KotlinOverridingDialog" timestamp="1601680602225">
+      <screen x="0" y="23" width="1440" height="820" />
+    </state>
+    <state x="122" y="23" key="#org.jetbrains.kotlin.idea.refactoring.safeDelete.KotlinOverridingDialog/0.23.1440.820@0.23.1440.820" timestamp="1601680602225" />
     <state x="483" y="160" key="#xdebugger.evaluate" timestamp="1601672495175">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="483" y="160" key="#xdebugger.evaluate/0.0.1440.900@0.0.1440.900" timestamp="1601672495175" />
-    <state width="1398" height="294" key="GridCell.Tab.0.bottom" timestamp="1601677715840">
+    <state x="444" y="274" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1601680575330">
+      <screen x="0" y="23" width="1440" height="820" />
+    </state>
+    <state x="444" y="274" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1440.820@0.23.1440.820" timestamp="1601680575330" />
+    <state width="1398" height="288" key="GridCell.Tab.0.bottom" timestamp="1601680616704">
       <screen x="0" y="23" width="1440" height="820" />
     </state>
     <state width="1398" height="341" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1601675566321" />
-    <state width="1398" height="294" key="GridCell.Tab.0.bottom/0.23.1440.820@0.23.1440.820" timestamp="1601677715840" />
+    <state width="1398" height="288" key="GridCell.Tab.0.bottom/0.23.1440.820@0.23.1440.820" timestamp="1601680616704" />
     <state width="1398" height="391" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1596715768092" />
-    <state width="1398" height="294" key="GridCell.Tab.0.center" timestamp="1601677715839">
+    <state width="1398" height="288" key="GridCell.Tab.0.center" timestamp="1601680616703">
       <screen x="0" y="23" width="1440" height="820" />
     </state>
     <state width="1398" height="341" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1601675566320" />
-    <state width="1398" height="294" key="GridCell.Tab.0.center/0.23.1440.820@0.23.1440.820" timestamp="1601677715839" />
+    <state width="1398" height="288" key="GridCell.Tab.0.center/0.23.1440.820@0.23.1440.820" timestamp="1601680616703" />
     <state width="1398" height="391" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1596715768091" />
-    <state width="1398" height="294" key="GridCell.Tab.0.left" timestamp="1601677715839">
+    <state width="1398" height="288" key="GridCell.Tab.0.left" timestamp="1601680616703">
       <screen x="0" y="23" width="1440" height="820" />
     </state>
     <state width="1398" height="341" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1601675566319" />
-    <state width="1398" height="294" key="GridCell.Tab.0.left/0.23.1440.820@0.23.1440.820" timestamp="1601677715839" />
+    <state width="1398" height="288" key="GridCell.Tab.0.left/0.23.1440.820@0.23.1440.820" timestamp="1601680616703" />
     <state width="1398" height="391" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1596715768091" />
-    <state width="1398" height="294" key="GridCell.Tab.0.right" timestamp="1601677715840">
+    <state width="1398" height="288" key="GridCell.Tab.0.right" timestamp="1601680616703">
       <screen x="0" y="23" width="1440" height="820" />
     </state>
     <state width="1398" height="341" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1601675566320" />
-    <state width="1398" height="294" key="GridCell.Tab.0.right/0.23.1440.820@0.23.1440.820" timestamp="1601677715840" />
+    <state width="1398" height="288" key="GridCell.Tab.0.right/0.23.1440.820@0.23.1440.820" timestamp="1601680616703" />
     <state width="1398" height="391" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1596715768092" />
-    <state width="1398" height="379" key="GridCell.Tab.1.bottom" timestamp="1601676548317">
+    <state width="1398" height="379" key="GridCell.Tab.1.bottom" timestamp="1601679807054">
       <screen x="0" y="23" width="1440" height="820" />
     </state>
     <state width="1398" height="439" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1601674937428" />
-    <state width="1398" height="379" key="GridCell.Tab.1.bottom/0.23.1440.820@0.23.1440.820" timestamp="1601676548317" />
-    <state width="1398" height="379" key="GridCell.Tab.1.center" timestamp="1601676548316">
+    <state width="1398" height="379" key="GridCell.Tab.1.bottom/0.23.1440.820@0.23.1440.820" timestamp="1601679807054" />
+    <state width="1398" height="379" key="GridCell.Tab.1.center" timestamp="1601679807053">
       <screen x="0" y="23" width="1440" height="820" />
     </state>
     <state width="1398" height="439" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1601674937428" />
-    <state width="1398" height="379" key="GridCell.Tab.1.center/0.23.1440.820@0.23.1440.820" timestamp="1601676548316" />
-    <state width="1398" height="379" key="GridCell.Tab.1.left" timestamp="1601676548316">
+    <state width="1398" height="379" key="GridCell.Tab.1.center/0.23.1440.820@0.23.1440.820" timestamp="1601679807053" />
+    <state width="1398" height="379" key="GridCell.Tab.1.left" timestamp="1601679807053">
       <screen x="0" y="23" width="1440" height="820" />
     </state>
     <state width="1398" height="439" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1601674937427" />
-    <state width="1398" height="379" key="GridCell.Tab.1.left/0.23.1440.820@0.23.1440.820" timestamp="1601676548316" />
-    <state width="1398" height="379" key="GridCell.Tab.1.right" timestamp="1601676548317">
+    <state width="1398" height="379" key="GridCell.Tab.1.left/0.23.1440.820@0.23.1440.820" timestamp="1601679807053" />
+    <state width="1398" height="379" key="GridCell.Tab.1.right" timestamp="1601679807053">
       <screen x="0" y="23" width="1440" height="820" />
     </state>
     <state width="1398" height="439" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1601674937428" />
-    <state width="1398" height="379" key="GridCell.Tab.1.right/0.23.1440.820@0.23.1440.820" timestamp="1601676548317" />
+    <state width="1398" height="379" key="GridCell.Tab.1.right/0.23.1440.820@0.23.1440.820" timestamp="1601679807053" />
     <state x="523" y="375" key="ReplaceDuplicatesPrompt" timestamp="1601669948687">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -541,24 +538,18 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="499" y="279" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1440.900@0.0.1440.900" timestamp="1601668899704" />
-    <state x="458" y="195" width="525" height="510" key="extract.method.dialog" timestamp="1601671189844">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="458" y="201" width="525" height="510" key="extract.method.dialog" timestamp="1601680372779">
+      <screen x="0" y="23" width="1440" height="820" />
     </state>
     <state x="458" y="195" width="525" height="510" key="extract.method.dialog/0.0.1440.900@0.0.1440.900" timestamp="1601671189844" />
+    <state x="458" y="201" key="extract.method.dialog/0.23.1440.820@0.23.1440.820" timestamp="1601680372779" />
     <state x="418" y="205" width="604" height="490" key="find.popup" timestamp="1601664322519">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="418" y="205" width="604" height="490" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1601664322519" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ui/console/HybridViewPrinter.java</url>
-          <line>307</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="496" y="206" key="refactoring.ChangeSignatureDialog" timestamp="1601679032001">
+      <screen x="0" y="23" width="1440" height="820" />
+    </state>
+    <state x="496" y="206" key="refactoring.ChangeSignatureDialog/0.23.1440.820@0.23.1440.820" timestamp="1601679032001" />
   </component>
 </project>

@@ -63,6 +63,7 @@ public class OutputService {
                 start += asset.getValueAtDateWithBuy(date).getValue();
                 end += asset.getValueAtDateWithoutBuy(date.plusDays(1)).getValue();
             } catch (DateNotFound dateNotFound) {
+                //ignore
             }
         }
         return new Double[]{start, end};

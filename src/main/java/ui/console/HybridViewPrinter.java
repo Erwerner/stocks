@@ -1,5 +1,6 @@
 package ui.console;
 
+import application.core.RoiCalculator;
 import application.core.model.AssetBuy;
 import application.core.model.Value;
 import application.core.model.Wkn;
@@ -7,19 +8,13 @@ import application.core.model.exception.DateNotFound;
 import application.mvc.ApplicationViewAccess;
 
 import java.awt.*;
-import java.io.IOException;
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
 public class HybridViewPrinter {
-
-    private LocalDateTime to;
-
     public void printBuyLines(Graphics arg0, ApplicationViewAccess model, Integer maxRange, int width) {
         int col = 0;
         int size = width / maxRange;
@@ -84,7 +79,6 @@ public class HybridViewPrinter {
         todayStats.forEach((key, value) -> System.out.println(key + ": " + value));
         Value winValue = todayStats.get("win ");
         System.out.println("win%: " + getPercentageValue(winValue));
-        System.out.println("winY: " + getPowEachYeahr(model.getFirstDate(), model.getLastDate(), winValue.getPercentage()) + "%");
         System.out.println("Roi: " + convToPercentage(model.getRoiToday()));
     }
 
@@ -121,13 +115,13 @@ public class HybridViewPrinter {
             if (winDay == 0)
                 dayPositive = " ";
             Wkn wkn = model.getWkn(buy.getWkn());
-            double winEachYeahr = getPowEachYeahr(buy.getDate(), model.getLastDate(), model.getBuyWin(buy).getPercentage());
+            double roi = RoiCalculator.calcRoiFromRange(buy.getDate(), model.getLastDate(), model.getBuyWin(buy).getPercentage());
             System.out.println(active +
                     "\t" + " [" + count + "] " +
                     "\t" + buy.getWkn() + " " +
                     "\t" + buy.getDate() +
                     "\t (" + buyWin + "%) " +
-                    "\t (" + winEachYeahr + " %Y ) " +
+                    "\t (" + convToPercentage(roi) + " %Y ) " +
                     "\t" + dayPositive +
                     "\t " + convWknType(wkn.getWknType()) +
                     "\t (" + buyDayWin + "% ) " +
@@ -136,13 +130,6 @@ public class HybridViewPrinter {
             count++;
         }
     }
-
-    private double getPowEachYeahr(LocalDate date1, LocalDate date2, Double percentage) {
-        long daysRunning = Duration.between(date1.atStartOfDay(), date2.atStartOfDay()).toDays();
-        double yearsRunning = daysRunning / 365.0;
-        return convToPercentage(Math.pow(1 + percentage, 1 / yearsRunning) - 1);
-    }
-
 
     private String convWknType(String wknType1) {
         StringBuilder wknType = new StringBuilder(wknType1);
@@ -164,27 +151,18 @@ public class HybridViewPrinter {
         for (Wkn wkn : model.getWkns()) {
             urls.add(wkn.getWknUrl());
         }
-        try {
-            for (String wkn : model.getBuyWatch().keySet()) {
-                urls.add(model.getWkn(wkn).getWknUrl());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (String wkn : model.getBuyWatch().keySet()) {
+            urls.add(model.getWkn(wkn).getWknUrl());
         }
         urls.forEach(System.out::println);
     }
 
     public void printBuyWatch(ApplicationViewAccess model) {
         System.out.println("\n- Watch: --");
-        try {
-            watch(model, model.getBuyWatch());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        watch(model, model.getBuyWatch());
     }
 
-    private void watch(ApplicationViewAccess model, HashMap<String, List<Double>> watchChange1) {
-        HashMap<String, List<Double>> watchChange = watchChange1;
+    private void watch(ApplicationViewAccess model, HashMap<String, List<Double>> watchChange) {
         watchChange.forEach((wkn, todays) -> {
             StringBuilder values = new StringBuilder();
             Wkn wkn1 = model.getWkn(wkn);
@@ -231,11 +209,7 @@ public class HybridViewPrinter {
 
     public void printWatchAll(ApplicationViewAccess model) {
         System.out.println("\n- Watch All: --");
-        try {
-            watch(model, model.getWatchAll());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        watch(model, model.getWatchAll());
     }
 
     public void printBuyCash(ApplicationViewAccess model) {
@@ -262,16 +236,14 @@ public class HybridViewPrinter {
         }
     }
 
-    public void printConfig(ApplicationViewAccess model) {
+    public void printConfig() {
         System.out.println("SOLD: " + AssetBuy.showSold);
     }
 
-    public void rois(Graphics arg0, ApplicationViewAccess model, int width) {
+    public void printRois(Graphics arg0, ApplicationViewAccess model) {
         int col = 0;
-        int size;
         int zero;
         Double scale;
-        size = width / width;
         List<Double[]> lines;
         Double minusTen = 0.0;
         Double plusTen = 0.0;
@@ -301,10 +273,10 @@ public class HybridViewPrinter {
             plusTen += zero;
         }
         for (Double[] printLine : lines) {
-            arg0.drawLine(size * col, printLine[0].intValue(), size + size * col, printLine[1].intValue());
-            arg0.drawLine(size * col, zero, size + size * col, zero);
-            arg0.drawLine(size * col, plusTen.intValue(), size + size * col, plusTen.intValue());
-            arg0.drawLine(size * col, minusTen.intValue(), size + size * col, minusTen.intValue());
+            arg0.drawLine(col, printLine[0].intValue(), 1 + col, printLine[1].intValue());
+            arg0.drawLine(col, zero, 1 + col, zero);
+            arg0.drawLine(col, plusTen.intValue(), 1 + col, plusTen.intValue());
+            arg0.drawLine(col, minusTen.intValue(), 1 + col, minusTen.intValue());
             col += 1;
         }
     }

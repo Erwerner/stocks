@@ -1,4 +1,4 @@
-package ui.template;
+package template;
 
 public interface View {
     void update();

@@ -14,7 +14,6 @@ public class AssetBuy {
     private final Integer amount;
     private final Double fee;
     private final Double value;
-    private final boolean sold;
     private final LocalDate soldDate;
     private final Double soldValue;
     private boolean active = true;
@@ -37,7 +36,7 @@ public class AssetBuy {
     }
 
     public boolean show() {
-        return !sold || showSold;
+        return !(soldDate==null) || showSold;
     }
 
     public WknPoint getBuyWknPoint() {
