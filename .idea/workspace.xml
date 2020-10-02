@@ -10,28 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="760f5633-bee0-4821-9900-c2830a9aa011" name="Default Changelist" comment="6">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileContent/fileContent.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/fileHashes/resourceHashesCache.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/classAnalysis.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/jarAnalysis.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/javaCompile.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/javaCompile/taskHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/taskHistory/taskHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10.3/taskHistory/taskHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/application.core.StockAssetTest.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/application.core.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/packages/application.core.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-application.core.StockAssetTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/console/HybridViewPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/console/HybridViewPrinter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/core/RoiCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/core/RoiCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/core/model/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/core/model/Asset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/core/model/AssetBuy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/core/model/AssetBuy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure/input/InfrastructureInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/input/InfrastructureInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/application/core/AssetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/application/core/AssetTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/application/core/RoiCalculatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/application/core/RoiCalculatorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +35,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view />
       </state>
     </system>
@@ -57,29 +45,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JUnit4 Test Class" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>.jar</find>
-      <find>cash</find>
-      <find>firstB</find>
-      <find>FOND</find>
-      <find>A2ANH0</find>
-      <find>255.831</find>
-      <find>334</find>
-      <find>0.2</find>
-      <find />
-    </findStrings>
-    <replaceStrings>
-      <replace />
-    </replaceStrings>
-    <dirStrings>
-      <dir>$PROJECT_DIR$/src/main/resources/wkn</dir>
-    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -105,22 +74,30 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="application.core" />
+      <recent name="application.service" />
+      <recent name="ui.console" />
+      <recent name="application.core.exception" />
+      <recent name="helper" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="application.service" />
       <recent name="application.core" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources" />
-      <recent name="$PROJECT_DIR$/src/main/resources/wkn" />
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="helper" />
@@ -129,24 +106,12 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/wkn" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="application.service" />
-      <recent name="application.core" />
-      <recent name="ui.console" />
-      <recent name="application.core.exception" />
-      <recent name="helper" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/resources/wkn" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Starter">
-    <configuration name="Starter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="Starter" />
-      <module name="org.ew.stocks.main" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Gradle.Tests in 'stocks.test'">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -158,18 +123,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StockAssetTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AssetTest.when_at_day_was_buy_then_get_day_without_buy_is_correct" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;application.core.StockAssetTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;application.core.AssetTest.when_at_day_was_buy_then_get_day_without_buy_is_correct&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":cleanTest" />
             <option value=":test" />
           </list>
         </option>
@@ -178,18 +142,17 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="StockAssetTest.when_stock_point_is_missing_then_last_point_is_used" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="RoiCalculatorTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;application.core.StockAssetTest.when_stock_point_is_missing_then_last_point_is_used&quot;" />
+        <option name="scriptParameters" value="--tests &quot;application.core.RoiCalculatorTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":cleanTest" />
             <option value=":test" />
           </list>
         </option>
@@ -198,18 +161,36 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="StockAssetTest.when_three_buys_are_added_then_the_first_is_returned" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="RoiCalculatorTest.when_calc_roi_for_not_sold_asset_then_result_is_correct" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;application.core.StockAssetTest.when_three_buys_are_added_then_the_first_is_returned&quot;" />
+        <option name="scriptParameters" value="--tests &quot;application.core.RoiCalculatorTest.when_calc_roi_for_not_sold_asset_then_result_is_correct&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="RoiCalculatorTest.when_roi_is_calculated_for_half_a_year_then_roi_is_double_of_percentage" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;application.core.RoiCalculatorTest.when_roi_is_calculated_for_half_a_year_then_roi_is_double_of_percentage&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
             <option value=":test" />
           </list>
         </option>
@@ -239,19 +220,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.Starter" />
-      <item itemvalue="Gradle.StockAssetTest" />
-      <item itemvalue="Gradle.StockAssetTest.when_stock_point_is_missing_then_last_point_is_used" />
-      <item itemvalue="Gradle.StockAssetTest.when_three_buys_are_added_then_the_first_is_returned" />
       <item itemvalue="Gradle.Tests in 'stocks.test'" />
+      <item itemvalue="Gradle.RoiCalculatorTest.when_roi_is_calculated_for_half_a_year_then_roi_is_double_of_percentage" />
+      <item itemvalue="Gradle.AssetTest.when_at_day_was_buy_then_get_day_without_buy_is_correct" />
+      <item itemvalue="Gradle.RoiCalculatorTest" />
+      <item itemvalue="Gradle.RoiCalculatorTest.when_calc_roi_for_not_sold_asset_then_result_is_correct" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Starter" />
         <item itemvalue="Gradle.Tests in 'stocks.test'" />
-        <item itemvalue="Gradle.StockAssetTest" />
-        <item itemvalue="Gradle.StockAssetTest.when_stock_point_is_missing_then_last_point_is_used" />
-        <item itemvalue="Gradle.StockAssetTest.when_three_buys_are_added_then_the_first_is_returned" />
+        <item itemvalue="Gradle.RoiCalculatorTest.when_calc_roi_for_not_sold_asset_then_result_is_correct" />
+        <item itemvalue="Gradle.RoiCalculatorTest" />
+        <item itemvalue="Gradle.RoiCalculatorTest.when_roi_is_calculated_for_half_a_year_then_roi_is_double_of_percentage" />
+        <item itemvalue="Gradle.AssetTest.when_at_day_was_buy_then_get_day_without_buy_is_correct" />
       </list>
     </recent_temporary>
   </component>
@@ -463,40 +444,14 @@
       <workItem from="1600264374123" duration="211000" />
       <workItem from="1600679500781" duration="123000" />
       <workItem from="1601228816285" duration="1200000" />
+      <workItem from="1601664161595" duration="879000" />
+      <workItem from="1601665085499" duration="85000" />
+      <workItem from="1601665199941" duration="66000" />
+      <workItem from="1601665268516" duration="205000" />
+      <workItem from="1601665489660" duration="323000" />
+      <workItem from="1601665826783" duration="111000" />
     </task>
     <servers />
-  </component>
-  <component name="TestHistory">
-    <history-entry file="StockAssetTest - 2020.07.01 at 15h 21m 18s.xml">
-      <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="StockAssetTest - 2020.07.01 at 15h 21m 24s.xml">
-      <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="StockAssetTest - 2020.07.01 at 19h 06m 37s.xml">
-      <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="StockAssetTest - 2020.07.01 at 19h 10m 53s.xml">
-      <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="StockAssetTest - 2020.07.01 at 19h 11m 05s.xml">
-      <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="StockAssetTest - 2020.07.01 at 19h 24m 07s.xml">
-      <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="StockAssetTest - 2020.07.13 at 22h 52m 24s.xml">
-      <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="StockAssetTest - 2020.07.13 at 22h 52m 54s.xml">
-      <configuration name="StockAssetTest" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="Tests_in_'stocks_test' - 2020.07.13 at 22h 53m 15s.xml">
-      <configuration name="Tests in 'stocks.test'" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="Tests_in_'stocks_test' - 2020.07.13 at 22h 54m 37s.xml">
-      <configuration name="Tests in 'stocks.test'" configurationId="GradleRunConfiguration" />
-    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -515,35 +470,62 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="442" y="259" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.900@0.0.1440.900" timestamp="1598630748510" />
-    <state width="1398" height="450" key="GridCell.Tab.0.bottom" timestamp="1601230020632">
+    <state x="361" y="381" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1601664425171">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="450" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1601230020632" />
+    <state x="361" y="381" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1440.900@0.0.1440.900" timestamp="1601664425171" />
+    <state x="490" y="338" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1601664391132">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="490" y="338" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1440.900@0.0.1440.900" timestamp="1601664391132" />
+    <state width="1398" height="341" key="GridCell.Tab.0.bottom" timestamp="1601671892783">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="341" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1601671892783" />
     <state width="1398" height="391" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1596715768092" />
-    <state width="1398" height="450" key="GridCell.Tab.0.center" timestamp="1601230020632">
+    <state width="1398" height="341" key="GridCell.Tab.0.center" timestamp="1601671892782">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="450" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1601230020632" />
+    <state width="1398" height="341" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1601671892782" />
     <state width="1398" height="391" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1596715768091" />
-    <state width="1398" height="450" key="GridCell.Tab.0.left" timestamp="1601230020631">
+    <state width="1398" height="341" key="GridCell.Tab.0.left" timestamp="1601671892781">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="450" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1601230020631" />
+    <state width="1398" height="341" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1601671892781" />
     <state width="1398" height="391" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1596715768091" />
-    <state width="1398" height="450" key="GridCell.Tab.0.right" timestamp="1601230020632">
+    <state width="1398" height="341" key="GridCell.Tab.0.right" timestamp="1601671892783">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="450" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1601230020632" />
+    <state width="1398" height="341" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1601671892783" />
     <state width="1398" height="391" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1596715768092" />
+    <state x="523" y="375" key="ReplaceDuplicatesPrompt" timestamp="1601669948687">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="523" y="375" key="ReplaceDuplicatesPrompt/0.0.1440.900@0.0.1440.900" timestamp="1601669948687" />
+    <state x="221" y="23" width="1024" height="820" key="SettingsEditor" timestamp="1601665778902">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="221" y="23" width="1024" height="820" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1601665778902" />
+    <state x="518" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601670073225">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="518" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1601670073225" />
+    <state x="499" y="279" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1601668899704">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="499" y="279" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1440.900@0.0.1440.900" timestamp="1601668899704" />
+    <state x="458" y="195" width="525" height="510" key="extract.method.dialog" timestamp="1601671189844">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="458" y="195" width="525" height="510" key="extract.method.dialog/0.0.1440.900@0.0.1440.900" timestamp="1601671189844" />
+    <state x="418" y="205" width="604" height="490" key="find.popup" timestamp="1601664322519">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="418" y="205" width="604" height="490" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1601664322519" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/infrastructure/input/InfrastructureInput.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/application/service/ReaderService.java</url>
           <line>19</line>
@@ -551,90 +533,5 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <last-edited>stocks:jar</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>test|stocks</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>

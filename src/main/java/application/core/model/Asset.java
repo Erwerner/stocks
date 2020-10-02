@@ -162,4 +162,8 @@ public class Asset {
     public LocalDate getLastDate() {
         return wknkRow.getWknPoints().get(0).getDate();
     }
+
+    public List<AssetBuy> getAllBuys() {
+        return assetBuys;
+    }
 }

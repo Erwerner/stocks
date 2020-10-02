@@ -1,7 +1,13 @@
 package application.core.model;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 import java.time.LocalDate;
 
+@Getter
+
+@RequiredArgsConstructor
 public class AssetBuy {
     private final String wkn;
     private final LocalDate date;
@@ -9,34 +15,13 @@ public class AssetBuy {
     private final Double fee;
     private final Double value;
     private final boolean sold;
-
-    private boolean active;
+    private final LocalDate soldDate;
+    private final Double soldValue;
+    private boolean active = true;
     public static boolean showSold = false;
-
-    public AssetBuy(String wkn, LocalDate date, Integer amount, Double fee, Double value, boolean sold) {
-        this.wkn = wkn;
-        this.date = date;
-        this.amount = amount;
-        this.fee = fee;
-        this.value = value;
-        this.sold = sold;
-        setActive(true);
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
 
     public Double getCosts() {
         return amount * this.value * (1 + fee);
-    }
-
-    public String getWkn() {
-        return wkn;
     }
 
     public void toggl() {
@@ -51,7 +36,17 @@ public class AssetBuy {
         this.active = active;
     }
 
-    public boolean show(){
+    public boolean show() {
         return !sold || showSold;
+    }
+
+    public WknPoint getBuyWknPoint() {
+        return new WknPoint(date, value);
+    }
+
+    public WknPoint getSoldWknPoint() {
+        if (soldDate == null)
+            return null;
+        return new WknPoint(soldDate, soldValue);
     }
 }
