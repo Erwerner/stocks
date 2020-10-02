@@ -10,6 +10,6 @@ public class WknPoint {
     Double value;
 
     public Double calcPercentageDifferenceTo(WknPoint other) {
-        return other.getValue() / this.getValue() - this.getValue();
+        return (other.getValue() - this.getValue()) / this.getValue();
     }
 }

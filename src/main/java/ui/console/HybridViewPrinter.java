@@ -84,7 +84,8 @@ public class HybridViewPrinter {
         todayStats.forEach((key, value) -> System.out.println(key + ": " + value));
         Value winValue = todayStats.get("win ");
         System.out.println("win%: " + getPercentageValue(winValue));
-        System.out.println("winY: " + getPowEachYeahr(model.getFirstDate(), model.getLastDate(), winValue.getPercentage())+"%");
+        System.out.println("winY: " + getPowEachYeahr(model.getFirstDate(), model.getLastDate(), winValue.getPercentage()) + "%");
+        System.out.println("Roi: " + convToPercentage(model.getRoiToday()));
     }
 
     private double getPercentageValue(Value winValue) {
@@ -263,5 +264,48 @@ public class HybridViewPrinter {
 
     public void printConfig(ApplicationViewAccess model) {
         System.out.println("SOLD: " + AssetBuy.showSold);
+    }
+
+    public void rois(Graphics arg0, ApplicationViewAccess model, int width) {
+        int col = 0;
+        int size;
+        int zero;
+        Double scale;
+        size = width / width;
+        List<Double[]> lines;
+        Double minusTen = 0.0;
+        Double plusTen = 0.0;
+        List<Double> rois = model.getRois();
+        lines = new ArrayList<>();
+        Double lastRoi = 0.0;
+        for (Double roi : rois) {
+            if (!roi.isNaN()) {
+                Double[] line;
+                line = new Double[]{lastRoi, roi};
+                lines.add(line);
+                lastRoi = roi;
+            }
+        }
+        zero = 300;
+        scale = -800.0;
+        for (Double[] printLine : lines) {
+            plusTen = 0.1;
+            minusTen = -0.1;
+            printLine[0] *= scale;
+            printLine[1] *= scale;
+            printLine[0] += zero;
+            printLine[1] += zero;
+            minusTen *= scale;
+            minusTen += zero;
+            plusTen *= scale;
+            plusTen += zero;
+        }
+        for (Double[] printLine : lines) {
+            arg0.drawLine(size * col, printLine[0].intValue(), size + size * col, printLine[1].intValue());
+            arg0.drawLine(size * col, zero, size + size * col, zero);
+            arg0.drawLine(size * col, plusTen.intValue(), size + size * col, plusTen.intValue());
+            arg0.drawLine(size * col, minusTen.intValue(), size + size * col, minusTen.intValue());
+            col += 1;
+        }
     }
 }

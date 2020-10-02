@@ -12,11 +12,18 @@
     <list default="true" id="760f5633-bee0-4821-9900-c2830a9aa011" name="Default Changelist" comment="6">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/application/core/RoiCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/core/RoiCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/core/model/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/core/model/Asset.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/application/core/model/AssetBuy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/core/model/AssetBuy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/core/model/WknPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/core/model/WknPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/mvc/ApplicationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/mvc/ApplicationModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/mvc/ApplicationViewAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/mvc/ApplicationViewAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/service/RoiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/service/RoiService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure/input/InfrastructureInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/input/InfrastructureInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/application/core/AssetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/application/core/AssetTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/console/ConsoleControllerType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/console/HybridView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/console/HybridView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/console/HybridViewPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/console/HybridViewPrinter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/application/core/RoiCalculatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/application/core/RoiCalculatorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/application/service/RoiServiceTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +118,14 @@
       <recent name="$PROJECT_DIR$/src/main/resources/wkn" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Tests in 'stocks.test'">
+  <component name="RunManager" selected="Application.Starter">
+    <configuration name="Starter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Starter" />
+      <module name="org.ew.stocks.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -123,12 +137,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AssetTest.when_at_day_was_buy_then_get_day_without_buy_is_correct" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="RoiCalculatorTest.when_calc_roi_for_alot_buys_then_buys_in_past_are_ignored" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;application.core.AssetTest.when_at_day_was_buy_then_get_day_without_buy_is_correct&quot;" />
+        <option name="scriptParameters" value="--tests &quot;application.core.RoiCalculatorTest.when_calc_roi_for_alot_buys_then_buys_in_past_are_ignored&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -142,12 +156,12 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="RoiCalculatorTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="RoiCalculatorTest.when_calc_roi_for_asset_with_two_buys_then_result_is_correct" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;application.core.RoiCalculatorTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;application.core.RoiCalculatorTest.when_calc_roi_for_asset_with_two_buys_then_result_is_correct&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -167,25 +181,6 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" value="--tests &quot;application.core.RoiCalculatorTest.when_calc_roi_for_not_sold_asset_then_result_is_correct&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="RoiCalculatorTest.when_roi_is_calculated_for_half_a_year_then_roi_is_double_of_percentage" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;application.core.RoiCalculatorTest.when_roi_is_calculated_for_half_a_year_then_roi_is_double_of_percentage&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -221,18 +216,18 @@
     </configuration>
     <list>
       <item itemvalue="Gradle.Tests in 'stocks.test'" />
-      <item itemvalue="Gradle.RoiCalculatorTest.when_roi_is_calculated_for_half_a_year_then_roi_is_double_of_percentage" />
-      <item itemvalue="Gradle.AssetTest.when_at_day_was_buy_then_get_day_without_buy_is_correct" />
-      <item itemvalue="Gradle.RoiCalculatorTest" />
       <item itemvalue="Gradle.RoiCalculatorTest.when_calc_roi_for_not_sold_asset_then_result_is_correct" />
+      <item itemvalue="Gradle.RoiCalculatorTest.when_calc_roi_for_asset_with_two_buys_then_result_is_correct" />
+      <item itemvalue="Application.Starter" />
+      <item itemvalue="Gradle.RoiCalculatorTest.when_calc_roi_for_alot_buys_then_buys_in_past_are_ignored" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.Tests in 'stocks.test'" />
+        <item itemvalue="Gradle.RoiCalculatorTest.when_calc_roi_for_alot_buys_then_buys_in_past_are_ignored" />
+        <item itemvalue="Application.Starter" />
+        <item itemvalue="Gradle.RoiCalculatorTest.when_calc_roi_for_asset_with_two_buys_then_result_is_correct" />
         <item itemvalue="Gradle.RoiCalculatorTest.when_calc_roi_for_not_sold_asset_then_result_is_correct" />
-        <item itemvalue="Gradle.RoiCalculatorTest" />
-        <item itemvalue="Gradle.RoiCalculatorTest.when_roi_is_calculated_for_half_a_year_then_roi_is_double_of_percentage" />
-        <item itemvalue="Gradle.AssetTest.when_at_day_was_buy_then_get_day_without_buy_is_correct" />
       </list>
     </recent_temporary>
   </component>
@@ -466,6 +461,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="100" y="100" width="1240" height="700" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1601673159675">
+      <screen x="0" y="23" width="1440" height="820" />
+    </state>
+    <state x="100" y="100" width="1240" height="700" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.820@0.23.1440.820" timestamp="1601673159675" />
     <state x="442" y="259" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598630748510">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -478,26 +477,54 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="490" y="338" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1440.900@0.0.1440.900" timestamp="1601664391132" />
-    <state width="1398" height="341" key="GridCell.Tab.0.bottom" timestamp="1601671892783">
+    <state x="483" y="160" key="#xdebugger.evaluate" timestamp="1601672495175">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="341" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1601671892783" />
+    <state x="483" y="160" key="#xdebugger.evaluate/0.0.1440.900@0.0.1440.900" timestamp="1601672495175" />
+    <state width="1398" height="294" key="GridCell.Tab.0.bottom" timestamp="1601677715840">
+      <screen x="0" y="23" width="1440" height="820" />
+    </state>
+    <state width="1398" height="341" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1601675566321" />
+    <state width="1398" height="294" key="GridCell.Tab.0.bottom/0.23.1440.820@0.23.1440.820" timestamp="1601677715840" />
     <state width="1398" height="391" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1596715768092" />
-    <state width="1398" height="341" key="GridCell.Tab.0.center" timestamp="1601671892782">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1398" height="294" key="GridCell.Tab.0.center" timestamp="1601677715839">
+      <screen x="0" y="23" width="1440" height="820" />
     </state>
-    <state width="1398" height="341" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1601671892782" />
+    <state width="1398" height="341" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1601675566320" />
+    <state width="1398" height="294" key="GridCell.Tab.0.center/0.23.1440.820@0.23.1440.820" timestamp="1601677715839" />
     <state width="1398" height="391" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1596715768091" />
-    <state width="1398" height="341" key="GridCell.Tab.0.left" timestamp="1601671892781">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1398" height="294" key="GridCell.Tab.0.left" timestamp="1601677715839">
+      <screen x="0" y="23" width="1440" height="820" />
     </state>
-    <state width="1398" height="341" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1601671892781" />
+    <state width="1398" height="341" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1601675566319" />
+    <state width="1398" height="294" key="GridCell.Tab.0.left/0.23.1440.820@0.23.1440.820" timestamp="1601677715839" />
     <state width="1398" height="391" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1596715768091" />
-    <state width="1398" height="341" key="GridCell.Tab.0.right" timestamp="1601671892783">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1398" height="294" key="GridCell.Tab.0.right" timestamp="1601677715840">
+      <screen x="0" y="23" width="1440" height="820" />
     </state>
-    <state width="1398" height="341" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1601671892783" />
+    <state width="1398" height="341" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1601675566320" />
+    <state width="1398" height="294" key="GridCell.Tab.0.right/0.23.1440.820@0.23.1440.820" timestamp="1601677715840" />
     <state width="1398" height="391" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1596715768092" />
+    <state width="1398" height="379" key="GridCell.Tab.1.bottom" timestamp="1601676548317">
+      <screen x="0" y="23" width="1440" height="820" />
+    </state>
+    <state width="1398" height="439" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1601674937428" />
+    <state width="1398" height="379" key="GridCell.Tab.1.bottom/0.23.1440.820@0.23.1440.820" timestamp="1601676548317" />
+    <state width="1398" height="379" key="GridCell.Tab.1.center" timestamp="1601676548316">
+      <screen x="0" y="23" width="1440" height="820" />
+    </state>
+    <state width="1398" height="439" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1601674937428" />
+    <state width="1398" height="379" key="GridCell.Tab.1.center/0.23.1440.820@0.23.1440.820" timestamp="1601676548316" />
+    <state width="1398" height="379" key="GridCell.Tab.1.left" timestamp="1601676548316">
+      <screen x="0" y="23" width="1440" height="820" />
+    </state>
+    <state width="1398" height="439" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1601674937427" />
+    <state width="1398" height="379" key="GridCell.Tab.1.left/0.23.1440.820@0.23.1440.820" timestamp="1601676548316" />
+    <state width="1398" height="379" key="GridCell.Tab.1.right" timestamp="1601676548317">
+      <screen x="0" y="23" width="1440" height="820" />
+    </state>
+    <state width="1398" height="439" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1601674937428" />
+    <state width="1398" height="379" key="GridCell.Tab.1.right/0.23.1440.820@0.23.1440.820" timestamp="1601676548317" />
     <state x="523" y="375" key="ReplaceDuplicatesPrompt" timestamp="1601669948687">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -527,9 +554,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/application/service/ReaderService.java</url>
-          <line>19</line>
-          <option name="timeStamp" value="8" />
+          <url>file://$PROJECT_DIR$/src/main/java/ui/console/HybridViewPrinter.java</url>
+          <line>307</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

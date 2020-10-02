@@ -22,6 +22,7 @@ public class HybridView extends JFrame implements View {
     private final int width = 1200;
     private boolean showBuyLines = false;
     private int showLines = 1;
+    private boolean showRois = true;
     private final HybridViewPrinter hybridViewPrinter;
 
 
@@ -44,7 +45,11 @@ public class HybridView extends JFrame implements View {
     @Override
     public void paint(Graphics arg0) {
         super.paint(arg0);
-        hybridViewPrinter.drawLines(arg0, model, maxRange, width, showLines);
+        if(showRois) {
+            hybridViewPrinter.rois(arg0, model, width);
+        }else {
+            hybridViewPrinter.drawLines(arg0, model, maxRange, width, showLines);
+        }
         if (showBuyLines)
             hybridViewPrinter.printBuyLines(arg0, model, maxRange, width);
 
@@ -136,6 +141,16 @@ public class HybridView extends JFrame implements View {
         return new ConsoleController(model) {
             @Override
             public void execute() {
+                repaint();
+            }
+        };
+    }
+
+    public ConsoleController initRoisController(ApplicationControllerAccess model) {
+        return new ConsoleController(model) {
+            @Override
+            public void execute() {
+                showRois = !showRois;
                 repaint();
             }
         };

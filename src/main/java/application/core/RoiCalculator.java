@@ -43,6 +43,8 @@ public class RoiCalculator {
                 throw new RuntimeException(dateNotFound);
             }
         } else {
+            if(soldWknPoint.getDate().isBefore(date))
+                return null;
             return calcRoiFromTwoPoints(buyWknPoint, soldWknPoint);
         }
     }
@@ -50,7 +52,7 @@ public class RoiCalculator {
     public Double calcWeightedRoiForAssetsBuyAtDate(List<Asset> assets, LocalDate endDate) {
         ArrayList<RoiWeight> rws = new ArrayList<>();
         for (Asset asset : assets) {
-            for (AssetBuy buy : asset.getAllBuys()) {
+            for (AssetBuy buy : asset.getActiveBuys()) {
                 Double roi = calcRoiForAssetBuyAtDate(asset, buy, endDate);
                 if (roi != null) {
                     RoiWeight roiWeight = new RoiWeight(roi, buy.getAmount());

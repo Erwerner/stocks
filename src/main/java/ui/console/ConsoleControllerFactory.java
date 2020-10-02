@@ -20,6 +20,7 @@ public class ConsoleControllerFactory {
         controllers.put(LINE, hybridView.initLinesController((ApplicationControllerAccess) model));
         controllers.put(RNGE, hybridView.initRangeController((ApplicationControllerAccess) model));
         controllers.put(REFR, hybridView.initRefreshController((ApplicationControllerAccess) model));
+        controllers.put(ROIS, hybridView.initRoisController((ApplicationControllerAccess) model));
         controllers.put(TOGL, initTogglController((ApplicationControllerAccess) model));
         controllers.put(TGAL, initTogglAllController((ApplicationControllerAccess) model));
         controllers.put(TGWN, initTogglWinController((ApplicationControllerAccess) model));

@@ -44,6 +44,8 @@ public class InfrastructureInput extends ApplicationInput {
             double fee = Double.parseDouble(buyData[3]);
             double value = Double.parseDouble(buyData[4]);
             boolean sold = Boolean.parseBoolean(buyData[5]);
+            LocalDate soldDate = !buyData[6].equals("null") ? LocalDate.parse(buyData[6]) : null;
+            Double soldValue = !buyData[7].equals("null") ? Double.parseDouble(buyData[7]) : null;
             AssetBuy assetBuy = new AssetBuy(
                     wkn,
                     date,
@@ -51,8 +53,8 @@ public class InfrastructureInput extends ApplicationInput {
                     fee,
                     value,
                     sold,
-                    LocalDate.parse(buyData[6]),
-                    Double.parseDouble(buyData[7])
+                    soldDate,
+                    soldValue
             );
             assetBuys.add(assetBuy);
         }

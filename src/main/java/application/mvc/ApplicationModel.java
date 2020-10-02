@@ -18,6 +18,7 @@ public class ApplicationModel extends Model implements
     private final ReaderService readerService;
     private final OutputService outputService;
     private final ExecuteService executeService;
+    private final RoiService roiService;
 
     public ApplicationModel(ApplicationInput input) {
         data = new ApplicationData();
@@ -25,6 +26,7 @@ public class ApplicationModel extends Model implements
         outputService = new OutputService(dataService);
         readerService = new ReaderService(input);
         executeService = new ExecuteService();
+        roiService = new RoiService();
     }
 
     private void addWkn(String wkn) throws IOException {
@@ -155,6 +157,16 @@ public class ApplicationModel extends Model implements
     @Override
     public LocalDate getFirstDate() {
         return dataService.calcFirstDate(data);
+    }
+
+    @Override
+    public List<Double> getRois() {
+        return roiService.getWeightedRois(data, dataService.calcFirstDate(data), dataService.calcLastDate(data));
+    }
+
+    @Override
+    public Double getRoiToday() {
+        return roiService.getRoiForDate(data,dataService.calcLastDate(data));
     }
 
     // Controller

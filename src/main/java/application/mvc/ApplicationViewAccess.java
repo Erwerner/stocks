@@ -49,4 +49,8 @@ public interface ApplicationViewAccess {
     List<LocalDate> getDates(Integer maxRange);
 
     LocalDate getFirstDate();
+
+    List<Double> getRois();
+
+    Double getRoiToday();
 }

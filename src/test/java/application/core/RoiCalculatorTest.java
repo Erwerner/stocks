@@ -76,8 +76,26 @@ public class RoiCalculatorTest extends UnitTest {
     }
 
     @Test
-    public void when_calc_roi_for_alot_buys_then_result_is_correct() {
+    public void when_calc_roi_for_asset_with_two_buys_then_result_is_correct() {
         ArrayList<WknPoint> wknPoints = new ArrayList<>();
+        LocalDate startDate = LocalDate.of(2001, 01, 01);
+        wknPoints.add(new WknPoint(startDate.plusDays(4), 16.0));
+        wknPoints.add(new WknPoint(startDate.plusDays(2), 0.0));
+        wknPoints.add(new WknPoint(startDate.plusDays(1), 2.0));
+        wknPoints.add(new WknPoint(startDate, 1.0));
+        WknkRow wknkRow = new WknkRow(wknPoints);
+        Asset asset = new Asset(wknkRow);
+        List<Asset> assets = new ArrayList<>();
+        assets.add(asset);
+        asset.addBuy(new AssetBuy("", startDate, 1000, 0.0, 1.0, false, null, null));
+        asset.addBuy(new AssetBuy("", startDate.plusDays(1), 1000, 0.0, 2.0, true, startDate.plusDays(2), 4.0));
+        Double act = cut.calcWeightedRoiForAssetsBuyAtDate(assets, startDate.plusDays(4));
+        Double expected = Math.pow(2, 365);
+        assertEquals(expected, act);
+    }
+
+    @Test
+    public void when_calc_roi_for_alot_buys_then_result_is_correct() {
         LocalDate startDate = LocalDate.of(2001, 01, 01);
         LocalDate endDate = startDate.plusDays(365);
 
@@ -92,8 +110,9 @@ public class RoiCalculatorTest extends UnitTest {
         Double exp = 0.3;
         assertEquals(exp, act);
     }
+
     @Test
-    public void when_calc_roi_for_alot_buys_then_buys_in__future_are_ignored() {
+    public void when_calc_roi_for_alot_buys_then_buys_in_future_are_ignored() {
         ArrayList<WknPoint> wknPoints = new ArrayList<>();
         LocalDate startDate = LocalDate.of(2001, 01, 01);
         LocalDate endDate = startDate.plusDays(365);
@@ -107,6 +126,24 @@ public class RoiCalculatorTest extends UnitTest {
         assets.add(asset2);
         assets.add(asset3);
         assets.add(asset4);
+        Double act = cut.calcWeightedRoiForAssetsBuyAtDate(assets, endDate);
+        Double exp = 0.3;
+        assertEquals(exp, act);
+    }
+
+    @Test
+    public void when_calc_roi_for_alot_buys_then_buys_in_past_are_ignored() {
+        LocalDate startDate = LocalDate.of(2001, 01, 01);
+        LocalDate endDate = startDate.plusDays(365);
+
+        Asset asset1 = makeAsset(1000, 1.0, 1.1, startDate, endDate);
+        Asset asset2 = makeAsset(1000, 1.0, 1.3, startDate, endDate);
+        Asset asset3 = makeAsset(2000, 1.0, 1.4, startDate, endDate);
+        asset3.addBuy(new AssetBuy("", startDate, 2000, 0.0, 1.4, true, startDate.plusDays(1), 1.4));
+        List<Asset> assets = new ArrayList<>();
+        assets.add(asset1);
+        assets.add(asset2);
+        assets.add(asset3);
         Double act = cut.calcWeightedRoiForAssetsBuyAtDate(assets, endDate);
         Double exp = 0.3;
         assertEquals(exp, act);
