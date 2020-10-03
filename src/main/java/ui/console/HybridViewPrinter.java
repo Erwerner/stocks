@@ -79,54 +79,47 @@ public class HybridViewPrinter {
         todayStats.forEach((key, value) -> System.out.println(key + ": " + value));
         Value winValue = todayStats.get("win ");
         System.out.println("win%: " + getPercentageValue(winValue));
-        System.out.println("Roi: " + convToPercentage(model.getRoiToday()));
+        System.out.println("Roi All: " + convToPercentageString(model.getRoiToday()));
+        List<Double> rois = model.getRois();
+        System.out.println("Roi Now: " + convToPercentageString(rois.get(rois.size() - 1)));
     }
 
-    private double getPercentageValue(Value winValue) {
-        return convToPercentage(winValue.getPercentage());
+    private String getPercentageValue(Value winValue) {
+        return convToPercentageString(winValue.getPercentage());
     }
 
     public void printBuys(ApplicationViewAccess model) {
         System.out.println("\n- Buys: --");
         int count = 0;
         int runningYear = 0;
+        LocalDate lastDate = model.getLastDate();
         for (AssetBuy buy : model.getAllBuys()) {
-            if (runningYear < buy.getDate().getYear()) {
+            LocalDate buyDate = buy.getDate();
+            String buyWkn = buy.getWkn();
+            if (runningYear < buyDate.getYear()) {
                 System.out.println();
-                runningYear = buy.getDate().getYear();
+                runningYear = buyDate.getYear();
             }
-            String active = " ";
-            if (buy.isActive())
-                active = "X";
-            LocalDate lastDate = model.getLastDate();
-            double buyWin = getPercentageValue(model.getBuyWin(buy));
-            double wknChangeToday = model.getWknChangeAtDate(buy.getWkn(), lastDate);
-            double buyDayWin = convToPercentage(wknChangeToday);
+            double wknChangeToday = model.getWknChangeAtDate(buyWkn, lastDate);
             double winDay = 0;
             try {
-                winDay = (wknChangeToday * buy.getAmount() * model.getWknPointAtDate(buy.getWkn(), lastDate));
+                winDay = (wknChangeToday * buy.getAmount() * model.getWknPointAtDate(buyWkn, lastDate));
             } catch (DateNotFound dateNotFound) {
                 dateNotFound.printStackTrace();
             }
 
-            String dayPositive = "+";
-            if (winDay < 0)
-                dayPositive = "-";
-            if (winDay == 0)
-                dayPositive = " ";
-            Wkn wkn = model.getWkn(buy.getWkn());
-            double roi = RoiCalculator.calcRoiFromRange(buy.getDate(), model.getLastDate(), model.getBuyWin(buy).getPercentage());
-            System.out.println(active +
+            Value buyWin = model.getBuyWin(buy);
+            System.out.println((buy.isActive() ? "X" : " ") +
                     "\t" + " [" + count + "] " +
-                    "\t" + buy.getWkn() + " " +
-                    "\t" + buy.getDate() +
-                    "\t (" + buyWin + "%) " +
-                    "\t (" + convToPercentage(roi) + " %Y ) " +
-                    "\t" + dayPositive +
-                    "\t " + convWknType(wkn.getWknType()) +
-                    "\t (" + buyDayWin + "% ) " +
+                    "\t" + buyWkn + " " +
+                    "\t" + buyDate +
+                    "\t (" + getPercentageValue(buyWin) + ")" +
+                    "\t (" + convToPercentageString(RoiCalculator.calcRoiFromRange(buyDate, lastDate, buyWin.getPercentage())) + ") " +
+                    "\t" + (winDay < 0 ? "-" : "+") +
+                    "\t " + convWknType(model.getWkn(buyWkn).getWknType()) +
+                    "\t (" + convToPercentageString(wknChangeToday) + ") " +
                     "\t " + (int) winDay + "€ " +
-                    "\t" + wkn.getWknName());
+                    "\t" + model.getWkn(buyWkn).getWknName());
             count++;
         }
     }
@@ -174,8 +167,8 @@ public class HybridViewPrinter {
                     sums.append("[");
                 if (today < 0)
                     values.append("[");
-                values.append(convToPercentage(today));
-                sums.append(convToPercentage(sum));
+                values.append(convToPercentageString(today));
+                sums.append(convToPercentageString(sum));
                 if (sum < 0)
                     sums.append("]");
                 if (today < 0)
@@ -189,8 +182,8 @@ public class HybridViewPrinter {
         });
     }
 
-    private double convToPercentage(Double today) {
-        return ((Double) (today * 10000)).intValue() / 100.0;
+    private String convToPercentageString(Double value) {
+        return ((Double) (value * 10000)).intValue() / 100.0 + "%";
     }
 
     public void printWknTypeSum(ApplicationViewAccess model) {
@@ -198,12 +191,12 @@ public class HybridViewPrinter {
         HashMap<String, Value> sums = model.getWknTypeSums();
         sums.forEach((wknType, value) -> {
             if (!wknType.startsWith(">"))
-                System.out.println(convWknType(wknType) + " \t" + getPercentageValue(value) + "%" + " \t" + value.getValue().intValue());
+                System.out.println(convWknType(wknType) + " \t" + getPercentageValue(value) + " \t" + value.getValue().intValue());
         });
         System.out.println();
         sums.forEach((wknType, value) -> {
             if (wknType.startsWith(">"))
-                System.out.println(convWknType(wknType) + " \t" + getPercentageValue(value) + "%" + " \t" + value.getValue().intValue());
+                System.out.println(convWknType(wknType) + " \t" + getPercentageValue(value) + " \t" + value.getValue().intValue());
         });
     }
 

@@ -35,7 +35,7 @@ public class AssetTest extends UnitTest {
     }
 
     private AssetBuy getNotSoldAssetBuy(LocalDate thirdDate, double v) {
-        return new AssetBuy("", thirdDate, 1, null, v, false, null, null);
+        return new AssetBuy("", thirdDate, 1, null, v, null, null);
     }
 
     @Test
@@ -119,8 +119,8 @@ public class AssetTest extends UnitTest {
         wknPoints.add(new WknPoint(date.plusDays(1), 1.0));
         wknPoints.add(new WknPoint(date, 0.0));
         cut = new Asset(new WknkRow(wknPoints));
-        cut.addBuy(new AssetBuy("", date.plusDays(2), 2, 0.0, 2.0, false,null,null));
-        cut.addBuy(new AssetBuy("", date.plusDays(4), 4, 0.0, 4.0, false,null,null));
+        cut.addBuy(new AssetBuy("", date.plusDays(2), 2, 0.0, 2.0,null,null));
+        cut.addBuy(new AssetBuy("", date.plusDays(4), 4, 0.0, 4.0,null,null));
 
         assertEquals((Double)4.0,cut.getCostAtDate(date.plusDays(2)));
         assertEquals((Double)20.0,cut.getCostAtDate(date.plusDays(4)));

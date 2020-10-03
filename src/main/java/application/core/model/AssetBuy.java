@@ -36,7 +36,7 @@ public class AssetBuy {
     }
 
     public boolean show() {
-        return !(soldDate==null) || showSold;
+        return soldDate==null || showSold;
     }
 
     public WknPoint getBuyWknPoint() {

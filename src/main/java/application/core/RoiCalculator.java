@@ -31,10 +31,10 @@ public class RoiCalculator {
         return roiSum / amountSum;
     }
 
-    public Double calcRoiForAssetBuyAtDate(Asset asset, AssetBuy assetBuy, LocalDate date) {
+    Double calcRoiForAssetBuyAtDate(Asset asset, AssetBuy assetBuy, LocalDate date, int minimumDays, boolean excludeSold) {
         if (assetBuy.getDate().isAfter(date))
             return null;
-        if (assetBuy.getDate().plusDays(70).isAfter(date))//TODO delte for tests
+        if (assetBuy.getDate().plusDays(minimumDays).isAfter(date))
             return null;
         WknPoint soldWknPoint = assetBuy.getSoldWknPoint();
         WknPoint buyWknPoint = assetBuy.getBuyWknPoint();
@@ -45,17 +45,17 @@ public class RoiCalculator {
                 throw new RuntimeException(dateNotFound);
             }
         } else {
-            if(soldWknPoint.getDate().isBefore(date))
+            if (soldWknPoint.getDate().isBefore(date) && excludeSold)
                 return null;
             return calcRoiFromTwoPoints(buyWknPoint, soldWknPoint);
         }
     }
 
-    public Double calcWeightedRoiForAssetsBuyAtDate(List<Asset> assets, LocalDate endDate) {
+    public Double calcWeightedRoiForAssetsBuyAtDate(List<Asset> assets, LocalDate endDate, int minimumDays, boolean excludeSold) {
         ArrayList<RoiWeight> rws = new ArrayList<>();
         for (Asset asset : assets) {
             for (AssetBuy buy : asset.getActiveBuys()) {
-                Double roi = calcRoiForAssetBuyAtDate(asset, buy, endDate);
+                Double roi = calcRoiForAssetBuyAtDate(asset, buy, endDate, minimumDays, excludeSold);
                 if (roi != null) {
                     RoiWeight roiWeight = new RoiWeight(roi, buy.getAmount());
                     rws.add(roiWeight);
