@@ -22,13 +22,13 @@ public class RoiCalculator {
     }
 
     public Double calcWeightedRoi(List<RoiWeight> rws) {
-        int amountSum = 0;
+        int costSum = 0;
         double roiSum = 0.0;
         for (RoiWeight roiWeight : rws) {
-            amountSum += roiWeight.getAmount();
-            roiSum += roiWeight.getRoi() * roiWeight.getAmount();
+            costSum += roiWeight.getCost();
+            roiSum += roiWeight.getRoi() * roiWeight.getCost();
         }
-        return roiSum / amountSum;
+        return roiSum / costSum;
     }
 
     Double calcRoiForAssetBuyAtDate(Asset asset, AssetBuy assetBuy, LocalDate date, int minimumDays, boolean excludeSold) {
@@ -57,7 +57,7 @@ public class RoiCalculator {
             for (AssetBuy buy : asset.getActiveBuys()) {
                 Double roi = calcRoiForAssetBuyAtDate(asset, buy, endDate, minimumDays, excludeSold);
                 if (roi != null) {
-                    RoiWeight roiWeight = new RoiWeight(roi, buy.getAmount());
+                    RoiWeight roiWeight = new RoiWeight(roi, buy.getCosts());
                     rws.add(roiWeight);
                 }
             }

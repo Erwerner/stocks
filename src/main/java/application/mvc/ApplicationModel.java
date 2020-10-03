@@ -147,12 +147,12 @@ public class ApplicationModel extends Model implements
 
     @Override
     public List<Double> getRois() {
-        return roiService.getWeightedRois(data, dataService.calcFirstDate(data), dataService.calcLastDate(data), 60, true);
+        return roiService.getWeightedRois(data, dataService.calcFirstDate(data), dataService.calcLastDate(data), 70, true);
     }
 
     @Override
     public Double getRoiToday() {
-        return roiService.getRoiForDate(data, dataService.calcLastDate(data), 30, false);
+        return roiService.getRoiForDate(data, dataService.calcLastDate(data), 35, false);
     }
 
     // Controller

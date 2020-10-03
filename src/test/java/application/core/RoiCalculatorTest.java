@@ -144,7 +144,7 @@ public class RoiCalculatorTest extends UnitTest {
         assets.add(asset2);
         assets.add(asset3);
         Double act = cut.calcWeightedRoiForAssetsBuyAtDate(assets, endDate,0, false);
-        Double exp = 0.3;
+        Double exp = 0.17647058823529413;
         assertEquals(exp, act);
     }
 
