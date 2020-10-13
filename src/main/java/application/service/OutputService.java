@@ -23,10 +23,10 @@ public class OutputService {
         Value neu = new Value(getTotalLineAtDate(lastDate, data)[0]);
         Double todayCosts = dataService.calcCostsAtDate(lastDate, data);
 
-        todayStats.put("old ", old);
-        todayStats.put("new", neu);
+        //todayStats.put("old ", old);
+        //todayStats.put("new", neu);
         todayStats.put("diff", neu.copy().sub(old));
-        todayStats.put("win ", neu.copy().sub(todayCosts));
+        //todayStats.put("win ", neu.copy().sub(todayCosts));
         todayStats.values().forEach(value -> value.setTotal(todayCosts));
         return todayStats;
     }

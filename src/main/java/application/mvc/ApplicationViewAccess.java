@@ -47,7 +47,7 @@ public interface ApplicationViewAccess {
 
     List<LocalDate> getDates(Integer maxRange);
 
-    List<Double> getRois();
+    List<Double> getRoisWithSold();
 
-    Double getRoiToday();
+    Double getRoiTodayWithoutSold();
 }

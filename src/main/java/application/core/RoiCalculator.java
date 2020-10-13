@@ -17,11 +17,11 @@ public class RoiCalculator {
         return Math.pow(1 + percentageDifference, 1 / years) - 1;
     }
 
-    public static double calcRoiFromTwoPoints(WknPoint point1, WknPoint point2) {
+    double calcRoiFromTwoPoints(WknPoint point1, WknPoint point2) {
         return calcRoiFromRange(point1.getDate(), point2.getDate(), point1.calcPercentageDifferenceTo(point2));
     }
 
-    public Double calcWeightedRoi(List<RoiWeight> rws) {
+    Double calcWeightedRoi(List<RoiWeight> rws) {
         int costSum = 0;
         double roiSum = 0.0;
         for (RoiWeight roiWeight : rws) {
@@ -31,31 +31,41 @@ public class RoiCalculator {
         return roiSum / costSum;
     }
 
-    Double calcRoiForAssetBuyAtDate(Asset asset, AssetBuy assetBuy, LocalDate date, int minimumDays, boolean excludeSold) {
-        if (assetBuy.getDate().isAfter(date))
+    Double calcRoiForAssetBuyAtDate(Asset asset, AssetBuy assetBuy, int dayRange, LocalDate endDate, int minimumDays, boolean excludeSold) {
+        if (assetBuy.getDate().isAfter(endDate))
             return null;
-        if (assetBuy.getDate().plusDays(minimumDays).isAfter(date))
+        if (assetBuy.getDate().plusDays(minimumDays).isAfter(endDate))
             return null;
+        WknPoint startWknPoint;
+        LocalDate startDate = endDate.minusDays(dayRange-1);
+        if (startDate.isAfter(assetBuy.getDate())) {
+            try {
+                startWknPoint = asset.getWknPointForDate(startDate);
+            } catch (DateNotFound e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            startWknPoint = assetBuy.getBuyWknPoint();
+        }
         WknPoint soldWknPoint = assetBuy.getSoldWknPoint();
-        WknPoint buyWknPoint = assetBuy.getBuyWknPoint();
         if (soldWknPoint == null) {
             try {
-                return calcRoiFromTwoPoints(buyWknPoint, asset.getWknPointForDate(date));
+                return calcRoiFromTwoPoints(startWknPoint, asset.getWknPointForDate(endDate));
             } catch (DateNotFound dateNotFound) {
                 throw new RuntimeException(dateNotFound);
             }
         } else {
-            if (soldWknPoint.getDate().isBefore(date) && excludeSold)
+            if (soldWknPoint.getDate().isBefore(endDate) && excludeSold)
                 return null;
-            return calcRoiFromTwoPoints(buyWknPoint, soldWknPoint);
+            return calcRoiFromTwoPoints(startWknPoint, soldWknPoint);
         }
     }
 
-    public Double calcWeightedRoiForAssetsBuyAtDate(List<Asset> assets, LocalDate endDate, int minimumDays, boolean excludeSold) {
+    public Double calcWeightedRoiForAssetsBuyAtDate(List<Asset> assets, int dayRange, LocalDate endDate, int minimumDays, boolean excludeSold) {
         ArrayList<RoiWeight> rws = new ArrayList<>();
         for (Asset asset : assets) {
             for (AssetBuy buy : asset.getActiveBuys()) {
-                Double roi = calcRoiForAssetBuyAtDate(asset, buy, endDate, minimumDays, excludeSold);
+                Double roi = calcRoiForAssetBuyAtDate(asset, buy, dayRange, endDate, minimumDays, excludeSold);
                 if (roi != null) {
                     RoiWeight roiWeight = new RoiWeight(roi, buy.getCosts());
                     rws.add(roiWeight);

@@ -40,7 +40,7 @@ public class AssetBuy {
     }
 
     public WknPoint getBuyWknPoint() {
-        return new WknPoint(date, value);
+        return new WknPoint(date, value * (1 + fee));
     }
 
     public WknPoint getSoldWknPoint() {

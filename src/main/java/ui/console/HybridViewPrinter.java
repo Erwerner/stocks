@@ -77,11 +77,8 @@ public class HybridViewPrinter {
         HashMap<String, Value> todayStats = model.getTodayStats();
         System.out.println("\n- Yesterday: --");
         todayStats.forEach((key, value) -> System.out.println(key + ": " + value));
-        Value winValue = todayStats.get("win ");
-        System.out.println("win%: " + getPercentageValue(winValue));
-        System.out.println("Roi All: " + convToPercentageString(model.getRoiToday()));
-        List<Double> rois = model.getRois();
-        System.out.println("Roi Now: " + convToPercentageString(rois.get(rois.size() - 1)));
+        System.out.println("Roi Now: " + convToPercentageString(model.getRoiTodayWithoutSold()));
+        System.out.println("Roi All: " + convToPercentageString(model.getRoisWithSold().get(model.getRoisWithSold().size() - 1)));
     }
 
     private String getPercentageValue(Value winValue) {
@@ -240,7 +237,7 @@ public class HybridViewPrinter {
         List<Double[]> lines;
         Double minusTen = 0.0;
         Double plusTen = 0.0;
-        List<Double> rois = model.getRois();
+        List<Double> rois = model.getRoisWithSold();
         lines = new ArrayList<>();
         Double lastRoi = 0.0;
         for (Double roi : rois) {
@@ -252,7 +249,7 @@ public class HybridViewPrinter {
             }
         }
         zero = 300;
-        scale = -800.0;
+        scale = -400.0;
         for (Double[] printLine : lines) {
             plusTen = 0.1;
             minusTen = -0.1;
