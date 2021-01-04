@@ -52,7 +52,7 @@ public class RoiCalculatorTest extends UnitTest {
         wknPoints.add(new WknPoint(startDate.plusDays(1), 2.0));
         wknPoints.add(new WknPoint(startDate, 1.0));
         WknkRow wknkRow = new WknkRow(wknPoints);
-        Asset asset = new Asset(wknkRow);
+        Asset asset = new Asset("wkn", wknkRow);
         asset.addBuy(new AssetBuy("", startDate, 1000, 0.0, 1.0, startDate.plusDays(2), 4.0));
         Double act = cut.calcRoiForAssetBuyAtDate(asset, asset.getAllBuys().get(0),3, startDate.plusDays(2), 0, false);
         Double expected = Math.pow(2, 365);
@@ -68,7 +68,7 @@ public class RoiCalculatorTest extends UnitTest {
         wknPoints.add(new WknPoint(startDate.plusDays(1), 2.0));
         wknPoints.add(new WknPoint(startDate, 1.0));
         WknkRow wknkRow = new WknkRow(wknPoints);
-        Asset asset = new Asset(wknkRow);
+        Asset asset = new Asset("wkn", wknkRow);
         asset.addBuy(new AssetBuy("", startDate, 1000, 0.0, 1.0, null, null));
         Double act = cut.calcRoiForAssetBuyAtDate(asset, asset.getAllBuys().get(0), 3, startDate.plusDays(2), 0, false);
         Double expected = Math.pow(2, 365);
@@ -84,7 +84,7 @@ public class RoiCalculatorTest extends UnitTest {
         wknPoints.add(new WknPoint(startDate.plusDays(1), 1.0));
         wknPoints.add(new WknPoint(startDate, 1.0));
         WknkRow wknkRow = new WknkRow(wknPoints);
-        Asset asset = new Asset(wknkRow);
+        Asset asset = new Asset("wkn", wknkRow);
         asset.addBuy(new AssetBuy("", startDate, 1000, 0.0, 1.0, null, null));
         AssetBuy assetBuy = asset.getAllBuys().get(0);
         Double act = cut.calcRoiForAssetBuyAtDate(asset, assetBuy, 2, startDate.plusDays(3), 0, false);
@@ -101,7 +101,7 @@ public class RoiCalculatorTest extends UnitTest {
         wknPoints.add(new WknPoint(startDate.plusDays(1), 2.0));
         wknPoints.add(new WknPoint(startDate, 1.0));
         WknkRow wknkRow = new WknkRow(wknPoints);
-        Asset asset = new Asset(wknkRow);
+        Asset asset = new Asset("wkn", wknkRow);
         List<Asset> assets = new ArrayList<>();
         assets.add(asset);
         asset.addBuy(new AssetBuy("", startDate, 1000, 0.0, 1.0, null, null));
@@ -155,13 +155,13 @@ public class RoiCalculatorTest extends UnitTest {
         Asset asset1 = makeAsset(1000, 1.1, startDate, endDate);
         Asset asset2 = makeAsset(1000, 1.3, startDate, endDate);
         Asset asset3 = makeAsset(2000, 1.4, startDate, endDate);
-        asset3.addBuy(new AssetBuy("", startDate, 2000, 0.0, 1.4, startDate.plusDays(1), 1.4));
+        asset3.addBuy(new AssetBuy("wkn", startDate, 2000, 0.0, 1.4, startDate.plusDays(1), 1.4));
         List<Asset> assets = new ArrayList<>();
         assets.add(asset1);
         assets.add(asset2);
         assets.add(asset3);
         Double act = cut.calcWeightedRoiForAssetsBuyAtDate(assets, 366, endDate, 0, false);
-        Double exp = 0.17647058823529413;
+        Double exp = 0.3;
         assertEquals(exp, act);
     }
 
@@ -171,8 +171,8 @@ public class RoiCalculatorTest extends UnitTest {
         wknPoints.add(new WknPoint(endDate, endValue));
         wknPoints.add(new WknPoint(startDate, 1.0));
         WknkRow wknkRow = new WknkRow(wknPoints);
-        asset1 = new Asset(wknkRow);
-        asset1.addBuy(new AssetBuy("", startDate, amount, 0.0, 1.0, null, null));
+        asset1 = new Asset("wkn", wknkRow);
+        asset1.addBuy(new AssetBuy("wkn", startDate, amount, 0.0, 1.0, null, null));
         return asset1;
     }
 

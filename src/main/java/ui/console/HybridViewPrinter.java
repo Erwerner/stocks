@@ -5,6 +5,7 @@ import application.core.model.AssetBuy;
 import application.core.model.Value;
 import application.core.model.Wkn;
 import application.core.model.exception.DateNotFound;
+import application.mvc.ApplicationModel;
 import application.mvc.ApplicationViewAccess;
 
 import java.awt.*;
@@ -34,6 +35,7 @@ public class HybridViewPrinter {
         List<Double[]> lines;
         Double minusTen = 0.0;
         Double plusTen = 0.0;
+        Double plusTwenty = 0.0;
         List<Value[]> relativeLines = model.getRelativeLines(maxRange);
         lines = new ArrayList<>();
         for (Value[] relativeLine : relativeLines) {
@@ -55,6 +57,7 @@ public class HybridViewPrinter {
         for (Double[] printLine : lines) {
             plusTen = 0.1;
             minusTen = -0.1;
+            plusTwenty = 0.2;
             printLine[0] *= scale;
             printLine[1] *= scale;
             printLine[0] += zero;
@@ -63,12 +66,15 @@ public class HybridViewPrinter {
             minusTen += zero;
             plusTen *= scale;
             plusTen += zero;
+            plusTwenty *= scale;
+            plusTwenty += zero;
         }
         for (Double[] printLine : lines) {
             arg0.drawLine(size * col, printLine[0].intValue(), size + size * col, printLine[1].intValue());
             arg0.drawLine(size * col, zero, size + size * col, zero);
             arg0.drawLine(size * col, plusTen.intValue(), size + size * col, plusTen.intValue());
             arg0.drawLine(size * col, minusTen.intValue(), size + size * col, minusTen.intValue());
+            arg0.drawLine(size * col, plusTwenty.intValue(), size + size * col, plusTwenty.intValue());
             col += 1;
         }
     }
@@ -77,8 +83,8 @@ public class HybridViewPrinter {
         HashMap<String, Value> todayStats = model.getTodayStats();
         System.out.println("\n- Yesterday: --");
         todayStats.forEach((key, value) -> System.out.println(key + ": " + value));
-        System.out.println("Roi Now: " + convToPercentageString(model.getRoiTodayWithoutSold()));
-        System.out.println("Roi All: " + convToPercentageString(model.getRoisWithSold().get(model.getRoisWithSold().size() - 1)));
+        System.out.println("Today Roi last " + ApplicationModel.minimumDaysForRoi + " wo Sold: " + convToPercentageString(model.getRoiTodayWithoutSold()));
+        System.out.println("Today Roi last " + ApplicationModel.minimumDaysForRoi + " w  Sold: " + convToPercentageString(model.getRoisWithSold().get(model.getRoisWithSold().size() - 1)));
     }
 
     private String getPercentageValue(Value winValue) {
@@ -97,6 +103,8 @@ public class HybridViewPrinter {
                 System.out.println();
                 runningYear = buyDate.getYear();
             }
+            if (model.getLastDate().minusDays(ApplicationModel.minimumDaysForRoi).isBefore(buyDate))
+                System.out.println("................");
             double wknChangeToday = model.getWknChangeAtDate(buyWkn, lastDate);
             double winDay = 0;
             try {
@@ -173,7 +181,7 @@ public class HybridViewPrinter {
                 values.append("\t");
                 sums.append("\t");
             }
-            System.out.println(wkn1.getWknUrl() + " " + convWknType(wkn1.getWknType()));
+            System.out.println(convWknType(wkn1.getWknType() + " " + wkn1.getWknUrl()));
             System.out.println(values);
             System.out.println(sums);
         });
@@ -230,13 +238,14 @@ public class HybridViewPrinter {
         System.out.println("SOLD: " + AssetBuy.showSold);
     }
 
-    public void printRois(Graphics arg0, ApplicationViewAccess model) {
+    public void drawRois(Graphics arg0, ApplicationViewAccess model) {
         int col = 0;
         int zero;
         Double scale;
         List<Double[]> lines;
         Double minusTen = 0.0;
         Double plusTen = 0.0;
+        Double plusTwenty = 0.0;
         List<Double> rois = model.getRoisWithSold();
         lines = new ArrayList<>();
         Double lastRoi = 0.0;
@@ -252,6 +261,7 @@ public class HybridViewPrinter {
         scale = -400.0;
         for (Double[] printLine : lines) {
             plusTen = 0.1;
+            plusTwenty = 0.2;
             minusTen = -0.1;
             printLine[0] *= scale;
             printLine[1] *= scale;
@@ -261,12 +271,15 @@ public class HybridViewPrinter {
             minusTen += zero;
             plusTen *= scale;
             plusTen += zero;
+            plusTwenty *= scale;
+            plusTwenty += zero;
         }
         for (Double[] printLine : lines) {
             arg0.drawLine(col, printLine[0].intValue(), 1 + col, printLine[1].intValue());
             arg0.drawLine(col, zero, 1 + col, zero);
             arg0.drawLine(col, plusTen.intValue(), 1 + col, plusTen.intValue());
             arg0.drawLine(col, minusTen.intValue(), 1 + col, minusTen.intValue());
+            arg0.drawLine(col, plusTwenty.intValue(), 1 + col, plusTwenty.intValue());
             col += 1;
         }
     }

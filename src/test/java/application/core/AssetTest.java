@@ -26,7 +26,7 @@ public class AssetTest extends UnitTest {
         wknPoints.add(new WknPoint(thirdDate, 0.0));
         wknPoints.add(new WknPoint(secondDate, 0.0));
         wknPoints.add(new WknPoint(firstDate, 0.0));
-        cut = new Asset(new WknkRow(wknPoints));
+        cut = new Asset("wkn", new WknkRow(wknPoints));
         cut.addBuy(getNotSoldAssetBuy(thirdDate, 0.0));
         cut.addBuy(getNotSoldAssetBuy(firstDate, 0.0));
         cut.addBuy(getNotSoldAssetBuy(secondDate, 0.0));
@@ -45,7 +45,7 @@ public class AssetTest extends UnitTest {
         wknPoints.add(new WknPoint(buyDate.plusDays(1), 1.1));
         wknPoints.add(new WknPoint(buyDate, 1.2));
         wknPoints.add(new WknPoint(buyDate.minusDays(1), 1.1));
-        cut = new Asset(new WknkRow(wknPoints));
+        cut = new Asset("wkn", new WknkRow(wknPoints));
         cut.addBuy(getNotSoldAssetBuy(buyDate.minusDays(1), 1.1));
         cut.addBuy(getNotSoldAssetBuy(buyDate, 1.2));
 
@@ -57,7 +57,7 @@ public class AssetTest extends UnitTest {
         ArrayList<WknPoint> wknPoints = new ArrayList<>();
         wknPoints.add(new WknPoint(buyDate, 1.2));
         wknPoints.add(new WknPoint(buyDate.minusDays(1), 1.1));
-        cut = new Asset(new WknkRow(wknPoints));
+        cut = new Asset("wkn", new WknkRow(wknPoints));
         cut.addBuy(getNotSoldAssetBuy(buyDate.minusDays(1), 1.2));
         cut.addBuy(getNotSoldAssetBuy(buyDate, 1.1));
 
@@ -73,7 +73,7 @@ public class AssetTest extends UnitTest {
         wknPoints.add(new WknPoint(date.plusDays(2), 2.0));
         wknPoints.add(new WknPoint(date.plusDays(1), 1.0));
         wknPoints.add(new WknPoint(date, 0.0));
-        cut = new Asset(new WknkRow(wknPoints));
+        cut = new Asset("wkn", new WknkRow(wknPoints));
         cut.addBuy(getNotSoldAssetBuy(date.plusDays(2), 2.0));
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
         cut.addBuy(getNotSoldAssetBuy(date.plusDays(5), 5.0));
@@ -101,7 +101,7 @@ public class AssetTest extends UnitTest {
         wknPoints.add(new WknPoint(date.plusDays(2), 2.0));
         wknPoints.add(new WknPoint(date.plusDays(1), 1.0));
         wknPoints.add(new WknPoint(date, 0.0));
-        cut = new Asset(new WknkRow(wknPoints));
+        cut = new Asset("wkn", new WknkRow(wknPoints));
         cut.addBuy(getNotSoldAssetBuy(date.plusDays(2), 2.0));
         assertEquals((Double)2.0,cut.getValueAtDateWithBuy(date.plusDays(2)).getValue());
 
@@ -118,7 +118,7 @@ public class AssetTest extends UnitTest {
         wknPoints.add(new WknPoint(date.plusDays(2), 2.0));
         wknPoints.add(new WknPoint(date.plusDays(1), 1.0));
         wknPoints.add(new WknPoint(date, 0.0));
-        cut = new Asset(new WknkRow(wknPoints));
+        cut = new Asset("wkn", new WknkRow(wknPoints));
         cut.addBuy(new AssetBuy("", date.plusDays(2), 2, 0.0, 2.0,null,null));
         cut.addBuy(new AssetBuy("", date.plusDays(4), 4, 0.0, 4.0,null,null));
 

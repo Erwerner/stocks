@@ -17,7 +17,7 @@ public class AssetBuy {
     private final LocalDate soldDate;
     private final Double soldValue;
     private boolean active = true;
-    public static boolean showSold = true;
+    public static boolean showSold = false;
 
     public Double getCosts() {
         return amount * this.value * (1 + fee);

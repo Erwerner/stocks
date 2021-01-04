@@ -6,13 +6,13 @@ import helper.ResourceNotFound;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ReaderService {
     private final ApplicationInput input;
 
     public ReaderService(ApplicationInput input) {
-
         this.input = input;
     }
 
@@ -61,5 +61,17 @@ public class ReaderService {
 
     public String[] getAllWkns() throws ResourceNotFound {
         return input.getAllWkns();
+    }
+
+    public List<String> getWatchWkns() throws ResourceNotFound {
+        List<String> watchWkns = new ArrayList<>();
+        String[] watchTypes = getWatchTypes();
+        for (String wkn : getAllWkns()) {
+            if (Arrays.asList(watchTypes).contains(getWknType(wkn))){
+                watchWkns.add(wkn);
+            }
+        }
+
+        return watchWkns;
     }
 }

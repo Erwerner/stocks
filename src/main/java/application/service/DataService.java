@@ -70,7 +70,7 @@ public class DataService {
         double buyCash;
         double cash = data.getCash();
         double total = calcTotalAtDate(data, calcLastDate(data));
-        buyCash = total * ((cash / total) - 0.20);
+        buyCash = total * ((cash / total) - 0.15);
         return buyCash;
     }
 

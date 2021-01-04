@@ -10,11 +10,13 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Asset {
+    private final String wkn;
     private final WknkRow wknkRow;
     private final List<Integer> stockAmount;
     private final List<AssetBuy> assetBuys;
 
-    public Asset(WknkRow wknkRow) {
+    public Asset(String wkn, WknkRow wknkRow) {
+        this.wkn = wkn;
         this.wknkRow = wknkRow;
         assertRowIsAscending(wknkRow.getWknPoints());
         assetBuys = new ArrayList<>();
@@ -165,5 +167,9 @@ public class Asset {
 
     public List<AssetBuy> getAllBuys() {
         return assetBuys;
+    }
+
+    public String getWkn() {
+        return wkn;
     }
 }

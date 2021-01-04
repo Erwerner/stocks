@@ -45,15 +45,8 @@ public class HybridView extends JFrame implements View {
     @Override
     public void paint(Graphics arg0) {
         super.paint(arg0);
-        if(showRois) {
-            hybridViewPrinter.printRois(arg0, model);
-        }else {
-            hybridViewPrinter.drawLines(arg0, model, maxRange, width, showLines);
-        }
-        if (showBuyLines)
-            hybridViewPrinter.printBuyLines(arg0, model, maxRange, width);
 
-        hybridViewPrinter.printUrls(model);
+        //hybridViewPrinter.printUrls(model);
         hybridViewPrinter.printWatchAll(model);
         hybridViewPrinter.printAssetSize(model);
         if (!AssetBuy.showSold)
@@ -65,6 +58,14 @@ public class HybridView extends JFrame implements View {
         if (!AssetBuy.showSold)
             hybridViewPrinter.printBuyCash(model);
         hybridViewPrinter.printConfig();
+
+        if(showRois) {
+            hybridViewPrinter.drawRois(arg0, model);
+        }else {
+            hybridViewPrinter.drawLines(arg0, model, maxRange, width, showLines);
+        }
+        if (showBuyLines)
+            hybridViewPrinter.printBuyLines(arg0, model, maxRange, width);
     }
 
     private void run() {

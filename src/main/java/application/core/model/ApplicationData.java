@@ -10,7 +10,7 @@ public class ApplicationData {
     private final HashMap<String, String> wknNames;
     private final HashMap<String, String> wknTypes;
     private final HashMap<String, String> wknUrls;
-    private double cash=0.0;
+    private double cash = 0.0;
     private LocalDate markDate;
 
     public ApplicationData() {
@@ -21,7 +21,7 @@ public class ApplicationData {
     }
 
     public void addWkn(String wkn, String url, ArrayList<WknPoint> wknPoints, String type, String name) {
-        assets.put(wkn, new Asset(new WknkRow(wknPoints)));
+        assets.put(wkn, new Asset(wkn, new WknkRow(wknPoints)));
         wknNames.put(wkn, name);
         wknTypes.put(wkn, type);
         wknUrls.put(wkn, url);
@@ -35,11 +35,20 @@ public class ApplicationData {
         return assets;
     }
 
-    public String getWknType(String wkn){
+    public HashMap<String, Asset> getActiveAssets() {
+        HashMap<String, Asset> activeAssets = new HashMap<>();
+        this.assets.values().forEach(asset -> {
+            if (asset.getActiveBuys().size() != 0)
+                activeAssets.put(asset.getWkn(), asset);
+        });
+        return activeAssets;
+    }
+
+    public String getWknType(String wkn) {
         return wknTypes.get(wkn);
     }
 
-    public String getWknName(String wkn){
+    public String getWknName(String wkn) {
         return wknNames.get(wkn);
     }
 
@@ -66,7 +75,8 @@ public class ApplicationData {
     public void setMarkDate(LocalDate markDate) {
         this.markDate = markDate;
     }
-    public void refreshAssets(){
+
+    public void refreshAssets() {
         for (Asset asset : assets.values()) {
             asset.refreshAmounts();
         }

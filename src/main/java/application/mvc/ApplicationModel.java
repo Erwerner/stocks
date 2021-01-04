@@ -18,6 +18,7 @@ public class ApplicationModel extends Model implements
     private final OutputService outputService;
     private final ExecuteService executeService;
     private final RoiService roiService;
+    public static final int minimumDaysForRoi = 140;
 
     public ApplicationModel(ApplicationInput input) {
         data = new ApplicationData();
@@ -93,15 +94,18 @@ public class ApplicationModel extends Model implements
     }
 
     private List<String> getWatchWkns() {
-        List<String> watchWkns = new ArrayList<>();
         String[] types = readerService.getWatchTypes();
+        List<String> watchWkns = new ArrayList<>();
         for (String type : types)
             for (String wkn : data.getAssets().keySet())
                 if (data.getWknType(wkn).equals(type)) {
-                    //addWkn(wkn);
                     watchWkns.add(wkn);
                 }
-        return watchWkns;
+        try {
+            return readerService.getWatchWkns();
+        } catch (ResourceNotFound e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -116,8 +120,13 @@ public class ApplicationModel extends Model implements
 
     @Override
     public HashMap<String, List<Double>> getWatchAll() {
-        Collection<String> watchWkns = data.getAssets().keySet();
-        return outputService.createWatchChangeToday(watchWkns, data);
+        try {
+            List<String> watchWkns = readerService.getWatchWkns();
+            watchWkns.addAll(data.getActiveAssets().keySet());
+            return outputService.createWatchChangeToday(watchWkns, data);
+        } catch (ResourceNotFound e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -147,12 +156,12 @@ public class ApplicationModel extends Model implements
 
     @Override
     public List<Double> getRoisWithSold() {
-        return roiService.getWeightedRois(data, dataService.calcFirstDate(data), dataService.calcLastDate(data),10000, 89, false);
+        return roiService.getWeightedRois(data, dataService.calcFirstDate(data), dataService.calcLastDate(data), 10000, minimumDaysForRoi, false);
     }
 
     @Override
     public Double getRoiTodayWithoutSold() {
-        return roiService.getTotalRoiForDateRange(data, 100000, dataService.calcLastDate(data), 35, true);
+        return roiService.getTotalRoiForDateRange(data, 100000, dataService.calcLastDate(data), minimumDaysForRoi, true);
     }
 
     // Controller
@@ -252,8 +261,8 @@ public class ApplicationModel extends Model implements
                 if (!data.getAssets().containsKey(wkn))
                     data.addWkn(wkn, readerService.getWknUrl(wkn), readerService.getStockRow(wkn), readerService.getWknType(wkn), readerService.getWknName(wkn));
             }
-        } catch (ResourceNotFound | IOException resourceNotFound) {
-            resourceNotFound.printStackTrace();
+        } catch (ResourceNotFound | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
