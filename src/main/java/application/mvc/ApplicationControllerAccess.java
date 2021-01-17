@@ -28,4 +28,6 @@ public interface ApplicationControllerAccess {
     void togglSold();
 
     void importWkns();
+
+    void group();
 }

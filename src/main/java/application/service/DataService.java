@@ -35,7 +35,6 @@ public class DataService {
         return false;
     }
 
-
     public Value calcBuyWin(AssetBuy buy, ApplicationData data) {
         Value value = new Value();
         try {

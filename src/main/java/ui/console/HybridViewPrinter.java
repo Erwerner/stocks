@@ -10,9 +10,7 @@ import application.mvc.ApplicationViewAccess;
 
 import java.awt.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 import java.util.List;
 
 public class HybridViewPrinter {
@@ -118,7 +116,7 @@ public class HybridViewPrinter {
                     "\t" + " [" + count + "] " +
                     "\t" + buyWkn + " " +
                     "\t" + buyDate +
-                    "\t (" + getPercentageValue(buyWin) + ")" +
+                    "\t (" + getPercentageValue(buyWin) + ") " +
                     "\t (" + convToPercentageString(RoiCalculator.calcRoiFromRange(buyDate, lastDate, buyWin.getPercentage())) + ") " +
                     "\t" + (winDay < 0 ? "-" : "+") +
                     "\t " + convWknType(model.getWkn(buyWkn).getWknType()) +
@@ -143,18 +141,6 @@ public class HybridViewPrinter {
         assetSize.forEach((wkn, value) -> System.out.println(value + " K \t" + wkn));
     }
 
-    public void printUrls(ApplicationViewAccess model) {
-        System.out.println("\n- URLs: --");
-        HashSet<String> urls = new HashSet<>();
-        for (Wkn wkn : model.getWkns()) {
-            urls.add(wkn.getWknUrl());
-        }
-        for (String wkn : model.getBuyWatch().keySet()) {
-            urls.add(model.getWkn(wkn).getWknUrl());
-        }
-        urls.forEach(System.out::println);
-    }
-
     public void printBuyWatch(ApplicationViewAccess model) {
         System.out.println("\n- Watch: --");
         watch(model, model.getBuyWatch());
@@ -162,33 +148,27 @@ public class HybridViewPrinter {
 
     private void watch(ApplicationViewAccess model, HashMap<String, List<Double>> watchChange) {
         watchChange.forEach((wkn, todays) -> {
-            StringBuilder values = new StringBuilder();
-            Wkn wkn1 = model.getWkn(wkn);
             double sum = 0.0;
             StringBuilder sums = new StringBuilder();
             for (Double today : todays) {
                 sum += today;
-                if (sum < 0)
-                    sums.append("[");
-                if (today < 0)
-                    values.append("[");
-                values.append(convToPercentageString(today));
+                if (sum < 0) {
+                    sums.append(" [");
+                }
                 sums.append(convToPercentageString(sum));
-                if (sum < 0)
-                    sums.append("]");
-                if (today < 0)
-                    values.append("]");
-                values.append("\t");
+                if (sum < 0) {
+                    sums.append("] ");
+                }
                 sums.append("\t");
             }
+            Wkn wkn1 = model.getWkn(wkn);
             System.out.println(convWknType(wkn1.getWknType() + " " + wkn1.getWknUrl()));
-            System.out.println(values);
             System.out.println(sums);
         });
     }
 
     private String convToPercentageString(Double value) {
-        return ((Double) (value * 10000)).intValue() / 100.0 + "%";
+        return ((Double) (value * 1000)).intValue() / 10.0 + "%";
     }
 
     public void printWknTypeSum(ApplicationViewAccess model) {
@@ -282,5 +262,16 @@ public class HybridViewPrinter {
             arg0.drawLine(col, plusTwenty.intValue(), 1 + col, plusTwenty.intValue());
             col += 1;
         }
+    }
+
+    public void printGroups(ApplicationViewAccess model) {
+        System.out.println("Groups:");
+        Map<String, List<String>> groups = model.getGroups();
+        groups.forEach((group, wkns) -> {
+            System.out.println(group);
+            wkns.forEach((wkn) -> {
+                System.out.println("\t" + wkn);
+            });
+        });
     }
 }

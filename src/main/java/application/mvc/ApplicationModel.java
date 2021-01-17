@@ -18,7 +18,7 @@ public class ApplicationModel extends Model implements
     private final OutputService outputService;
     private final ExecuteService executeService;
     private final RoiService roiService;
-    public static final int minimumDaysForRoi = 140;
+    public static final int minimumDaysForRoi = 90;
 
     public ApplicationModel(ApplicationInput input) {
         data = new ApplicationData();
@@ -94,13 +94,6 @@ public class ApplicationModel extends Model implements
     }
 
     private List<String> getWatchWkns() {
-        String[] types = readerService.getWatchTypes();
-        List<String> watchWkns = new ArrayList<>();
-        for (String type : types)
-            for (String wkn : data.getAssets().keySet())
-                if (data.getWknType(wkn).equals(type)) {
-                    watchWkns.add(wkn);
-                }
         try {
             return readerService.getWatchWkns();
         } catch (ResourceNotFound e) {
@@ -164,6 +157,11 @@ public class ApplicationModel extends Model implements
         return roiService.getTotalRoiForDateRange(data, 100000, dataService.calcLastDate(data), minimumDaysForRoi, true);
     }
 
+    @Override
+    public Map<String, List<String>> getGroups() {
+        return data.getGroups();
+    }
+
     // Controller
     @Override
     public void importBuys() throws IOException {
@@ -208,7 +206,7 @@ public class ApplicationModel extends Model implements
     @Override
     public void openBrowser() {
         HashSet<String> wkns = new HashSet<>();
-        wkns.addAll(data.getAssets().keySet());
+        wkns.addAll(data.getActiveAssets().keySet());
         wkns.addAll(getWatchWkns());
         executeService.browseWkns(data, wkns);
     }
@@ -264,5 +262,15 @@ public class ApplicationModel extends Model implements
         } catch (ResourceNotFound | IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void group() {
+        try {
+            data.setGroups(readerService.getGroups());
+        } catch (ResourceNotFound | IOException e) {
+            throw new RuntimeException(e);
+        }
+        notifyViews();
     }
 }

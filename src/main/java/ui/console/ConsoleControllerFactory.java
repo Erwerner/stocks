@@ -30,7 +30,17 @@ public class ConsoleControllerFactory {
         controllers.put(ADDC, initAddCashController((ApplicationControllerAccess) model));
         controllers.put(CDAT, initChangeDateController((ApplicationControllerAccess) model));
         controllers.put(SOLD, initSoldController((ApplicationControllerAccess) model));
+        controllers.put(GRUP, initGroupController((ApplicationControllerAccess) model));
         return controllers;
+    }
+
+    private ConsoleController initGroupController(ApplicationControllerAccess model) {
+        return new ConsoleController(model) {
+            @Override
+            public void execute() {
+                model.group();
+            }
+        };
     }
 
     private ConsoleController initSoldController(ApplicationControllerAccess model) {

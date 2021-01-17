@@ -3,6 +3,8 @@ package application.core.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ApplicationData {
 
@@ -12,6 +14,7 @@ public class ApplicationData {
     private final HashMap<String, String> wknUrls;
     private double cash = 0.0;
     private LocalDate markDate;
+    private Map<String, List<String>> groups = new HashMap<>();
 
     public ApplicationData() {
         assets = new HashMap<>();
@@ -80,5 +83,13 @@ public class ApplicationData {
         for (Asset asset : assets.values()) {
             asset.refreshAmounts();
         }
+    }
+
+    public Map<String, List<String>> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Map<String, List<String>> groups) {
+        this.groups = groups;
     }
 }

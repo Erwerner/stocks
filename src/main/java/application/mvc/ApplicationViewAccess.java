@@ -6,10 +6,7 @@ import application.core.model.Wkn;
 import application.core.model.exception.DateNotFound;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public interface ApplicationViewAccess {
 
@@ -50,4 +47,6 @@ public interface ApplicationViewAccess {
     List<Double> getRoisWithSold();
 
     Double getRoiTodayWithoutSold();
+
+    Map<String, List<String>> getGroups();
 }

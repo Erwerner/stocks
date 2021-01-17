@@ -5,9 +5,7 @@ import application.core.model.WknPoint;
 import helper.ResourceNotFound;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ReaderService {
     private final ApplicationInput input;
@@ -46,7 +44,7 @@ public class ReaderService {
                 .replace("etc", "");
     }
 
-    public String[] getWatchTypes() {
+    private String[] getWatchTypes() {
         try {
             return input.readWatchTypes();
         } catch (IOException e) {
@@ -73,5 +71,18 @@ public class ReaderService {
         }
 
         return watchWkns;
+    }
+
+    public Map<String,List<String>> getGroups() throws ResourceNotFound, IOException {
+        Map<String, List<String>> groups= new HashMap<>();
+        String[] wkns = input.getAllWkns();
+        for (String wkn : wkns) {
+            String type = input.getWknType(wkn);
+            if(!groups.containsKey(type)){
+                groups.put(type, new ArrayList<>());
+            }
+            groups.get(type).add(wkn + " " + input.getWknName(wkn));
+        }
+        return groups;
     }
 }

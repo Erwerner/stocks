@@ -19,7 +19,7 @@ public class HybridView extends JFrame implements View {
     private final HashMap<ConsoleControllerType, ConsoleController> controllers;
     private boolean active = true;
     private Integer maxRange = 1000;
-    private final int width = 1200;
+    private final int width = 1500;
     private boolean showBuyLines = false;
     private int showLines = 1;
     private boolean showRois = true;
@@ -45,27 +45,30 @@ public class HybridView extends JFrame implements View {
     @Override
     public void paint(Graphics arg0) {
         super.paint(arg0);
-
-        //hybridViewPrinter.printUrls(model);
-        hybridViewPrinter.printWatchAll(model);
-        hybridViewPrinter.printAssetSize(model);
-        if (!AssetBuy.showSold)
-            hybridViewPrinter.printWknTypeSum(model);
-        hybridViewPrinter.printChangeDate(arg0, model, maxRange, width);
-        hybridViewPrinter.printBuys(model);
-        hybridViewPrinter.printToday(model);
-        hybridViewPrinter.printBuyWatch(model);
-        if (!AssetBuy.showSold)
-            hybridViewPrinter.printBuyCash(model);
-        hybridViewPrinter.printConfig();
-
         if(showRois) {
             hybridViewPrinter.drawRois(arg0, model);
         }else {
             hybridViewPrinter.drawLines(arg0, model, maxRange, width, showLines);
         }
-        if (showBuyLines)
+        if (showBuyLines) {
             hybridViewPrinter.printBuyLines(arg0, model, maxRange, width);
+        }
+
+        hybridViewPrinter.printWatchAll(model);
+        hybridViewPrinter.printAssetSize(model);
+        if (!AssetBuy.showSold) {
+            hybridViewPrinter.printWknTypeSum(model);
+        }
+        hybridViewPrinter.printChangeDate(arg0, model, maxRange, width);
+        hybridViewPrinter.printBuys(model);
+        hybridViewPrinter.printToday(model);
+        hybridViewPrinter.printBuyWatch(model);
+        if (!AssetBuy.showSold) {
+            hybridViewPrinter.printBuyCash(model);
+        }
+        hybridViewPrinter.printGroups(model);
+        hybridViewPrinter.printConfig();
+
     }
 
     private void run() {
@@ -74,7 +77,6 @@ public class HybridView extends JFrame implements View {
             ((ApplicationControllerAccess) model).importWkns();
             ((ApplicationControllerAccess) model).importBuys();
             ((ApplicationControllerAccess) model).importCash();
-            //((ApplicationControllerAccess) application.core.model).togglBuy(7);
         } catch (IOException e) {
             e.printStackTrace();
         }
