@@ -17,16 +17,18 @@ public class ApplicationModel extends Model implements
     private final ReaderService readerService;
     private final OutputService outputService;
     private final ExecuteService executeService;
+    private final AssetService assetService;
     private final RoiService roiService;
     public static final int minimumDaysForRoi = 90;
 
     public ApplicationModel(ApplicationInput input) {
         data = new ApplicationData();
         dataService = new DataService();
-        outputService = new OutputService(dataService);
         readerService = new ReaderService(input);
         executeService = new ExecuteService();
         roiService = new RoiService();
+        assetService = new AssetService();
+        outputService = new OutputService(dataService, assetService);
     }
 
     @Override
@@ -51,9 +53,8 @@ public class ApplicationModel extends Model implements
 
     @Override
     public Value getBuyWin(AssetBuy buy) {
-        return dataService.calcBuyWin(buy, data);
+        return outputService.calcBuyWin(buy, data);
     }
-
 
     @Override
     public Double getWknPointAtDate(String wkn, LocalDate date) throws DateNotFound {
@@ -67,7 +68,7 @@ public class ApplicationModel extends Model implements
 
     @Override
     public Wkn getWkn(String wkn) {
-        return dataService.createWkn(wkn, data);
+        return assetService.createWkn(wkn, data);
     }
 
     @Override
@@ -91,7 +92,11 @@ public class ApplicationModel extends Model implements
 
     @Override
     public double getWknChangeAtDate(String wkn, LocalDate date) {
-        return dataService.calcWknChangeToday(wkn, data, date);
+        return assetService.calcAssetChangeToday(getAssetFromWkn(wkn), date);
+    }
+
+    private Asset getAssetFromWkn(String wkn) {
+        return data.getAssets().get(wkn);
     }
 
     @Override
@@ -103,7 +108,7 @@ public class ApplicationModel extends Model implements
     public HashMap<String, List<Double>> getWatchAll() {
         try {
             List<String> watchWkns = readerService.getWatchWkns();
-            watchWkns.addAll(data.getActiveAssets().keySet());
+            watchWkns.addAll(dataService.getActiveAssets(data).keySet());
             return outputService.createWatchChangeToday(watchWkns, data);
         } catch (ResourceNotFound e) {
             throw new RuntimeException(e);
@@ -184,7 +189,7 @@ public class ApplicationModel extends Model implements
     @Override
     public void openBrowser() {
         HashSet<String> wkns = new HashSet<>();
-        wkns.addAll(data.getActiveAssets().keySet());
+        wkns.addAll(dataService.getActiveAssets(data).keySet());
         wkns.addAll(getWatchWkns());
         executeService.browseWkns(data, wkns);
     }

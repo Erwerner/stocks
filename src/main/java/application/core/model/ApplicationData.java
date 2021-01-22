@@ -38,15 +38,6 @@ public class ApplicationData {
         return assets;
     }
 
-    public HashMap<String, Asset> getActiveAssets() {
-        HashMap<String, Asset> activeAssets = new HashMap<>();
-        this.assets.values().forEach(asset -> {
-            if (asset.getActiveBuys().size() != 0)
-                activeAssets.put(asset.getWkn(), asset);
-        });
-        return activeAssets;
-    }
-
     public String getWknType(String wkn) {
         return wknTypes.get(wkn);
     }

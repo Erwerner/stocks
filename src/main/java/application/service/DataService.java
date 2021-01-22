@@ -4,17 +4,9 @@ import application.core.model.*;
 import application.core.model.exception.DateNotFound;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 
 public class DataService {
-
-    public Double calcCostsAtDate(LocalDate date, ApplicationData data) {
-        Double cost = 0.0;
-        for (Asset asset : data.getAssets().values()) {
-            cost += asset.getCostAtDate(date);
-        }
-        return cost;
-    }
-
     public LocalDate calcLastDate(ApplicationData data) {
         LocalDate date = null;
         for (Asset asset : data.getAssets().values()) {
@@ -23,36 +15,6 @@ public class DataService {
                 date = wknDate;
         }
         return date;
-    }
-
-    public Value calcBuyWin(AssetBuy buy, ApplicationData data) {
-        Value value = new Value();
-        try {
-            String wkn = buy.getWkn();
-            LocalDate lastDate = calcLastDate(data);
-            Double buyValue = data.getAssets().get(wkn).getWknPointForDate(lastDate).getValue() * buy.getAmount();
-            value.addValue(buyValue).sub(buy.getCosts()).setTotal(buy.getCosts());
-        } catch (DateNotFound dateNotFound) {
-            dateNotFound.printStackTrace();
-        }
-        return value;
-    }
-
-    public Wkn createWkn(String wkn, ApplicationData data) {
-        return new Wkn(wkn, data.getWknName(wkn), data.getWknType(wkn), data.getWknUrl(wkn));
-    }
-
-
-    public double calcWknChangeToday(String wkn, ApplicationData data, LocalDate date) {
-        Double old = 1.0;
-        Double neu = 1.0;
-        try {
-            old = data.getAssets().get(wkn).getWknPointAtDate(date.minusDays(1));
-            neu = data.getAssets().get(wkn).getWknPointAtDate(date);
-        } catch (DateNotFound dateNotFound) {
-            dateNotFound.printStackTrace();
-        }
-        return neu / old - 1;
     }
 
     public double calcBuyCash(ApplicationData data) {
@@ -86,5 +48,14 @@ public class DataService {
             }
         }
         return date;
+    }
+
+    public HashMap<String, Asset> getActiveAssets(ApplicationData data) {
+        HashMap<String, Asset> activeAssets = new HashMap<>();
+        data.getAssets().values().forEach(asset -> {
+            if (asset.getActiveBuys().size() != 0)
+                activeAssets.put(asset.getWkn(), asset);
+        });
+        return activeAssets;
     }
 }

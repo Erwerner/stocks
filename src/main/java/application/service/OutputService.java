@@ -1,9 +1,6 @@
 package application.service;
 
-import application.core.model.ApplicationData;
-import application.core.model.Asset;
-import application.core.model.Value;
-import application.core.model.Wkn;
+import application.core.model.*;
 import application.core.model.exception.DateNotFound;
 
 import java.time.LocalDate;
@@ -11,26 +8,38 @@ import java.util.*;
 
 public class OutputService {
     private final DataService dataService;
+    private final AssetService assetService;
 
-    public OutputService(DataService dataService) {
+    public OutputService(DataService dataService, AssetService assetService) {
         this.dataService = dataService;
+        this.assetService = assetService;
     }
 
     public HashMap<String, Value> createTodayStats(ApplicationData data) {
         HashMap<String, Value> todayStats = new HashMap<>();
-        LocalDate lastDate = dataService.calcLastDate(data);
-        Value old = new Value(getTotalLineAtDate(lastDate.minusDays(1), data)[0]);
-        Value neu = new Value(getTotalLineAtDate(lastDate, data)[0]);
-        Double todayCosts = dataService.calcCostsAtDate(lastDate, data);
-
-        //todayStats.put("old ", old);
-        //todayStats.put("new", neu);
-        todayStats.put("diff", neu.copy().sub(old));
-        //todayStats.put("win ", neu.copy().sub(todayCosts));
-        todayStats.values().forEach(value -> value.setTotal(todayCosts));
+        Value diff = getDiffToday(data);
+        todayStats.put("diff", diff);
         return todayStats;
     }
 
+    public Value getDiffToday(ApplicationData data) {
+        LocalDate lastDate = dataService.calcLastDate(data);
+        Value old = new Value(getTotalLineAtDate(lastDate.minusDays(1), data)[0]);
+        Value neu = new Value(getTotalLineAtDate(lastDate, data)[0]);
+        Double todayCosts = calcCostsAtDate(lastDate, data);
+
+        Value diff = neu.copy().sub(old);
+        diff.setTotal(todayCosts);
+        return diff;
+    }
+
+    private Double calcCostsAtDate(LocalDate date, ApplicationData data) {
+        Double cost = 0.0;
+        for (Asset asset : data.getAssets().values()) {
+            cost += asset.getCostAtDate(date);
+        }
+        return cost;
+    }
 
     public List<Value[]> createLines(Integer maxRange, ApplicationData data) {
         List<Value[]> lines = new ArrayList<>();
@@ -38,9 +47,9 @@ public class OutputService {
             LocalDate date = dataService.calcLastDate(data).minusDays(i);
             Value[] relativeLine = new Value[]{new Value(), new Value()};
             Double[] totalLine = getTotalLineAtDate(date, data);
-            Double[] profitLine = new Double[]{totalLine[0] - dataService.calcCostsAtDate(date, data), totalLine[1] - dataService.calcCostsAtDate(date, data)};
-            relativeLine[0] = new Value(profitLine[0]).setTotal(dataService.calcCostsAtDate(date, data));
-            relativeLine[1] = new Value(profitLine[1]).setTotal(dataService.calcCostsAtDate(date, data));
+            Double[] profitLine = new Double[]{totalLine[0] - calcCostsAtDate(date, data), totalLine[1] - calcCostsAtDate(date, data)};
+            relativeLine[0] = new Value(profitLine[0]).setTotal(calcCostsAtDate(date, data));
+            relativeLine[1] = new Value(profitLine[1]).setTotal(calcCostsAtDate(date, data));
             lines.add(relativeLine);
         }
         return lines;
@@ -64,7 +73,7 @@ public class OutputService {
     public HashMap<String, Double> createAssetSize(ApplicationData data) {
         HashMap<String, Double> fonds = new HashMap<>();
         Set<Wkn> wkns = new HashSet<>();
-        data.getAssets().keySet().forEach(wkn1 -> wkns.add(dataService.createWkn(wkn1, data)));
+        data.getAssets().keySet().forEach(wkn1 -> wkns.add(assetService.createWkn(wkn1, data)));
         for (Wkn wkn : wkns) {
             if (data.getAssets().get(wkn.getWkn()).getActiveBuys().isEmpty())
                 continue;
@@ -86,7 +95,7 @@ public class OutputService {
         for (String watchWkn : watchWkns) {
             List<Double> values = new ArrayList<>();
             for (int i = 0; i < 35; i++) {
-                double today = dataService.calcWknChangeToday(watchWkn, data, lastDate.minusDays(i));
+                double today = assetService.calcAssetChangeToday(data.getAssets().get(watchWkn), lastDate.minusDays(i));
                 if (today == 0.0)
                     continue;
                 values.add(today);
@@ -124,9 +133,8 @@ public class OutputService {
         addComb(sums, Arrays.asList("FOND SW", "FOND DIV", "FOND", "FOND ROB"), "> FOND");
         addComb(sums, Arrays.asList("FOND SW", "FOND DIV", "FOND", "FOND ROB", "ETC", "ETC GOLD", "GOLD", "CASH"), "> Total");
 
-        for (Value value : sums.values()) {
-            value.setTotal(total);
-        }
+        Double totalFinal = total;
+        sums.values().forEach(value->value.setTotal(totalFinal));
         return sums;
     }
 
@@ -137,6 +145,18 @@ public class OutputService {
                 sums.get(s).addValue(value);
             }
         });
+    }
+    public Value calcBuyWin(AssetBuy buy, ApplicationData data) {
+        Value value = new Value();
+        try {
+            String wkn = buy.getWkn();
+            LocalDate lastDate = dataService.calcLastDate(data);
+            Double buyValue = data.getAssets().get(wkn).getWknPointForDate(lastDate).getValue() * buy.getAmount();
+            value.addValue(buyValue).sub(buy.getCosts()).setTotal(buy.getCosts());
+        } catch (DateNotFound dateNotFound) {
+            dateNotFound.printStackTrace();
+        }
+        return value;
     }
 
     public HashMap<String, List<Double>> createBuyWatch(List<String> watchWkns, ApplicationData data) {
@@ -161,10 +181,10 @@ public class OutputService {
 
     public HashMap<LocalDate, Value> createChangeDate(ApplicationData data, LocalDate date) {
         LocalDate lastDate = dataService.calcLastDate(data);
-        double todayProfit = dataService.calcTotalAtDate(data, lastDate) - dataService.calcCostsAtDate(lastDate, data);
+        double todayProfit = dataService.calcTotalAtDate(data, lastDate) - calcCostsAtDate(lastDate, data);
         Value change = new Value(todayProfit);
 
-        double dateProfit = dataService.calcTotalAtDate(data, date) - dataService.calcCostsAtDate(date, data);
+        double dateProfit = dataService.calcTotalAtDate(data, date) - calcCostsAtDate(date, data);
         change.sub(dateProfit);
 
         double todayTotal = dataService.calcTotalAtDate(data, lastDate);

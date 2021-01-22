@@ -46,8 +46,8 @@ public class ResourceFileReader {
                 return;
             }
             Desktop desktop = Desktop.getDesktop();
-            if (file.exists())         //checks file exists or not
-                desktop.open(file);              //opens the specified file
+            if (file.exists())
+                desktop.open(file);
         } catch (Exception e) {
             e.printStackTrace();
         }
