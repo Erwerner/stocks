@@ -13,14 +13,14 @@ import static ui.console.ConsoleControllerType.*;
 
 public class ConsoleControllerFactory {
 
-    public HashMap<ConsoleControllerType, ConsoleController> initController(HybridView hybridView, Model model) {
+    public HashMap<ConsoleControllerType, ConsoleController> initController(ConsoleView consoleView, Model model) {
         HashMap<ConsoleControllerType, ConsoleController> controllers = new HashMap<>();
-        controllers.put(EXIT, hybridView.initExitController((ApplicationControllerAccess) model));
-        controllers.put(BUYS, hybridView.initBuysController((ApplicationControllerAccess) model));
-        controllers.put(LINE, hybridView.initLinesController((ApplicationControllerAccess) model));
-        controllers.put(RNGE, hybridView.initRangeController((ApplicationControllerAccess) model));
-        controllers.put(REFR, hybridView.initRefreshController((ApplicationControllerAccess) model));
-        controllers.put(ROIS, hybridView.initRoisController((ApplicationControllerAccess) model));
+        controllers.put(EXIT, consoleView.initExitController((ApplicationControllerAccess) model));
+        controllers.put(BUYS, consoleView.initBuysController((ApplicationControllerAccess) model));
+        controllers.put(LINE, consoleView.initLinesController((ApplicationControllerAccess) model));
+        controllers.put(RNGE, consoleView.initRangeController((ApplicationControllerAccess) model));
+        controllers.put(REFR, consoleView.initRefreshController((ApplicationControllerAccess) model));
+        controllers.put(ROIS, consoleView.initRoisController((ApplicationControllerAccess) model));
         controllers.put(TOGL, initTogglController((ApplicationControllerAccess) model));
         controllers.put(TGAL, initTogglAllController((ApplicationControllerAccess) model));
         controllers.put(TGWN, initTogglWinController((ApplicationControllerAccess) model));

@@ -14,15 +14,11 @@ public interface ApplicationViewAccess {
 
     ArrayList<AssetBuy> getAllBuys();
 
-    List<Boolean> getBuyLines(Integer maxRange);
-
     List<Value[]> getRelativeLines(Integer maxRange);
 
     Value getBuyWin(AssetBuy buy);
 
     Double getWknPointAtDate(String wkn, LocalDate minusDays) throws DateNotFound;
-
-    Set<Wkn> getWkns();
 
     HashMap<String, Value> getTodayStats();
 
@@ -41,8 +37,6 @@ public interface ApplicationViewAccess {
     double getBuyCash();
 
     HashMap<LocalDate, Value> getChangeDate();
-
-    List<LocalDate> getDates(Integer maxRange);
 
     List<Double> getRoisWithSold();
 

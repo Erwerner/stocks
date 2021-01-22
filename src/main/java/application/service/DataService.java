@@ -25,16 +25,6 @@ public class DataService {
         return date;
     }
 
-    public boolean calcHasBuyAtDate(LocalDate date, ApplicationData data) {
-        for (Asset asset : data.getAssets().values()) {
-            for (AssetBuy buy : asset.getActiveBuys()) {
-                if (buy.getDate().equals(date))
-                    return true;
-            }
-        }
-        return false;
-    }
-
     public Value calcBuyWin(AssetBuy buy, ApplicationData data) {
         Value value = new Value();
         try {

@@ -30,4 +30,6 @@ public interface ApplicationControllerAccess {
     void importWkns();
 
     void group();
+
+    void refreshViews();
 }

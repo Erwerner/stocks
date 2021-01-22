@@ -31,14 +31,6 @@ public class OutputService {
         return todayStats;
     }
 
-    public List<Boolean> createBuyLines(Integer maxRange, ApplicationData data) {
-        List<Boolean> buys = new ArrayList<>();
-        for (int i = maxRange; i >= 0; i--) {
-            buys.add(dataService.calcHasBuyAtDate(dataService.calcLastDate(data).minusDays(i), data));
-        }
-        return buys;
-    }
-
 
     public List<Value[]> createLines(Integer maxRange, ApplicationData data) {
         List<Value[]> lines = new ArrayList<>();

@@ -45,11 +45,6 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public List<Boolean> getBuyLines(Integer maxRange) {
-        return outputService.createBuyLines(maxRange, data);
-    }
-
-    @Override
     public List<Value[]> getRelativeLines(Integer maxRange) {
         return outputService.createLines(maxRange, data);
     }
@@ -63,13 +58,6 @@ public class ApplicationModel extends Model implements
     @Override
     public Double getWknPointAtDate(String wkn, LocalDate date) throws DateNotFound {
         return data.getAssets().get(wkn).getWknPointAtDate(date);
-    }
-
-    @Override
-    public Set<Wkn> getWkns() {
-        Set<Wkn> wkns = new HashSet<>();
-        data.getAssets().keySet().forEach(wkn -> wkns.add(getWkn(wkn)));
-        return wkns;
     }
 
     @Override
@@ -135,16 +123,6 @@ public class ApplicationModel extends Model implements
         } else {
             return null;
         }
-    }
-
-    @Override
-    public List<LocalDate> getDates(Integer maxRange) {
-        List<LocalDate> dates = new ArrayList<>();
-        LocalDate localDate = dataService.calcLastDate(data);
-        for (int i = maxRange; i >= 0; i--) {
-            dates.add(localDate.minusDays(i));
-        }
-        return dates;
     }
 
     @Override
@@ -271,6 +249,11 @@ public class ApplicationModel extends Model implements
         } catch (ResourceNotFound | IOException e) {
             throw new RuntimeException(e);
         }
+        notifyViews();
+    }
+
+    @Override
+    public void refreshViews() {
         notifyViews();
     }
 }
