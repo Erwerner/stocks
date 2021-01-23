@@ -25,10 +25,7 @@ public class ResourceFileReader {
     }
 
     public static String[] getFilenamesInResourceFolder(String foldername) throws ResourceNotFound {
-        String directory = foldername;
-        if (foldername.charAt(0) != '/') {
-            directory = "/" + directory;
-        }
+        String directory = foldername.charAt(0) != '/' ? "/" + foldername : foldername;
         URL resource = String.class.getResource(directory);
         if (resource == null)
             throw new ResourceNotFound(directory);
@@ -38,16 +35,14 @@ public class ResourceFileReader {
 
     public static void open(String fileName) {
         try {
+            if (!Desktop.isDesktopSupported()) {
+                throw new RuntimeException("Desktop not supported");
+            }
             URL dir_url = ClassLoader.getSystemResource(fileName);
             File file = new File(dir_url.toURI());
-            if (!Desktop.isDesktopSupported())//check if Desktop is supported by Platform or not
-            {
-                System.out.println("not supported");
-                return;
+            if (file.exists()) {
+                Desktop.getDesktop().open(file);
             }
-            Desktop desktop = Desktop.getDesktop();
-            if (file.exists())
-                desktop.open(file);
         } catch (Exception e) {
             e.printStackTrace();
         }

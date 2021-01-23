@@ -1,6 +1,7 @@
 package ui.console;
 
 import application.core.model.AssetBuy;
+import application.mvc.ApplicationController;
 import application.mvc.ApplicationControllerAccess;
 import application.mvc.ApplicationViewAccess;
 import helper.IO;
@@ -10,11 +11,17 @@ import template.View;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+
+import static ui.console.ConsoleControllerType.*;
 
 public class ConsoleView implements View {
     private final ApplicationViewAccess model;
-    private final HashMap<ConsoleControllerType, ConsoleController> controllers;
+    private final HashMap<ConsoleControllerType, ApplicationController> controllers = new HashMap<>();
     private boolean active = true;
     public static Integer maxRange = 1000;
     public static boolean showBuyLines = false;
@@ -25,12 +32,59 @@ public class ConsoleView implements View {
     public ConsoleView(Model model) {
         this.model = (ApplicationViewAccess) model;
         model.registerView(this);
-        controllers = new ConsoleControllerFactory().initController(this, model);
+        initController();
         consoleViewPrinter = new ConsoleViewPrinter();
         run();
     }
 
-    public void print( ) {
+    private void initController() {
+        ApplicationControllerAccess applicationControllerAccess = (ApplicationControllerAccess) this.model;
+        Consumer<ApplicationControllerAccess> commandExit = (access) -> {
+            System.out.println("Closing View...");
+            active = false;
+            applicationControllerAccess.refreshViews();
+        };
+        Consumer<ApplicationControllerAccess> commandBuys = (access) -> {
+            showBuyLines = !showBuyLines;
+            applicationControllerAccess.refreshViews();
+        };
+        Consumer<ApplicationControllerAccess> commandRange = (access) -> {
+            try {
+                maxRange = Integer.parseInt(new BufferedReader(new InputStreamReader(System.in)).readLine());
+                applicationControllerAccess.refreshViews();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        };
+        Consumer<ApplicationControllerAccess> commandRois = (access) -> {
+            showRois = !showRois;
+            applicationControllerAccess.refreshViews();
+        };
+
+        addController(EXIT, commandExit);
+        addController(BUYS, commandBuys);
+        addController(RNGE, commandRange);
+        addController(ROIS, commandRois);
+        addInputController(TOGL, (access, input) -> Arrays.stream(input.split(",")).map(Integer::parseInt).forEach(access::togglBuy));
+        addInputController(CDAT, (access, input) -> access.changeDate(LocalDate.parse(input)));
+        addController(REFR, ApplicationControllerAccess::refreshViews);
+        addController(TGWN, ApplicationControllerAccess::togglWin);
+        addController(TGAL, ApplicationControllerAccess::togglAll);
+        addController(BRWS, ApplicationControllerAccess::openBrowser);
+        addController(BRWT, ApplicationControllerAccess::browseWatch);
+        addController(SOLD, ApplicationControllerAccess::togglSold);
+        addController(GRUP, ApplicationControllerAccess::group);
+    }
+
+    private ApplicationController addInputController(ConsoleControllerType togl, BiConsumer<ApplicationControllerAccess, String> command) {
+        return controllers.put(togl, new ConsoleInputController((ApplicationControllerAccess) model, command));
+    }
+
+    private ApplicationController addController(ConsoleControllerType exit, Consumer<ApplicationControllerAccess> command) {
+        return controllers.put(exit, new ApplicationController((ApplicationControllerAccess) model, command));
+    }
+
+    public void print() {
         consoleViewPrinter.printWatchAll(model);
         consoleViewPrinter.printAssetSize(model);
         if (!AssetBuy.showSold) {
@@ -64,73 +118,8 @@ public class ConsoleView implements View {
         }
     }
 
-
-    public ConsoleController initLinesController(ApplicationControllerAccess model) {
-        return new ConsoleController(model) {
-            @Override
-            public void execute() {
-                model.refreshViews();
-            }
-        };
-    }
-
-    public ConsoleController initBuysController(ApplicationControllerAccess model) {
-        return new ConsoleController(model) {
-            @Override
-            public void execute() {
-                showBuyLines = !showBuyLines;
-                model.refreshViews();
-            }
-        };
-    }
-
-
-    public ConsoleController initRangeController(ApplicationControllerAccess model) {
-        return new ConsoleController(model) {
-            @Override
-            public void execute() {
-                try {
-                    maxRange = Integer.parseInt(new BufferedReader(new InputStreamReader(System.in)).readLine());
-                    model.refreshViews();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-    }
-
-    public ConsoleController initExitController(ApplicationControllerAccess model) {
-        return new ConsoleController(model) {
-            @Override
-            public void execute() {
-                System.out.println("Closing View...");
-                model.refreshViews();
-                active = false;
-            }
-        };
-    }
-
     @Override
     public void update() {
         this.print();
-    }
-
-    public ConsoleController initRefreshController(ApplicationControllerAccess model) {
-        return new ConsoleController(model) {
-            @Override
-            public void execute() {
-                model.refreshViews();
-            }
-        };
-    }
-
-    public ConsoleController initRoisController(ApplicationControllerAccess model) {
-        return new ConsoleController(model) {
-            @Override
-            public void execute() {
-                showRois = !showRois;
-                model.refreshViews();
-            }
-        };
     }
 }

@@ -14,7 +14,7 @@ public interface ApplicationViewAccess {
 
     ArrayList<AssetBuy> getAllBuys();
 
-    List<Value[]> getRelativeLines(Integer maxRange);
+    List<Value[]> getLines(Integer maxRange);
 
     Value getBuyWin(AssetBuy buy);
 

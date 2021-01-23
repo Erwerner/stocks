@@ -47,7 +47,7 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public List<Value[]> getRelativeLines(Integer maxRange) {
+    public List<Value[]> getLines(Integer maxRange) {
         return outputService.createLines(maxRange, data);
     }
 

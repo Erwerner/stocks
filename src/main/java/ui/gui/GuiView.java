@@ -14,11 +14,16 @@ public class GuiView extends JFrame implements View {
     private final GuiViewPrinter guiViewPrinter;
 
 
-    public GuiView(Model model) {
+    public GuiView(Model model)  {
         this.model = (ApplicationViewAccess) model;
         model.registerView(this);
         initWindow();
         guiViewPrinter = new GuiViewPrinter();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         run();
     }
 
@@ -35,7 +40,7 @@ public class GuiView extends JFrame implements View {
         if (ConsoleView.showRois) {
             guiViewPrinter.drawRois(arg0, model);
         } else {
-            guiViewPrinter.drawLines(arg0, model, ConsoleView.maxRange, width);
+            guiViewPrinter.drawAbsolute(arg0, model, ConsoleView.maxRange, width);
         }
 
     }
