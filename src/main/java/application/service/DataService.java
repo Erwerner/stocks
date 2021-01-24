@@ -4,6 +4,8 @@ import application.core.model.*;
 import application.core.model.exception.DateNotFound;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class DataService {
@@ -57,5 +59,29 @@ public class DataService {
                 activeAssets.put(asset.getWkn(), asset);
         });
         return activeAssets;
+    }
+
+    public ArrayList<AssetBuy> getAllBuys(ApplicationData data) {
+        ArrayList<AssetBuy> assetBuys = new ArrayList<>();
+        for (Asset asset : data.getAssets().values()) {
+            assetBuys.addAll(asset.getShowBuys());
+        }
+        assetBuys.sort(Comparator.comparing(AssetBuy::getDate));
+        return assetBuys;
+    }
+
+    public void togglWin(ApplicationData data) {
+        LocalDate lastDate = calcLastDate(data);
+        for (Asset asset : data.getAssets().values()) {
+            try {
+                Value valueAtDateWithBuy = asset.getValueAtDateWithBuy(lastDate);
+                Double costAtDate = asset.getCostAtDate(lastDate);
+                for (AssetBuy buy : asset.getShowBuys())
+                    buy.setActive(valueAtDateWithBuy.getValue() >= costAtDate);
+            } catch (DateNotFound dateNotFound) {
+                dateNotFound.printStackTrace();
+            }
+        }
+        data.refreshAssets();
     }
 }

@@ -1,9 +1,11 @@
 package application.mvc;
 
+import application.core.RoiCalculator;
 import application.core.model.AssetBuy;
 import application.core.model.Value;
 import application.core.model.Wkn;
 import application.core.model.exception.DateNotFound;
+import application.core.output.BuyOutput;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -43,4 +45,6 @@ public interface ApplicationViewAccess {
     Double getRoiTodayWithoutSold();
 
     Map<String, List<String>> getGroups();
+
+     List<BuyOutput> getBuyOutputs() ;
 }

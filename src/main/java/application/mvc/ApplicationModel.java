@@ -2,6 +2,7 @@ package application.mvc;
 
 import application.core.model.*;
 import application.core.model.exception.DateNotFound;
+import application.core.output.BuyOutput;
 import application.service.*;
 import helper.ResourceNotFound;
 import template.Model;
@@ -38,12 +39,7 @@ public class ApplicationModel extends Model implements
 
     @Override
     public ArrayList<AssetBuy> getAllBuys() {
-        ArrayList<AssetBuy> assetBuys = new ArrayList<>();
-        for (Asset asset : data.getAssets().values()) {
-            assetBuys.addAll(asset.getShowBuys());
-        }
-        assetBuys.sort(Comparator.comparing(AssetBuy::getDate));
-        return assetBuys;
+        return dataService.getAllBuys(data);
     }
 
     @Override
@@ -78,16 +74,8 @@ public class ApplicationModel extends Model implements
 
     @Override
     public HashMap<String, List<Double>> getBuyWatch() {
-        List<String> watchWkns = getWatchWkns();
+        List<String> watchWkns = readerService.getWatchWkns();
         return outputService.createBuyWatch(watchWkns, data);
-    }
-
-    private List<String> getWatchWkns() {
-        try {
-            return readerService.getWatchWkns();
-        } catch (ResourceNotFound e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -106,13 +94,10 @@ public class ApplicationModel extends Model implements
 
     @Override
     public HashMap<String, List<Double>> getWatchAll() {
-        try {
-            List<String> watchWkns = readerService.getWatchWkns();
-            watchWkns.addAll(dataService.getActiveAssets(data).keySet());
-            return outputService.createWatchChangeToday(watchWkns, data);
-        } catch (ResourceNotFound e) {
-            throw new RuntimeException(e);
-        }
+        List<String> watchWkns = new ArrayList<>();
+        watchWkns.addAll(readerService.getWatchWkns());
+        watchWkns.addAll(dataService.getActiveAssets(data).keySet());
+        return outputService.createWatchChangeToday(watchWkns, data);
     }
 
     @Override
@@ -145,12 +130,18 @@ public class ApplicationModel extends Model implements
         return data.getGroups();
     }
 
+    @Override
+    public List<BuyOutput> getBuyOutputs() {
+        return outputService.getBuyOutputs(data, ApplicationModel.minimumDaysForRoi);
+    }
+
     // Controller
     @Override
     public void importBuys() throws IOException {
         for (AssetBuy assetBuy : readerService.importBuys()) {
-            if (assetBuy.getDate().isAfter(dataService.calcLastDate(data)))
+            if (assetBuy.getDate().isAfter(dataService.calcLastDate(data))) {
                 continue;
+            }
             data.addBuy(assetBuy);
         }
         notifyViews();
@@ -158,31 +149,19 @@ public class ApplicationModel extends Model implements
 
     @Override
     public void togglBuy(Integer id) {
-        AssetBuy buy = getAllBuys().get(id);
-        data.togglBuy(buy);
+        data.togglBuy(dataService.getAllBuys(data).get(id));
         notifyViews();
     }
 
     @Override
     public void togglAll() {
-        getAllBuys().forEach(data::togglBuy);
+        dataService.getAllBuys(data).forEach(data::togglBuy);
         notifyViews();
     }
 
     @Override
     public void togglWin() {
-        LocalDate lastDate = getLastDate();
-        for (Asset asset : data.getAssets().values()) {
-            try {
-                Value valueAtDateWithBuy = asset.getValueAtDateWithBuy(lastDate);
-                Double costAtDate = asset.getCostAtDate(lastDate);
-                for (AssetBuy buy : asset.getShowBuys())
-                    buy.setActive(valueAtDateWithBuy.getValue() >= costAtDate);
-            } catch (DateNotFound dateNotFound) {
-                dateNotFound.printStackTrace();
-            }
-        }
-        data.refreshAssets();
+        dataService.togglWin(data);
         notifyViews();
     }
 
@@ -190,7 +169,7 @@ public class ApplicationModel extends Model implements
     public void openBrowser() {
         HashSet<String> wkns = new HashSet<>();
         wkns.addAll(dataService.getActiveAssets(data).keySet());
-        wkns.addAll(getWatchWkns());
+        wkns.addAll(readerService.getWatchWkns());
         executeService.browseWkns(data, wkns);
     }
 
@@ -210,7 +189,7 @@ public class ApplicationModel extends Model implements
 
     @Override
     public void browseWatch() {
-        HashSet<String> wkns = new HashSet<>(getWatchWkns());
+        HashSet<String> wkns = new HashSet<>(readerService.getWatchWkns());
         executeService.browseWkns(data, wkns);
         notifyViews();
     }

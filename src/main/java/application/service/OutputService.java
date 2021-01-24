@@ -1,7 +1,10 @@
 package application.service;
 
+import application.core.RoiCalculator;
 import application.core.model.*;
 import application.core.model.exception.DateNotFound;
+import application.core.output.BuyOutput;
+import application.mvc.ApplicationModel;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -134,7 +137,7 @@ public class OutputService {
         addComb(sums, Arrays.asList("FOND SW", "FOND DIV", "FOND", "FOND ROB", "ETC", "ETC GOLD", "GOLD", "CASH"), "> Total");
 
         Double totalFinal = total;
-        sums.values().forEach(value->value.setTotal(totalFinal));
+        sums.values().forEach(value -> value.setTotal(totalFinal));
         return sums;
     }
 
@@ -146,6 +149,7 @@ public class OutputService {
             }
         });
     }
+
     public Value calcBuyWin(AssetBuy buy, ApplicationData data) {
         Value value = new Value();
         try {
@@ -193,5 +197,39 @@ public class OutputService {
         HashMap<LocalDate, Value> dateChange = new HashMap<>();
         dateChange.put(date, change);
         return dateChange;
+    }
+
+    public List<BuyOutput> getBuyOutputs(ApplicationData data, int minimumDaysForRoi) {
+        List<BuyOutput> buyOutputs = new ArrayList<>();
+        LocalDate lastDate = dataService.calcLastDate(data);
+        for (AssetBuy buy : dataService.getAllBuys(data)) {
+            String buyWkn = buy.getWkn();
+
+            double wknChangeToday = assetService.calcAssetChangeToday(data.getAssets().get(buyWkn), lastDate);
+            double winDay = 0;
+            try {
+                winDay = (wknChangeToday * buy.getAmount() * data.getAssets().get(buyWkn).getWknPointAtDate(lastDate));
+            } catch (DateNotFound dateNotFound) {
+                dateNotFound.printStackTrace();
+            }
+
+            Value buyWin = calcBuyWin(buy, data);
+            Wkn wkn = assetService.createWkn(buyWkn, data);
+            LocalDate buyDate = buy.getDate();
+            LocalDate soldDate = buy.getSoldDate();
+            buyOutputs.add(new BuyOutput(
+                    buyDate,
+                    buyWkn,
+                    wknChangeToday,
+                    winDay,
+                    buyWin,
+                    buy.isActive(),
+                    wkn.getWknType(),
+                    wkn.getWknName(),
+                    RoiCalculator.calcRoiFromRange(buyDate, soldDate !=null ? soldDate : lastDate, buyWin.getPercentage()),
+                    lastDate.minusDays(minimumDaysForRoi).isBefore(buyDate))
+            );
+        }
+        return buyOutputs;
     }
 }

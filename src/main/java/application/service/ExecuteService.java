@@ -14,7 +14,6 @@ public class ExecuteService {
     public void browseWkns(ApplicationData data, HashSet<String> wkns) {
 
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-
             for (String wkn : wkns) {
                 try {
                     Desktop.getDesktop().browse(new URI(data.getWknUrl(wkn)));

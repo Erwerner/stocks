@@ -1,10 +1,9 @@
 package ui.console;
 
-import application.core.RoiCalculator;
 import application.core.model.AssetBuy;
 import application.core.model.Value;
 import application.core.model.Wkn;
-import application.core.model.exception.DateNotFound;
+import application.core.output.BuyOutput;
 import application.mvc.ApplicationModel;
 import application.mvc.ApplicationViewAccess;
 
@@ -26,39 +25,30 @@ public class ConsoleViewPrinter {
     }
 
     public void printBuys(ApplicationViewAccess model) {
-        System.out.println("\n- Buys: --");
-        int count = 0;
-        int runningYear = 0;
-        LocalDate lastDate = model.getLastDate();
-        for (AssetBuy buy : model.getAllBuys()) {
-            LocalDate buyDate = buy.getDate();
-            String buyWkn = buy.getWkn();
-            if (runningYear < buyDate.getYear()) {
-                System.out.println();
-                runningYear = buyDate.getYear();
-            }
-            if (model.getLastDate().minusDays(ApplicationModel.minimumDaysForRoi).isBefore(buyDate))
-                System.out.println("................");
-            double wknChangeToday = model.getWknChangeAtDate(buyWkn, lastDate);
-            double winDay = 0;
-            try {
-                winDay = (wknChangeToday * buy.getAmount() * model.getWknPointAtDate(buyWkn, lastDate));
-            } catch (DateNotFound dateNotFound) {
-                dateNotFound.printStackTrace();
-            }
 
-            Value buyWin = model.getBuyWin(buy);
-            System.out.println((buy.isActive() ? "X" : " ") +
+        System.out.println("\n- Buys: --");
+        int runningYear = 0;
+        int count = 0;
+        for (BuyOutput buyOutput : model.getBuyOutputs()) {
+            if (buyOutput.isPendingRoi()) {
+                System.out.println("................");
+            }
+            if (runningYear < buyOutput.getBuyDate().getYear()) {
+                System.out.println();
+                runningYear = buyOutput.getBuyDate().getYear();
+            }
+            double winDay = buyOutput.getWinDay();
+            System.out.println((buyOutput.isActive() ? "X" : " ") +
                     "\t" + " [" + count + "] " +
-                    "\t" + buyWkn + " " +
-                    "\t" + buyDate +
-                    "\t (" + getPercentageValue(buyWin) + ") " +
-                    "\t (" + convToPercentageString(RoiCalculator.calcRoiFromRange(buyDate, lastDate, buyWin.getPercentage())) + ") " +
+                    "\t" + buyOutput.getBuyWkn() + " " +
+                    "\t" + buyOutput.getBuyDate() +
+                    "\t (" + getPercentageValue(buyOutput.getBuyWin()) + ") " +
+                    "\t (" + convToPercentageString(buyOutput.getRoiFromRange()) + ") " +
                     "\t" + (winDay < 0 ? "-" : "+") +
-                    "\t " + convWknType(model.getWkn(buyWkn).getWknType()) +
-                    "\t (" + convToPercentageString(wknChangeToday) + ") " +
+                    "\t " + convWknType(buyOutput.getWknType()) +
+                    "\t (" + convToPercentageString(buyOutput.getWknChangeToday()) + ") " +
                     "\t " + (int) winDay + "€ " +
-                    "\t" + model.getWkn(buyWkn).getWknName());
+                    "\t" + buyOutput.getWknName());
             count++;
         }
     }
