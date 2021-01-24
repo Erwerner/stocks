@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class ConsoleInputController extends ApplicationController {
     final BiConsumer<ApplicationControllerAccess, String> inputCommand;

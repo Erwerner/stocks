@@ -76,12 +76,12 @@ public class ConsoleView implements View {
         addController(GRUP, ApplicationControllerAccess::group);
     }
 
-    private ApplicationController addInputController(ConsoleControllerType togl, BiConsumer<ApplicationControllerAccess, String> command) {
-        return controllers.put(togl, new ConsoleInputController((ApplicationControllerAccess) model, command));
+    private void addInputController(ConsoleControllerType togl, BiConsumer<ApplicationControllerAccess, String> command) {
+        controllers.put(togl, new ConsoleInputController((ApplicationControllerAccess) model, command));
     }
 
-    private ApplicationController addController(ConsoleControllerType exit, Consumer<ApplicationControllerAccess> command) {
-        return controllers.put(exit, new ApplicationController((ApplicationControllerAccess) model, command));
+    private void addController(ConsoleControllerType exit, Consumer<ApplicationControllerAccess> command) {
+        controllers.put(exit, new ApplicationController((ApplicationControllerAccess) model, command));
     }
 
     public void print() {

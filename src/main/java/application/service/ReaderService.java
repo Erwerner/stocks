@@ -61,13 +61,17 @@ public class ReaderService {
         return input.getAllWkns();
     }
 
-    public List<String> getWatchWkns() throws ResourceNotFound {
+    public List<String> getWatchWkns()  {
         List<String> watchWkns = new ArrayList<>();
         String[] watchTypes = getWatchTypes();
-        for (String wkn : getAllWkns()) {
-            if (Arrays.asList(watchTypes).contains(getWknType(wkn))){
-                watchWkns.add(wkn);
+        try {
+            for (String wkn : getAllWkns()) {
+                if (Arrays.asList(watchTypes).contains(getWknType(wkn))){
+                    watchWkns.add(wkn);
+                }
             }
+        } catch (ResourceNotFound e) {
+            throw new RuntimeException(e);
         }
 
         return watchWkns;
