@@ -8,15 +8,11 @@ import application.core.model.exception.DateNotFound;
 import java.time.LocalDate;
 
 public class AssetService {
-    public double calcAssetChangeToday(Asset asset, LocalDate date) {
+    public double calcAssetChangeToday(Asset asset, LocalDate date) throws DateNotFound {
         Double old = 1.0;
         Double neu = 1.0;
-        try {
-            old = asset.getWknPointAtDate(date.minusDays(1));
-            neu = asset.getWknPointAtDate(date);
-        } catch (DateNotFound dateNotFound) {
-            dateNotFound.printStackTrace();
-        }
+        old = asset.getWknPointAtDate(date.minusDays(1));
+        neu = asset.getWknPointAtDate(date);
         return neu / old - 1;
     }
 

@@ -19,7 +19,7 @@ public class ApplicationModel extends Model implements
     private final ExecuteService executeService;
     private final AssetService assetService;
     private final RoiService roiService;
-    public static final int minimumDaysForRoi = 90;
+    public static final int minimumDaysForRoi = 10;
 
     public ApplicationModel(ApplicationInput input) {
         data = new ApplicationData();
@@ -63,16 +63,13 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public HashMap<String, List<Double>> getWatchAll() {
-        List<String> watchWkns = new ArrayList<>();
-        watchWkns.addAll(readerService.getWatchWkns());
-        watchWkns.addAll(dataService.getActiveAssets(data).keySet());
-        return outputService.createWatchChangeToday(watchWkns, data);
+    public HashMap<String, Value> getWknPlaceSums() {
+        return outputService.calcWknPlaceSums(data);
     }
 
     @Override
-    public double getBuyCash() {
-        return dataService.calcBuyCash(data);
+    public double getBuyMoney() {
+        return dataService.calcBuyMoney(data);
     }
 
     @Override
@@ -91,11 +88,6 @@ public class ApplicationModel extends Model implements
     }
 
     @Override
-    public Double getRoiTodayWithoutSold() {
-        return roiService.getTotalRoiForDateRange(data, 100000, dataService.calcLastDate(data), minimumDaysForRoi, true);
-    }
-
-    @Override
     public Map<String, List<String>> getGroups() {
         return data.getGroups();
     }
@@ -103,6 +95,11 @@ public class ApplicationModel extends Model implements
     @Override
     public List<BuyOutput> getBuyOutputs() {
         return outputService.getBuyOutputs(data, ApplicationModel.minimumDaysForRoi);
+    }
+
+    @Override
+    public HashMap<String, List<Double>> getWknWatch(String wkn) {
+        return outputService.createWatchChangeToday(Collections.singletonList(wkn), data, 90);
     }
 
     // Controller
@@ -145,9 +142,9 @@ public class ApplicationModel extends Model implements
 
 
     @Override
-    public void importCash() throws IOException {
-        Integer cash = readerService.readCash();
-        data.setCash(cash);
+    public void importMoney() throws IOException {
+        data.setCash(readerService.readCash());
+        data.setBank(readerService.readBank());
         notifyViews();
     }
 

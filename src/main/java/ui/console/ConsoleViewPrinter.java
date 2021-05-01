@@ -4,11 +4,12 @@ import application.core.model.AssetBuy;
 import application.core.model.Value;
 import application.core.model.Wkn;
 import application.core.output.BuyOutput;
-import application.mvc.ApplicationModel;
 import application.mvc.ApplicationViewAccess;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ConsoleViewPrinter {
 
@@ -16,8 +17,8 @@ public class ConsoleViewPrinter {
         HashMap<String, Value> todayStats = model.getTodayStats();
         System.out.println("\n- Yesterday: --");
         todayStats.forEach((key, value) -> System.out.println(key + ": " + value));
-        System.out.println("Today Roi last " + ApplicationModel.minimumDaysForRoi + " wo Sold: " + convToPercentageString(model.getRoiTodayWithoutSold()));
-        System.out.println("Today Roi last " + ApplicationModel.minimumDaysForRoi + " w  Sold: " + convToPercentageString(model.getRoisWithSold().get(model.getRoisWithSold().size() - 1)));
+        //System.out.println("Today Roi last " + ApplicationModel.minimumDaysForRoi + " wo Sold: " + convToPercentageString(model.getRoiTodayWithoutSold()));
+        //System.out.println("Today Roi last " + ApplicationModel.minimumDaysForRoi + " w  Sold: " + convToPercentageString(model.getRoisWithSold().get(model.getRoisWithSold().size() - 1)));
     }
 
     private String getPercentageValue(Value winValue) {
@@ -39,15 +40,15 @@ public class ConsoleViewPrinter {
             }
             double winDay = buyOutput.getWinDay();
             System.out.println((buyOutput.isActive() ? "X" : " ") +
-                    "\t" + " [" + count + "] " +
+                    "\t[" + count + "] " +
                     "\t" + buyOutput.getBuyWkn() + " " +
                     "\t" + buyOutput.getBuyDate() +
-                    "\t (" + getPercentageValue(buyOutput.getBuyWin()) + ") " +
-                    "\t (" + convToPercentageString(buyOutput.getRoiFromRange()) + ") " +
+                    "\t(" + getPercentageValue(buyOutput.getBuyWin()) + ") " +
+                    "\t(" + convToPercentageString(buyOutput.getRoiFromRange()) + ") " +
                     "\t" + (winDay < 0 ? "-" : "+") +
-                    "\t " + convWknType(buyOutput.getWknType()) +
-                    "\t (" + convToPercentageString(buyOutput.getWknChangeToday()) + ") " +
-                    "\t " + (int) winDay + "€ " +
+                    "\t" + convWknType(buyOutput.getWknType()) +
+                    "\t(" + convToPercentageString(buyOutput.getWknChangeToday()) + ") " +
+                    "\t" + (int) winDay + "€  " +
                     "\t" + buyOutput.getWknName());
             count++;
         }
@@ -79,22 +80,23 @@ public class ConsoleViewPrinter {
             for (Double today : todays) {
                 sum += today;
                 if (sum < 0) {
-                    sums.append(" [");
+                    sums.append("[");
                 }
-                sums.append(convToPercentageString(sum));
+                sums.append(Math.round(100 * (Math.sqrt(sum * sum))));
                 if (sum < 0) {
-                    sums.append("] ");
+                    sums.append("]");
+                } else {
+                    sums.append(",");
                 }
-                sums.append("\t");
             }
             Wkn wkn1 = model.getWkn(wkn);
-            System.out.println(convWknType(wkn1.getWknType() + " " + wkn1.getWknUrl()));
-            System.out.println(sums);
+            System.out.println("\t" + convWknType(wkn1.getWknType() + " " + wkn1.getWknUrl()));
+            System.out.println("\t" + sums);
         });
     }
 
     private String convToPercentageString(Double value) {
-        return ((Double) (value * 1000)).intValue() / 10.0 + "%";
+        return (Math.round(value * 100)) + "%";
     }
 
     public void printWknTypeSum(ApplicationViewAccess model) {
@@ -102,23 +104,27 @@ public class ConsoleViewPrinter {
         HashMap<String, Value> sums = model.getWknTypeSums();
         sums.forEach((wknType, value) -> {
             if (!wknType.startsWith(">"))
-                System.out.println(convWknType(wknType) + " \t" + getPercentageValue(value) + " \t" + value.getValue().intValue());
+                System.out.println(convWknType(wknType) + " \t" + getPercentageValue(value) + "  \t" + value.getValue().intValue());
         });
         System.out.println();
         sums.forEach((wknType, value) -> {
             if (wknType.startsWith(">"))
-                System.out.println(convWknType(wknType) + " \t" + getPercentageValue(value) + " \t" + value.getValue().intValue());
+                System.out.println(convWknType(wknType) + " \t" + getPercentageValue(value) + "  \t" + value.getValue().intValue());
         });
     }
 
-    public void printWatchAll(ApplicationViewAccess model) {
-        System.out.println("\n- Watch All: --");
-        watch(model, model.getWatchAll());
+    public void printWknPlaceSum(ApplicationViewAccess model) {
+        System.out.println("\n- Places --");
+        HashMap<String, Value> sums = model.getWknPlaceSums();
+        sums.forEach((place, value) -> {
+            if (place.startsWith(">"))
+                System.out.println(convWknType(place) + " \t" + getPercentageValue(value) + "  \t" + value.getValue().intValue());
+        });
     }
 
-    public void printBuyCash(ApplicationViewAccess model) {
-        System.out.println("\n- Buy Cash --");
-        System.out.println(new Double(model.getBuyCash()).intValue());
+    public void printBuyMoney(ApplicationViewAccess model) {
+        System.out.println("\n- Buy Money --");
+        System.out.println(new Double(model.getBuyMoney()).intValue());
     }
 
     public void printChangeDate(ApplicationViewAccess model) {
@@ -141,8 +147,12 @@ public class ConsoleViewPrinter {
         System.out.println("GROUPS:");
         Map<String, List<String>> groups = model.getGroups();
         groups.forEach((group, wkns) -> {
-            System.out.println(group);
-            wkns.forEach((wkn) -> System.out.println("\t" + wkn));
+            if (!group.substring(0, 1).equals("X")) {
+                System.out.println(group);
+                wkns.forEach((wkn) -> {
+                    watch(model, model.getWknWatch(wkn));
+                });
+            }
         });
     }
 }

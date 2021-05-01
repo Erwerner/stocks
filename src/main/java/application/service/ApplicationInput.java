@@ -22,5 +22,7 @@ public abstract class ApplicationInput {
 
     public abstract Integer readCash() throws IOException;
 
+    public abstract Integer readBank() throws IOException;
+
     public abstract String[] getAllWkns() throws ResourceNotFound;
 }

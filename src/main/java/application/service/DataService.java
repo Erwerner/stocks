@@ -19,16 +19,16 @@ public class DataService {
         return date;
     }
 
-    public double calcBuyCash(ApplicationData data) {
-        double buyCash;
-        double cash = data.getCash();
+    public double calcBuyMoney(ApplicationData data) {
+        double buyMoney;
+        double money = data.getCash() + data.getBank();
         double total = calcTotalAtDate(data, calcLastDate(data));
-        buyCash = total * ((cash / total) - 0.15);
-        return buyCash;
+        buyMoney = total * ((money / total) - 0.15);
+        return buyMoney;
     }
 
     public double calcTotalAtDate(ApplicationData data, LocalDate date) {
-        double total = data.getCash();
+        double total = data.getCash() + data.getBank();
         for (Asset asset : data.getAssets().values()) {
             try {
                 total += asset.getValueAtDateWithBuy(date).getValue();

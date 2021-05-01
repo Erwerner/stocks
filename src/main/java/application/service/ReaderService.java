@@ -57,6 +57,10 @@ public class ReaderService {
         return input.readCash();
     }
 
+    public Integer readBank() throws IOException {
+        return input.readBank();
+    }
+
     public String[] getAllWkns() throws ResourceNotFound {
         return input.getAllWkns();
     }
@@ -85,7 +89,7 @@ public class ReaderService {
             if(!groups.containsKey(type)){
                 groups.put(type, new ArrayList<>());
             }
-            groups.get(type).add(wkn + " " + input.getWknName(wkn));
+            groups.get(type).add(wkn);
         }
         return groups;
     }

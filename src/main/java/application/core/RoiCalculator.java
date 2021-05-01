@@ -31,7 +31,7 @@ public class RoiCalculator {
         return roiSum / costSum;
     }
 
-    Double calcRoiForAssetBuyAtDate(Asset asset, AssetBuy assetBuy, int dayRange, LocalDate endDate, int minimumDays, boolean excludeSold) {
+    public Double calcRoiForAssetBuyAtDate(Asset asset, AssetBuy assetBuy, int dayRange, LocalDate endDate, int minimumDays, boolean excludeSold) {
         if (assetBuy.getDate().isAfter(endDate))
             return null;
         if (assetBuy.getDate().plusDays(minimumDays).isAfter(endDate))

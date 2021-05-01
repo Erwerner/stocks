@@ -48,13 +48,14 @@ public class RoiCalculatorTest extends UnitTest {
     public void when_calc_roi_for_sold_asset_then_result_is_correct() {
         ArrayList<WknPoint> wknPoints = new ArrayList<>();
         LocalDate startDate = LocalDate.of(2001, 1, 1);
-        wknPoints.add(new WknPoint(startDate.plusDays(2), 0.0));
-        wknPoints.add(new WknPoint(startDate.plusDays(1), 2.0));
+        wknPoints.add(new WknPoint(startDate.plusDays(3), 11.0));
+        wknPoints.add(new WknPoint(startDate.plusDays(2), 13.0));
+        wknPoints.add(new WknPoint(startDate.plusDays(1), 20.0));
         wknPoints.add(new WknPoint(startDate, 1.0));
         WknkRow wknkRow = new WknkRow(wknPoints);
         Asset asset = new Asset("wkn", wknkRow);
         asset.addBuy(new AssetBuy("", startDate, 1000, 0.0, 1.0, startDate.plusDays(2), 4.0));
-        Double act = cut.calcRoiForAssetBuyAtDate(asset, asset.getAllBuys().get(0),3, startDate.plusDays(2), 0, false);
+        Double act = cut.calcRoiForAssetBuyAtDate(asset, asset.getAllBuys().get(0), 100, startDate.plusDays(2), 0, false);
         Double expected = Math.pow(2, 365);
         assertEquals(expected, act);
     }

@@ -15,7 +15,7 @@ public interface ApplicationControllerAccess {
 
     void openBrowser();
 
-    void importCash() throws IOException;
+    void importMoney() throws IOException;
 
     void browseWatch();
 

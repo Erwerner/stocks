@@ -23,17 +23,17 @@ public interface ApplicationViewAccess {
 
     HashMap<String, Value> getWknTypeSums();
 
-    HashMap<String, List<Double>> getWatchAll();
+    HashMap<String, Value> getWknPlaceSums();
 
-    double getBuyCash();
+    double getBuyMoney();
 
     HashMap<LocalDate, Value> getChangeDate();
 
     List<Double> getRoisWithSold();
 
-    Double getRoiTodayWithoutSold();
-
     Map<String, List<String>> getGroups();
 
     List<BuyOutput> getBuyOutputs();
+
+    HashMap<String, List<Double>> getWknWatch(String wkn);
 }

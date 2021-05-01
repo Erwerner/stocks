@@ -91,16 +91,19 @@ public class OutputService {
         return fonds;
     }
 
-    public HashMap<String, List<Double>> createWatchChangeToday(Collection<String> watchWkns, ApplicationData data) {
+    public HashMap<String, List<Double>> createWatchChangeToday(Collection<String> watchWkns, ApplicationData data, int range) {
         HashMap<String, List<Double>> watchToday = new HashMap<>();
         LocalDate lastDate = dataService.calcLastDate(data);
         for (String watchWkn : watchWkns) {
             List<Double> values = new ArrayList<>();
-            for (int i = 0; i < 35; i++) {
-                double today = assetService.calcAssetChangeToday(data.getAssets().get(watchWkn), lastDate.minusDays(i));
-                if (today == 0.0)
-                    continue;
-                values.add(today);
+            for (int i = 0; i < range; i++) {
+                double today = 0;
+                try {
+                    today = assetService.calcAssetChangeToday(data.getAssets().get(watchWkn), lastDate.minusDays(i));
+                    values.add(today);
+                } catch (DateNotFound dateNotFound) {
+                    //   dateNotFound.printStackTrace();
+                }
             }
             watchToday.put(watchWkn, values);
         }
@@ -124,16 +127,68 @@ public class OutputService {
             }
         });
         sums.put("CASH", new Value(data.getCash()));
+        sums.put("BANK", new Value(data.getBank()));
 
         for (Value value : sums.values()) {
             total += value.getValue();
         }
 
-        addComb(sums, Arrays.asList("CASH"), "> CASH");
+        addComb(sums, Arrays.asList("CASH", "BANK"), "> MONEY");
         addComb(sums, Arrays.asList("ETC GOLD", "GOLD"), "> GOLD");
         addComb(sums, Arrays.asList("ETC"), "> METAL");
-        addComb(sums, Arrays.asList("FOND SW", "FOND DIV", "FOND", "FOND ROB"), "> FOND");
-        addComb(sums, Arrays.asList("FOND SW", "FOND DIV", "FOND", "FOND ROB", "ETC", "ETC GOLD", "GOLD", "CASH"), "> Total");
+        addComb(sums, Arrays.asList("BTC ONL", "BTC HDD"), "> BTC");
+
+        Value restValue = new Value(total);
+        sums.forEach((s, value) -> {
+            if (s.substring(0, 1).equals(">")) {
+                restValue.sub(value);
+            }
+        });
+        sums.put("> FONDS", restValue);
+
+        sums.put("> Total", new Value(total));
+
+        Double totalFinal = total;
+        sums.values().forEach(value -> value.setTotal(totalFinal));
+        return sums;
+    }
+
+    public HashMap<String, Value> calcWknPlaceSums(ApplicationData data) {
+        HashMap<String, Value> sums = new HashMap<>();
+        double total = 0.0;
+        data.getAssets().forEach((wkn, asset) -> {
+            if (!asset.getActiveBuys().isEmpty()) {
+                String wknType = data.getWknType(wkn);
+                if (!sums.containsKey(wknType))
+                    sums.put(wknType, new Value(0.0));
+                try {
+                    Value value = asset.getValueAtDateWithBuy(dataService.calcLastDate(data));
+                    sums.get(wknType).addValue(value);
+                } catch (DateNotFound dateNotFound) {
+                    dateNotFound.printStackTrace();
+                }
+            }
+        });
+        sums.put("CASH", new Value(data.getCash()));
+        sums.put("BANK", new Value(data.getBank()));
+
+        for (Value value : sums.values()) {
+            total += value.getValue();
+        }
+
+        addComb(sums, Arrays.asList("BANK"), "> BANK");
+        addComb(sums, Arrays.asList("BTC HDD", "GOLD", "CASH"), "> SAFE");
+        addComb(sums, Arrays.asList("BTC ONL"), "> BTC ONL");
+
+        Value restValue = new Value(total);
+        sums.forEach((s, value) -> {
+            if (s.substring(0, 1).equals(">")) {
+                restValue.sub(value);
+            }
+        });
+        sums.put("> STOCKS", restValue);
+
+        sums.put("> Total", new Value(total));
 
         Double totalFinal = total;
         sums.values().forEach(value -> value.setTotal(totalFinal));
@@ -152,10 +207,15 @@ public class OutputService {
     public Value calcBuyWin(AssetBuy buy, ApplicationData data) {
         Value value = new Value();
         try {
-            String wkn = buy.getWkn();
+            Double buyCost = buy.getCosts();
             LocalDate lastDate = dataService.calcLastDate(data);
-            Double buyValue = data.getAssets().get(wkn).getWknPointForDate(lastDate).getValue() * buy.getAmount();
-            value.addValue(buyValue).sub(buy.getCosts()).setTotal(buy.getCosts());
+            Double finalBuyValue = buy.getSoldDate() == null ? data
+                    .getAssets()
+                    .get(buy.getWkn())
+                    .getWknPointForDate(lastDate)
+                    .getValue()
+                    : buy.getSoldValue();
+            value.addValue(finalBuyValue * buy.getAmount()).sub(buyCost).setTotal(buyCost);
         } catch (DateNotFound dateNotFound) {
             dateNotFound.printStackTrace();
         }
@@ -163,7 +223,8 @@ public class OutputService {
     }
 
     public HashMap<String, List<Double>> createBuyWatch(List<String> watchWkns, ApplicationData data) {
-        HashMap<String, List<Double>> watchChangeToday = createWatchChangeToday(watchWkns, data);
+        int range = 60;
+        HashMap<String, List<Double>> watchChangeToday = createWatchChangeToday(watchWkns, data, range);
         HashMap<String, List<Double>> relevantWatchs = new HashMap<>();
         watchChangeToday.forEach((s, doubles) -> {
             boolean maxNeg = false;
@@ -171,12 +232,12 @@ public class OutputService {
             double sumChange = 0;
             for (Double aDouble : doubles) {
                 sumChange += aDouble;
-                if (sumChange < -0.02)
+                if (sumChange < -0.035)
                     maxNeg = true;
-                if (sumChange < 0)
+                if (sumChange < -0.01)
                     countNegative++;
             }
-            if (countNegative > 4 && maxNeg)
+            if (countNegative > range * 0.2 && maxNeg)
                 relevantWatchs.put(s, doubles);
         });
         return relevantWatchs;
@@ -204,30 +265,35 @@ public class OutputService {
         for (AssetBuy buy : dataService.getAllBuys(data)) {
             String buyWkn = buy.getWkn();
 
-            double wknChangeToday = assetService.calcAssetChangeToday(data.getAssets().get(buyWkn), lastDate);
-            double winDay = 0;
+            double wknChangeToday = 0;
             try {
-                winDay = (wknChangeToday * buy.getAmount() * data.getAssets().get(buyWkn).getWknPointAtDate(lastDate));
+                wknChangeToday = assetService.calcAssetChangeToday(data.getAssets().get(buyWkn), lastDate);
+                double winDay = 0;
+                try {
+                    winDay = (wknChangeToday * buy.getAmount() * data.getAssets().get(buyWkn).getWknPointAtDate(lastDate));
+                } catch (DateNotFound dateNotFound) {
+                    dateNotFound.printStackTrace();
+                }
+
+                Value buyWin = calcBuyWin(buy, data);
+                Wkn wkn = assetService.createWkn(buyWkn, data);
+                LocalDate buyDate = buy.getDate();
+                LocalDate soldDate = buy.getSoldDate();
+                buyOutputs.add(new BuyOutput(
+                        buyDate,
+                        buyWkn,
+                        wknChangeToday,
+                        winDay,
+                        buyWin,
+                        buy.isActive(),
+                        wkn.getWknType(),
+                        wkn.getWknName(),
+                        RoiCalculator.calcRoiFromRange(buyDate, soldDate != null ? soldDate : lastDate, buyWin.getPercentage()),
+                        lastDate.minusDays(minimumDaysForRoi).isBefore(buyDate))
+                );
             } catch (DateNotFound dateNotFound) {
                 dateNotFound.printStackTrace();
             }
-
-            Value buyWin = calcBuyWin(buy, data);
-            Wkn wkn = assetService.createWkn(buyWkn, data);
-            LocalDate buyDate = buy.getDate();
-            LocalDate soldDate = buy.getSoldDate();
-            buyOutputs.add(new BuyOutput(
-                    buyDate,
-                    buyWkn,
-                    wknChangeToday,
-                    winDay,
-                    buyWin,
-                    buy.isActive(),
-                    wkn.getWknType(),
-                    wkn.getWknName(),
-                    RoiCalculator.calcRoiFromRange(buyDate, soldDate !=null ? soldDate : lastDate, buyWin.getPercentage()),
-                    lastDate.minusDays(minimumDaysForRoi).isBefore(buyDate))
-            );
         }
         return buyOutputs;
     }

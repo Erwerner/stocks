@@ -13,6 +13,7 @@ public class ApplicationData {
     private final HashMap<String, String> wknTypes;
     private final HashMap<String, String> wknUrls;
     private double cash = 0.0;
+    private double bank = 0.0;
     private LocalDate markDate;
     private Map<String, List<String>> groups = new HashMap<>();
 
@@ -58,8 +59,17 @@ public class ApplicationData {
         return cash;
     }
 
+
     public void setCash(double cash) {
         this.cash = cash;
+    }
+
+    public double getBank() {
+        return bank;
+    }
+
+    public void setBank(double bank) {
+        this.bank = bank;
     }
 
     public LocalDate getMarkDate() {

@@ -37,6 +37,41 @@ public class ConsoleView implements View {
         run();
     }
 
+    public void print() {
+        consoleViewPrinter.printAssetSize(model);
+        if (!AssetBuy.showSold) {
+            consoleViewPrinter.printWknTypeSum(model);
+            consoleViewPrinter.printWknPlaceSum(model);
+        }
+        consoleViewPrinter.printChangeDate(model);
+        consoleViewPrinter.printBuys(model);
+        consoleViewPrinter.printToday(model);
+        consoleViewPrinter.printGroups(model);
+        consoleViewPrinter.printBuyWatch(model);
+        if (!AssetBuy.showSold) {
+            consoleViewPrinter.printBuyMoney(model);
+        }
+        consoleViewPrinter.printConfig();
+
+    }
+
+    private void run() {
+        try {
+            ((ApplicationControllerAccess) model).importWkns();
+            ((ApplicationControllerAccess) model).importBuys();
+            ((ApplicationControllerAccess) model).importMoney();
+            ((ApplicationControllerAccess) model).group();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while (active) {
+            ConsoleControllerType controller = (ConsoleControllerType) IO
+                    .getEnumFromInput("Choose Command",
+                            ConsoleControllerType.values());
+            controllers.get(controller).execute();
+        }
+    }
+
     private void initController() {
         ApplicationControllerAccess applicationControllerAccess = (ApplicationControllerAccess) this.model;
         Consumer<ApplicationControllerAccess> commandExit = (access) -> {
@@ -82,40 +117,6 @@ public class ConsoleView implements View {
 
     private void addController(ConsoleControllerType exit, Consumer<ApplicationControllerAccess> command) {
         controllers.put(exit, new ApplicationController((ApplicationControllerAccess) model, command));
-    }
-
-    public void print() {
-        consoleViewPrinter.printWatchAll(model);
-        consoleViewPrinter.printAssetSize(model);
-        if (!AssetBuy.showSold) {
-            consoleViewPrinter.printWknTypeSum(model);
-        }
-        consoleViewPrinter.printChangeDate(model);
-        consoleViewPrinter.printBuys(model);
-        consoleViewPrinter.printToday(model);
-        consoleViewPrinter.printBuyWatch(model);
-        if (!AssetBuy.showSold) {
-            consoleViewPrinter.printBuyCash(model);
-        }
-        consoleViewPrinter.printGroups(model);
-        consoleViewPrinter.printConfig();
-
-    }
-
-    private void run() {
-        try {
-            ((ApplicationControllerAccess) model).importWkns();
-            ((ApplicationControllerAccess) model).importBuys();
-            ((ApplicationControllerAccess) model).importCash();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        while (active) {
-            ConsoleControllerType controller = (ConsoleControllerType) IO
-                    .getEnumFromInput("Choose Command",
-                            ConsoleControllerType.values());
-            controllers.get(controller).execute();
-        }
     }
 
     @Override

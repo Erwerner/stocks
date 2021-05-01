@@ -79,12 +79,23 @@ public class InfrastructureInput extends ApplicationInput {
 
     @Override
     public Integer readCash() throws IOException {
-        String cashFile = ResourceFileReader.readResource("cash");
-        String[] entries = cashFile.split("\n");
+        return readMoneyFile("cash");
+    }
+
+    @Override
+    public Integer readBank() throws IOException {
+        return readMoneyFile("bank");
+    }
+
+    private Integer readMoneyFile(String cash) throws IOException {
         int cashSum = 0;
+        int cashSum1 = cashSum;
+        String cashFile = ResourceFileReader.readResource(cash);
+        String[] entries = cashFile.split("\n");
         for (String entry : entries) {
-            cashSum += Integer.parseInt(entry.split(" ")[0]);
+            cashSum1 += Integer.parseInt(entry.split(" ")[0]);
         }
+        cashSum = cashSum1;
         return cashSum;
     }
 
